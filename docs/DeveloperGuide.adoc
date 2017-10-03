@@ -729,12 +729,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |see my application's logo |easily identify the application
+
+|`* * *` |user |add a user with a non-alphabet name |add my friend with a non-alphabet name (e.g. Nguyễn)
+
+|`* *` |user |put in phone numbers with dashes and spaces on it |copy-paste a number without having to strip the dashes/spaces
+
+|`* *` |user |adjust the text font size |see better if I have impaired sight
+
+|`* *` |user |search names by regex |search in a more powerful way
+
+|`* *` |user |batch undo/redo (e.g. `undo 3` undoes the last 3 commands) |undo many commands at once to get back to a previous state
+
+|`* *` |user |export my data in formats other than XML (say JSON, CSV) |import them to other 3rd-party apps
+
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
-
-{More to be added}
 
 [appendix]
 == Use Cases
@@ -767,16 +779,12 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-{More to be added}
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-{More to be added}
 
 [appendix]
 == Glossary
