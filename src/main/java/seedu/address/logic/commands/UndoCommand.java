@@ -14,8 +14,18 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_ALIAS = "u";
-    public static final String MESSAGE_SUCCESS = "Undo success!";
+    public static final String MESSAGE_SUCCESS = "%1$s commands undoed.";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Undo a number of commands.\n"
+            + "Parameters: NUMBER_OF_COMMANDS_TO_UNDO (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
+    private final int amount;
+
+    public UndoCommand(int amount) {
+        this.amount = amount;
+    }
 
     @Override
     public CommandResult execute() throws CommandException {
@@ -25,8 +35,12 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        undoRedoStack.popUndo().undo();
-        return new CommandResult(MESSAGE_SUCCESS);
+        int commandsUndoed = 0;
+        while (undoRedoStack.canUndo() && commandsUndoed < amount) {
+            undoRedoStack.popUndo().undo();
+            commandsUndoed++;
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, commandsUndoed));
     }
 
     @Override
