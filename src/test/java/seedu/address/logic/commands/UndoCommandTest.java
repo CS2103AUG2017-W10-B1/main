@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,28 +29,63 @@ public class UndoCommandTest {
     private final DeleteCommand deleteCommandTwo = new DeleteCommand(INDEX_FIRST_PERSON);
 
     @Before
-    public void setUp() {
+    public void setUp() throws CommandException {
         deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
         deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+
+        deleteCommandOne.execute();
+        deleteCommandTwo.execute();
     }
 
     @Test
-    public void execute() throws Exception {
+    public void execute() {
         UndoRedoStack undoRedoStack = prepareStack(
                 Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
-        UndoCommand undoCommand = new UndoCommand();
+        UndoCommand undoCommand = new UndoCommand(1);
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
-        deleteCommandOne.execute();
-        deleteCommandTwo.execute();
+
+        String successCommand = String.format(UndoCommand.MESSAGE_SUCCESS, 1);
 
         // multiple commands in undoStack
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         deleteFirstPerson(expectedModel);
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(undoCommand, model, successCommand, expectedModel);
 
         // single command in undoStack
         expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(undoCommand, model, successCommand, expectedModel);
+
+        // no command in undoStack
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_undoManyTimes() {
+        UndoRedoStack undoRedoStack = prepareStack(
+                Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
+        UndoCommand undoCommand = new UndoCommand(2);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+
+        String successCommand = String.format(UndoCommand.MESSAGE_SUCCESS, 2);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(undoCommand, model, successCommand, expectedModel);
+
+        // no command in undoStack
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void execute_undoTooManyTimes() {
+        UndoRedoStack undoRedoStack = prepareStack(
+                Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
+        UndoCommand undoCommand = new UndoCommand(3);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+
+        String successCommand = String.format(UndoCommand.MESSAGE_SUCCESS, 2);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        assertCommandSuccess(undoCommand, model, successCommand, expectedModel);
 
         // no command in undoStack
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);

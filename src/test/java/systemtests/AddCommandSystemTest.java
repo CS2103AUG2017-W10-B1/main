@@ -68,14 +68,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        command = UndoCommand.COMMAND_WORD + " 1";
+        String expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, 1);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: redo adding Amy to the list -> Amy added again */
-        command = RedoCommand.COMMAND_WORD;
+        command = RedoCommand.COMMAND_WORD + " 1";
         model.addPerson(toAdd);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(RedoCommand.MESSAGE_SUCCESS, 1);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a duplicate person -> rejected */
