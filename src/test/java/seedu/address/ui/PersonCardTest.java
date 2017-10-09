@@ -11,6 +11,7 @@ import org.junit.Test;
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonCardTest extends GuiUnitTest {
@@ -35,6 +36,7 @@ public class PersonCardTest extends GuiUnitTest {
             personWithTags.setAddress(ALICE.getAddress());
             personWithTags.setEmail(ALICE.getEmail());
             personWithTags.setPhone(ALICE.getPhone());
+            personWithTags.setRemark(ALICE.getRemark());
             personWithTags.setTags(ALICE.getTags());
         });
         assertCardDisplay(personCard, personWithTags, 2);

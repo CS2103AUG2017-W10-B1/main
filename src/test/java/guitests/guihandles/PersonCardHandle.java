@@ -35,7 +35,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
         this.phoneLabel = getChildNode(PHONE_FIELD_ID);
         this.emailLabel = getChildNode(EMAIL_FIELD_ID);
-        this.remarkLabel = getChildNode(TAGS_FIELD_ID);
+        this.remarkLabel = getChildNode(REMARK_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         this.tagLabels = tagsContainer
