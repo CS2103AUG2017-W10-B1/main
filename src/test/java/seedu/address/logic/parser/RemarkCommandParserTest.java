@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.model.person.Remark;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -21,13 +22,13 @@ public class RemarkCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString() +
                 " " + remark;
-        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, remark);
+        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(remark));
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // no remarks
         userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString();
-        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, "");
+        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

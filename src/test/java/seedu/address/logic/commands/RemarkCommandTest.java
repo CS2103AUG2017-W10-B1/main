@@ -7,6 +7,7 @@ import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Remark;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,18 +28,21 @@ public class RemarkCommandTest {
 
         assertCommandFailure(prepareCommand(INDEX_FIRST_PERSON, VALID_REMARK_AMY),
                 model,
-                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), VALID_REMARK_AMY));
+                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(),
+                        new Remark(VALID_REMARK_AMY)));
     }
 
     @Test
     public void equals() {
-        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, VALID_REMARK_AMY);
+        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_AMY));
 
         // Returns true with itself
         assertTrue(standardCommand.equals(standardCommand));
 
         // Returns true with same values
-        RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON, VALID_REMARK_AMY);
+        RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // Returns false with null
@@ -48,11 +52,13 @@ public class RemarkCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // Returns false with different indexes
-        RemarkCommand commandWithDifferentIndex = new RemarkCommand(INDEX_SECOND_PERSON, VALID_REMARK_AMY);
+        RemarkCommand commandWithDifferentIndex = new RemarkCommand(INDEX_SECOND_PERSON,
+                new Remark(VALID_REMARK_AMY));
         assertFalse(standardCommand.equals(commandWithDifferentIndex));
 
         // Returns false with different remarks
-        RemarkCommand commandWithDifferentRemarks = new RemarkCommand(INDEX_FIRST_PERSON, VALID_REMARK_BOB);
+        RemarkCommand commandWithDifferentRemarks = new RemarkCommand(INDEX_FIRST_PERSON,
+                new Remark(VALID_REMARK_BOB));
         assertFalse(standardCommand.equals(commandWithDifferentRemarks));
     }
 
@@ -60,7 +66,7 @@ public class RemarkCommandTest {
      * Returns an {@code RemarkCommand} with parameters {@code index} and {@code remark}.
      */
     private RemarkCommand prepareCommand(Index index, String remark) {
-        RemarkCommand remarkCommand = new RemarkCommand(index, remark);
+        RemarkCommand remarkCommand = new RemarkCommand(index, new Remark(remark));
         remarkCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         return remarkCommand;
     }
