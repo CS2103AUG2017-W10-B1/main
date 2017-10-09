@@ -81,7 +81,7 @@ public class RedoCommandTest {
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        String successCommand = String.format(UndoCommand.MESSAGE_SUCCESS, 2);
+        String successCommand = String.format(RedoCommand.MESSAGE_SUCCESS, 2);
 
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
