@@ -12,8 +12,8 @@ public class Phone {
 
 
     public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers can only contain numbers, dashes, parentheses, and spaces. Also, there should be at " +
-                    "least 3 numbers in the string.";
+            "Phone numbers can only contain numbers, dashes, parentheses, and spaces. Also, there should be at "
+                    + "least 3 numbers in the string.";
     public static final String PHONE_REPLACEMENT_REGEX = "[() -]";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
     public final String value;
