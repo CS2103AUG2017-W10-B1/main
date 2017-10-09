@@ -37,7 +37,7 @@ public class RedoCommand extends Command {
 
         int commandsRedoed = 0;
         while (undoRedoStack.canRedo() && commandsRedoed < amount) {
-            undoRedoStack.popRedo().undo();
+            undoRedoStack.popRedo().redo();
             commandsRedoed++;
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, commandsRedoed));
@@ -47,5 +47,12 @@ public class RedoCommand extends Command {
     public void setData(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         this.model = model;
         this.undoRedoStack = undoRedoStack;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RedoCommand // instanceof handles nulls
+                && this.amount == ((RedoCommand) other).amount); // state check
     }
 }
