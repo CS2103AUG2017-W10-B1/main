@@ -32,7 +32,7 @@ public class Phone {
     /**
      * Returns a phone number from the given string, by stripping certain special characters.
      */
-    private static String extractPhone(String phoneNumber) throws IllegalValueException {
+    public static String extractPhone(String phoneNumber) throws IllegalValueException {
         String strippedPhoneNumber = phoneNumber.replaceAll(PHONE_REPLACEMENT_REGEX, "");
         if (!isValidPhone(strippedPhoneNumber)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
