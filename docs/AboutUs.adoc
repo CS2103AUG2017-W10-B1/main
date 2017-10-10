@@ -20,7 +20,7 @@ Responsibilities: Model
 '''
 
 === Ken Lim
-image::kenpaxtonlim.jpg[width="150", align="left"]
+image::kenpaxtonlim.png[width="150", align="left"]
 {empty}[http://github.com/kenpaxtonlim[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Logic
 '''
 
 === Derek Nam
-image::500poundbear.jpg[width="150", align="left"]
+image::500poundbear.png[width="150", align="left"]
 {empty}[http://github.com/500poundbear[github]]
 
 Role: Developer +
