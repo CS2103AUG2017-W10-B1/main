@@ -155,7 +155,7 @@ Selects the 1st person in the results of the `find` command.
 === Changing a person's remark : `remark`
 
 Changes the remark of an existing person in the address book. +
-Format: `remark INDEX r/[Remark]`
+Format: `remark INDEX r/[Remark]` +
 Alias: `re`
 
 ****
@@ -177,13 +177,13 @@ Changes the remark of the 1st person in the address book to "Loves beer".
 Changes the remark of the 2nd person returned by the `find` command to "Going overseas".
 
 === Viewing statistics : `statistics`
-View a monthly breakdown on the number of persons added to the address book.
-Format: `statistics`
+View a monthly breakdown on the number of persons added to the address book. +
+Format: `statistics` +
 Alias: `st`
 
 === Viewing contacts with birthday in current month : `birthday`
-View a list of persons with birthdays in the current month
-Format: `birthday`
+View a list of persons with birthdays in the current month +
+Format: `birthday` +
 Alias: `bd`
 
 === Listing entered commands : `history`
