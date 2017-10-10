@@ -283,7 +283,7 @@ Alias: `c`
 
 Access a person's social media profile on the browser. +
 Format: `socialmedia INDEX TYPE` +
-Alias: `fb`
+Alias: `sm`
 
 ****
 * Loads the Facebook profile page of the person at the specified `INDEX`.
