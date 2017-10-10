@@ -14,7 +14,6 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
     public static final String COMMAND_ALIAS = "u";
-    public static final String MESSAGE_SUCCESS = "%1$s commands undoed.";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Undo a number of commands.\n"
@@ -40,7 +39,7 @@ public class UndoCommand extends Command {
             undoRedoStack.popUndo().undo();
             commandsUndoed++;
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, commandsUndoed));
+        return new CommandResult(getSuccessMessage(commandsUndoed));
     }
 
     @Override
@@ -54,5 +53,17 @@ public class UndoCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof UndoCommand // instanceof handles nulls
                 && this.amount == ((UndoCommand) other).amount); // state check
+    }
+
+    /**
+     * Constructs the success message from the given amount. This takes into account that the number of commands
+     * undone influences the singular/plural form of "command".
+     */
+    public static String getSuccessMessage(int amount) {
+        if (amount == 1) {
+            return "1 command undoed.";
+        } else {
+            return String.format("%1$s commands undoed.", amount);
+        }
     }
 }
