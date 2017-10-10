@@ -26,7 +26,7 @@ public class AddTagsCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add tags to the person identified "
             + "by the index number used in the last person listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[TAG] [TAG] [TAG] (can be 1 or more tags)... \n"
+            + "TAG [TAG] (can add 1 or more tags)... \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "NUS CS2103 classmate";
 
