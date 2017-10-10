@@ -169,11 +169,11 @@ person listing.
 Examples:
 
 * `list` +
-`remark 1 r/Loves beer`
+`remark 1 r/Loves beer` +
 Changes the remark of the 1st person in the address book to "Loves beer".
 
 * `find Tony` +
-`remark 2 r/Going overseas`
+`remark 2 r/Going overseas` +
 Changes the remark of the 2nd person returned by the `find` command to "Going overseas".
 
 === Viewing statistics : `statistics`
