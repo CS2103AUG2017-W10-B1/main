@@ -46,7 +46,7 @@ public class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand(1);
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
 
-        String successMessage = RedoCommand.getSuccessMessage(1);
+        String successMessage = UndoCommand.getSuccessMessage(1);
 
         // multiple commands in undoStack
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -68,7 +68,7 @@ public class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand(2);
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
 
-        String successMessage = RedoCommand.getSuccessMessage(2);
+        String successMessage = UndoCommand.getSuccessMessage(2);
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(undoCommand, model, successMessage, expectedModel);
@@ -84,7 +84,7 @@ public class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand(3);
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
 
-        String successMessage = RedoCommand.getSuccessMessage(2);
+        String successMessage = UndoCommand.getSuccessMessage(2);
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(undoCommand, model, successMessage, expectedModel);

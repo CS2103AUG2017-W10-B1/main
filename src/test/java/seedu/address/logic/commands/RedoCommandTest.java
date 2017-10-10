@@ -94,8 +94,8 @@ public class RedoCommandTest {
 
     @Test
     public void getSuccessMessage() {
-        assertEquals(RedoCommand.getSuccessMessage(1), "1 command undoed.");
-        assertEquals(RedoCommand.getSuccessMessage(2), "2 commands undoed.");
-        assertEquals(RedoCommand.getSuccessMessage(12), "12 commands undoed.");
+        assertEquals(RedoCommand.getSuccessMessage(1), "1 command redoed.");
+        assertEquals(RedoCommand.getSuccessMessage(2), "2 commands redoed.");
+        assertEquals(RedoCommand.getSuccessMessage(12), "12 commands redoed.");
     }
 }
