@@ -70,6 +70,10 @@ Alias: `a`
 [TIP]
 A person can have any number of tags (including 0)
 
+****
+* If a person to be added is similar to one of the existing contacts, a prompt will show you that similar contact/s. (Coming in v2.0)
+****
+
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
