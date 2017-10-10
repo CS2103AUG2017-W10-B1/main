@@ -17,6 +17,10 @@ public class UndoCommandParser implements Parser<UndoCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public UndoCommand parse(String args) throws ParseException {
+        if (args.equals("")) {
+            return new UndoCommand(1);
+        }
+
         try {
             int amount = ParserUtil.parsePositiveInteger(args);
             return new UndoCommand(amount);

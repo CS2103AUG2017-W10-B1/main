@@ -18,7 +18,12 @@ public class RedoCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsRedoCommand() {
-        assertParseSuccess(parser, "1", new RedoCommand(1));
+        assertParseSuccess(parser, "12", new RedoCommand(12));
+    }
+
+    @Test
+    public void parse_emptyArgs_returnsRedoCommand() {
+        assertParseSuccess(parser, "", new RedoCommand(1));
     }
 
     @Test

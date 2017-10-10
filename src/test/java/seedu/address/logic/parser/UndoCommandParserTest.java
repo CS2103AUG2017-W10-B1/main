@@ -18,7 +18,12 @@ public class UndoCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsUndoCommand() {
-        assertParseSuccess(parser, "1", new UndoCommand(1));
+        assertParseSuccess(parser, "12", new UndoCommand(12));
+    }
+
+    @Test
+    public void parse_emptyArgs_returnsUndoCommand() {
+        assertParseSuccess(parser, "", new UndoCommand(1));
     }
 
     @Test
