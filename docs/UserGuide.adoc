@@ -156,6 +156,7 @@ Selects the 1st person in the results of the `find` command.
 
 Changes the remark of an existing person in the address book. +
 Format: `remark INDEX r/[Remark]`
+Alias: `re`
 
 ****
 * Changes the remark of the person identified by the index number used in the last
@@ -178,10 +179,12 @@ Changes the remark of the 2nd person returned by the `find` command to "Going ov
 === Viewing statistics : `statistics`
 View a monthly breakdown on the number of persons added to the address book.
 Format: `statistics`
+Alias: `st`
 
 === Viewing contacts with birthday in current month : `birthday`
 View a list of persons with birthdays in the current month
 Format: `birthday`
+Alias: `bd`
 
 === Listing entered commands : `history`
 
@@ -278,6 +281,9 @@ e.g. `find James Jake`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
+* *Remark* : `remark INDEX r/REMARK`
+* *Statistics* : `statistics`
+* *Birthday* : `birthday`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
