@@ -281,7 +281,8 @@ e.g. `find James Jake`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *Remark* : `remark INDEX r/REMARK`
+* *Remark* : `remark INDEX r/REMARK` +
+e.g.`remark 4 r/new remark`
 * *Statistics* : `statistics`
 * *Birthday* : `birthday`
 * *History* : `history`
