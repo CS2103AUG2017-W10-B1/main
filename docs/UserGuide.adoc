@@ -297,7 +297,7 @@ The `undo 1` command fails as there are no undoable commands executed previously
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` commands. +
-Format: `redo [AMOUNT]`
+Format: `redo [AMOUNT]` +
 Alias: `r`
 
 ****
