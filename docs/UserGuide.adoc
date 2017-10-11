@@ -319,3 +319,4 @@ e.g. `size 3`
 * *Redo* : `redo [AMOUNT]`
 * *Export* : `export FORMAT LOCATION` +
 e.g. `export JSON ~/contacts.json`
+
