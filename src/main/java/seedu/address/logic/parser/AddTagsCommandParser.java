@@ -18,7 +18,7 @@ public class AddTagsCommandParser implements Parser<AddTagsCommand> {
     public AddTagsCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        if(args.isEmpty() || args.length() < 4){
+        if (args.isEmpty() || args.length() < 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagsCommand.MESSAGE_USAGE));
         }
 

@@ -9,9 +9,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -19,6 +16,9 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Adds tags to an existing person in the address book.
+ */
 public class AddTagsCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "addtags";
@@ -37,7 +37,7 @@ public class AddTagsCommand extends UndoableCommand {
     private final Index index;
     private final Set<Tag> tags;
 
-    public AddTagsCommand(Index index, Set<Tag> tags){
+    public AddTagsCommand(Index index, Set<Tag> tags) {
         requireNonNull(index);
         requireNonNull(tags);
 
@@ -53,7 +53,7 @@ public class AddTagsCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if(tags.isEmpty()){
+        if(tags.isEmpty()) {
             throw new CommandException(MESSAGE_NO_TAG);
         }
 
@@ -71,7 +71,11 @@ public class AddTagsCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_ADD_TAGS_SUCCESS, editedPerson));
     }
 
-    private static Person createEditedPerson(ReadOnlyPerson personToEdit, Set<Tag> tags){
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with the {@code tags} to be added.
+     */
+    private static Person createEditedPerson(ReadOnlyPerson personToEdit, Set<Tag> tags) {
         assert personToEdit != null;
 
         Set<Tag> personTags = personToEdit.getTags();
