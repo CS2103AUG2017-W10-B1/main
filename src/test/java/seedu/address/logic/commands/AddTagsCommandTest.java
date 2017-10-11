@@ -84,6 +84,7 @@ public class AddTagsCommandTest {
 
         assertCommandFailure(addTagsCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
+
     @Test
     public void equals() throws Exception {
         ArrayList<String> tagsList = new ArrayList<>();
@@ -106,18 +107,20 @@ public class AddTagsCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // Returns false with different indexes
-        AddTagsCommand commandWithDifferentIndex = new AddTagsCommand(INDEX_SECOND_PERSON, ParserUtil.parseTags(tagsList));
+        AddTagsCommand commandWithDifferentIndex = new AddTagsCommand(INDEX_SECOND_PERSON,
+                ParserUtil.parseTags(tagsList));
         assertFalse(standardCommand.equals(commandWithDifferentIndex));
 
         // Returns false with different tags
         ArrayList<String> differentTagsList = new ArrayList<>();
         tagsList.add(VALID_TAG_HUSBAND);
-        AddTagsCommand commandWithDifferentTags = new AddTagsCommand(INDEX_FIRST_PERSON, ParserUtil.parseTags(differentTagsList));
+        AddTagsCommand commandWithDifferentTags = new AddTagsCommand(INDEX_FIRST_PERSON,
+                ParserUtil.parseTags(differentTagsList));
         assertFalse(standardCommand.equals(commandWithDifferentTags));
     }
 
     /**
-     * Returns an {@code RemarkCommand} with parameters {@code index} and {@code remark}.
+     * Returns an {@code AddTagsCommand} with parameters {@code index} and {@code tags}.
      */
     private AddTagsCommand prepareCommand(Index index, Set<Tag> tags) {
         AddTagsCommand addTagsCommand = new AddTagsCommand(index, tags);
