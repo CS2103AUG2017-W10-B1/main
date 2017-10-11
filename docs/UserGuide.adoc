@@ -256,7 +256,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo` +
+Format: `undo [AMOUNT]` +
 Alias: `u`
 
 ****
@@ -297,7 +297,7 @@ The `undo 1` command fails as there are no undoable commands executed previously
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` commands. +
-Format: `redo AMOUNT`
+Format: `redo [AMOUNT]`
 Alias: `r`
 
 ****
