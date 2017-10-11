@@ -85,4 +85,20 @@ public class AddTagsCommand extends UndoableCommand {
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), newTags);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddTagsCommand)) {
+            return false;
+        }
+
+        AddTagsCommand e = (AddTagsCommand) other;
+        return index.equals(e.index) && tags.equals(e.tags);
+    }
 }
