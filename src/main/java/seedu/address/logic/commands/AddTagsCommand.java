@@ -53,7 +53,7 @@ public class AddTagsCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if(tags.isEmpty()) {
+        if (tags.isEmpty()) {
             throw new CommandException(MESSAGE_NO_TAG);
         }
 
