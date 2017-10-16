@@ -18,6 +18,7 @@ import seedu.address.model.tag.Tag;
  */
 public class AddTagsCommandParser implements Parser<AddTagsCommand> {
 
+    private static final int TAG_ARGUMENT_INDEX = 3;
     /**
      * Parses the given {@code String} of arguments in the context of the AddTagsCommand
      * and returns an AddTagsCommand object for execution.
@@ -27,18 +28,18 @@ public class AddTagsCommandParser implements Parser<AddTagsCommand> {
     public AddTagsCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        if (args.isEmpty() || args.length() < 4) {
+        if (args.isEmpty() || args.length() < TAG_ARGUMENT_INDEX + 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagsCommand.MESSAGE_USAGE));
         }
 
         Index index;
         try {
-            index = ParserUtil.parseIndex(args.substring(0, 3));
+            index = ParserUtil.parseIndex(args.substring(0, TAG_ARGUMENT_INDEX));
         } catch (IllegalValueException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagsCommand.MESSAGE_USAGE));
         }
 
-        List<String> tagsList = Arrays.asList(args.substring(3).split(" "));
+        List<String> tagsList = Arrays.asList(args.substring(TAG_ARGUMENT_INDEX).split(" "));
         Set<Tag> tagsSet;
         try {
             tagsSet = ParserUtil.parseTags(tagsList);

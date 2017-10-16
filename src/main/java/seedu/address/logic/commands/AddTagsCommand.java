@@ -49,7 +49,7 @@ public class AddTagsCommand extends UndoableCommand {
     protected CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() > lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -63,7 +63,7 @@ public class AddTagsCommand extends UndoableCommand {
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            assert(false);
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
