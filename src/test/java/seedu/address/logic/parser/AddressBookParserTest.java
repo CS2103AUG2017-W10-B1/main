@@ -17,23 +17,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.RemarkCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameMatchesRegexPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -122,6 +111,18 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findregex() throws Exception {
+        FindRegexCommand command = (FindRegexCommand) parser.parseCommand(FindRegexCommand.COMMAND_WORD + " asdf");
+        assertEquals(new FindRegexCommand(new NameMatchesRegexPredicate("asdf")), command);
+    }
+
+    @Test
+    public void parseCommand_findregex_alias() throws Exception {
+        FindRegexCommand command = (FindRegexCommand) parser.parseCommand(FindRegexCommand.COMMAND_ALIAS + " asdf");
+        assertEquals(new FindRegexCommand(new NameMatchesRegexPredicate("asdf")), command);
     }
 
     @Test
