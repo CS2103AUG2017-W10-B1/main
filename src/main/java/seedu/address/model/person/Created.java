@@ -1,18 +1,15 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
-
-/*
+/**
  * Represent's the timestamp when the Person object was created
  * Guarantees: immutable
  */
 public class Created {
-
-    public static final String MESSAGE_CREATED_CONSTRAINTS =
-            "Person created (at) will only take a Date object";
 
     public final String createdAt;
 
