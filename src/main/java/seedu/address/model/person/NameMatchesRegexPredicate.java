@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -23,9 +20,14 @@ public class NameMatchesRegexPredicate implements Predicate<ReadOnlyPerson> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NameMatchesRegexPredicate // instanceof handles nulls
-                && this.pattern.toString().equals(((NameMatchesRegexPredicate) other).pattern.toString())); // state check
+        if (other == this) {
+            return true;
+        } else if (other instanceof NameMatchesRegexPredicate) {
+            String thisPattern = pattern.toString();
+            String otherPattern = ((NameMatchesRegexPredicate) other).pattern.toString();
+            return thisPattern.equals(otherPattern);
+        }
+        return false;
     }
 
 }
