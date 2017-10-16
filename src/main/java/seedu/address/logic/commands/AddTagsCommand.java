@@ -49,7 +49,7 @@ public class AddTagsCommand extends UndoableCommand {
     protected CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() > lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
