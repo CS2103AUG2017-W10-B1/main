@@ -25,12 +25,14 @@ public class AddRemoveTagsCommandParserTest {
         tagsList.add(VALID_TAG_FRIEND);
         Set<Tag> tags = ParserUtil.parseTags(tagsList);
 
-        String userInputAdd = " add " + INDEX_FIRST_PERSON.getOneBased() + " " + VALID_TAG_HUSBAND + " " + VALID_TAG_FRIEND;
+        String userInputAdd = " add " + INDEX_FIRST_PERSON.getOneBased() + " " + VALID_TAG_HUSBAND
+                + " " + VALID_TAG_FRIEND;
         AddRemoveTagsCommand expectedCommandAdd = new AddRemoveTagsCommand(true, INDEX_FIRST_PERSON, tags);
 
         assertParseSuccess(parser, userInputAdd, expectedCommandAdd);
 
-        String userInputRemove = " remove " + INDEX_FIRST_PERSON.getOneBased() + " " + VALID_TAG_HUSBAND + " " + VALID_TAG_FRIEND;
+        String userInputRemove = " remove " + INDEX_FIRST_PERSON.getOneBased() + " " + VALID_TAG_HUSBAND
+                + " " + VALID_TAG_FRIEND;
         AddRemoveTagsCommand expectedCommandRemove = new AddRemoveTagsCommand(false, INDEX_FIRST_PERSON, tags);
 
         assertParseSuccess(parser, userInputRemove, expectedCommandRemove);
