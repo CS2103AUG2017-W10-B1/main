@@ -63,10 +63,9 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson;
 
-        if(isAdd) {
+        if (isAdd) {
             editedPerson = addTagsToPerson(personToEdit, tags);
-        }
-        else {
+        } else {
             editedPerson = removeTagsFromPerson(personToEdit, tags);
         }
 

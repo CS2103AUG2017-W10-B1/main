@@ -44,11 +44,9 @@ public class AddRemoveTagsCommandParser implements Parser<AddRemoveTagsCommand> 
         boolean isAdd;
         if (argsList.get(TYPE_ARGUMENT_INDEX).equals("add")) {
             isAdd = true;
-        }
-        else if (argsList.get(TYPE_ARGUMENT_INDEX).equals("remove")) {
+        } else if (argsList.get(TYPE_ARGUMENT_INDEX).equals("remove")) {
             isAdd = false;
-        }
-        else {
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRemoveTagsCommand.MESSAGE_USAGE));
         }
 
