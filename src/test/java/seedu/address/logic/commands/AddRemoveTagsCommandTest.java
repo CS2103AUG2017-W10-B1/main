@@ -58,14 +58,15 @@ public class AddRemoveTagsCommandTest {
     @Test
     public void execute_removeTags_success() throws Exception {
         Person editedPerson = new PersonBuilder(
-                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).build();
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).withTags().build();
 
         ArrayList<String> tagsList = new ArrayList<>();
         tagsList.add("friends");
 
-        AddRemoveTagsCommand removeTagsCommand = prepareCommandAdd(INDEX_FIRST_PERSON, ParserUtil.parseTags(tagsList));
+        AddRemoveTagsCommand removeTagsCommand = prepareCommandRemove(INDEX_FIRST_PERSON,
+                ParserUtil.parseTags(tagsList));
 
-        String expectedMessage = String.format(AddRemoveTagsCommand.MESSAGE_ADD_TAGS_SUCCESS,
+        String expectedMessage = String.format(AddRemoveTagsCommand.MESSAGE_REMOVE_TAGS_SUCCESS,
                 editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
