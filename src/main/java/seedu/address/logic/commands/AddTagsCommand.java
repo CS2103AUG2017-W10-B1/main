@@ -83,7 +83,8 @@ public class AddTagsCommand extends UndoableCommand {
         newTags.addAll(tags);
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), newTags);
+                personToEdit.getAddress(), personToEdit.getRemark(), newTags,
+                personToEdit.getCreatedAt());
     }
 
     @Override
