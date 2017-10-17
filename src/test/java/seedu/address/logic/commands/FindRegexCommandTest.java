@@ -55,13 +55,6 @@ public class FindRegexCommandTest {
     }
 
     @Test
-    public void execute_emptyRegex_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FindRegexCommand command = prepareCommand("");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
-    }
-
-    @Test
     public void execute_regex_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         FindRegexCommand command = prepareCommand("Ku[rn]z$");

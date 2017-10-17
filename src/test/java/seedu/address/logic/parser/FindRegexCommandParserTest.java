@@ -19,8 +19,8 @@ public class FindRegexCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
-        String[] regexesToTest = new String[] { "  ", "abcd", "a   b", "^ab$", "23(x)\\1" };
+    public void parse_validArgs_returnsFindRegexCommand() {
+        String[] regexesToTest = new String[] { "abcd", "a   b", "^ab$", "23(x)\\1" };
         for (String regex : regexesToTest) {
             FindRegexCommand expectedCommand = new FindRegexCommand(new NameMatchesRegexPredicate(regex));
             assertParseSuccess(parser, regex, expectedCommand);

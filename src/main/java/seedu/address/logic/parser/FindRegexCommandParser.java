@@ -19,8 +19,9 @@ public class FindRegexCommandParser implements Parser<FindRegexCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindRegexCommand parse(String args) throws ParseException {
+        String trimmed = args.trim();
         try {
-            return new FindRegexCommand(new NameMatchesRegexPredicate(args));
+            return new FindRegexCommand(new NameMatchesRegexPredicate(trimmed));
         } catch (PatternSyntaxException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_REGEX, FindRegexCommand.MESSAGE_USAGE));
         }

@@ -15,7 +15,7 @@ public class NameMatchesRegexPredicate implements Predicate<ReadOnlyPerson> {
 
     @Override
     public boolean test(ReadOnlyPerson person) {
-        return pattern.matcher(person.getName().fullName).matches();
+        return pattern.matcher(person.getName().fullName).find();
     }
 
     @Override
