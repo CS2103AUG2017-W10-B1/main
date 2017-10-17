@@ -67,7 +67,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
             editedPerson = addTagsToPerson(personToEdit, tags);
         }
         else {
-            editedPerson = removeTagsToPerson(personToEdit, tags);
+            editedPerson = removeTagsFromPerson(personToEdit, tags);
         }
 
 
@@ -102,7 +102,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with the {@code tags} to be removed.
      */
-    private static Person removeTagsToPerson(ReadOnlyPerson personToEdit, Set<Tag> tags) {
+    private static Person removeTagsFromPerson(ReadOnlyPerson personToEdit, Set<Tag> tags) {
         assert personToEdit != null;
 
         Set<Tag> personTags = personToEdit.getTags();

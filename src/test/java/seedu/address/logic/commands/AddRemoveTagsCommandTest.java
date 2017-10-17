@@ -145,7 +145,7 @@ public class AddRemoveTagsCommandTest {
     }
 
     /**
-     * Returns an {@code AddRemoveTagsCommand} with parameters {@code index} and {@code tags}.
+     * Returns an add {@code AddRemoveTagsCommand} with parameters {@code index} and {@code tags}.
      */
     private AddRemoveTagsCommand prepareCommandAdd(Index index, Set<Tag> tags) {
         AddRemoveTagsCommand addRemoveTagsCommand = new AddRemoveTagsCommand(true, index, tags);
@@ -154,7 +154,7 @@ public class AddRemoveTagsCommandTest {
     }
 
     /**
-     * Returns an {@code AddRemoveTagsCommand} with parameters {@code index} and {@code tags}.
+     * Returns a remove {@code AddRemoveTagsCommand} with parameters {@code index} and {@code tags}.
      */
     private AddRemoveTagsCommand prepareCommandRemove(Index index, Set<Tag> tags) {
         AddRemoveTagsCommand addRemoveTagsCommand = new AddRemoveTagsCommand(false, index, tags);
