@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
-import java.util.Date;
 import java.time.Instant;
 import java.time.Month;
 import java.time.Year;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 import java.util.logging.Logger;
 
@@ -146,8 +146,7 @@ public class MainWindow extends UiPart<Region> {
 
         ObservableList<ReadOnlyPerson> newlyAddedInFilteredList;
         newlyAddedInFilteredList = logic.getFilteredPersonList()
-                .filtered( t->
-                {
+                .filtered(t->{
                     Date givenDate = t.getCreatedAt();
                     ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
                     ZonedDateTime ref = Instant.now().atZone(ZoneId.of("UTC"));
