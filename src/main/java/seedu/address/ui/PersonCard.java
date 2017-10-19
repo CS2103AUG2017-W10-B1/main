@@ -6,7 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.address.Address;
 import seedu.address.model.person.ReadOnlyPerson;
+
+import java.util.Iterator;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -34,7 +37,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label addresses;
+    private Label address;
     @FXML
     private Label email;
     @FXML
@@ -57,7 +60,16 @@ public class PersonCard extends UiPart<Region> {
     private void bindListeners(ReadOnlyPerson person) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
-        addresses.textProperty().bind(Bindings.convert(person.addressProperty()));
+        final StringBuilder builder = new StringBuilder();
+        Iterator iter = person.addressProperty().getValue().iterator();
+        builder.append("Addresses: ");
+        if(iter.hasNext()) {
+            builder.append(iter.next());
+        };
+        while(iter.hasNext()) {
+            builder.append(" | ").append(iter.next());
+        };
+        address.setText(builder.toString());
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
