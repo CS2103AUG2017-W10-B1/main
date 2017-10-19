@@ -82,9 +82,13 @@ public class ParserUtil {
      * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
-    public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
-        requireNonNull(address);
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
+    public static Set<Address> parseAddresses(Collection<String> addresses) throws IllegalValueException {
+        requireNonNull(addresses);
+        final Set<Address> addressSet = new HashSet<>();
+        for (String addressName : addresses) {
+            addressSet.add(new Address(addressName));
+        }
+        return addressSet;
     }
 
     /**
