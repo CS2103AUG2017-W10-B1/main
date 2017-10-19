@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
+import seedu.address.model.address.Address;
+import seedu.address.model.email.Email;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
