@@ -53,7 +53,9 @@ public interface ReadOnlyPerson {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ");
-        getAddresses().forEach(builder::append);
+        for(Address address: getAddresses()){
+            builder.append(address).append(" | ");
+        }
         builder.append(" Remark: ")
                 .append(getRemark())
                 .append(" Tags: ");
