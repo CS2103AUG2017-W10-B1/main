@@ -352,9 +352,9 @@ This `NameMatchesRegexPredicate`, which is a subclass of `Predicate`, is constru
 
 We felt that this makes more sense; for example, if someone wants to find the contact with name "John" or "Jon", passing `Joh?n` will be matched with `John Doe` and `Jon Doe`, since we are using the `find` method. If we used the `matches` method, however, it will only exactly match `John` or `Jon`, which is less useful (searching for only part of the full name allows users to still find someone if the user only remembers a part of the full name; even if the user remembers the full name, only matching a substring allows the user to type a shorter regex).
 
-Also, in the `FindRegexCommandParser` which parses the command passed in, we originally decided to not trim the string passed. However, this meant that the space separating the command keyword and the arguments are also included in the regex. This is probably not the user wanted; for example, the command `findregex John` will not match `John` since the regex formed is ` John`!
+Also, in the `FindRegexCommandParser` which parses the command passed in, we originally decided to not trim the string passed. However, this meant that the space separating the command keyword and the arguments are also included in the regex. This is probably not the user wanted; for example, the command `findregex John` will not match `John` since the regex formed is `␣John` (here ␣ is a space)!
 
-We also originally thought of only trimming the first space. We eventually decided to trim every whitespace though, since we believe that any extra whitespace would be unintentional. For example, it does not make much sense for users to search with a regex that starts with two spaces, say `  John`, as it is very rare for contacts to have two consecutive spaces in their name. Those cases are very likely to be a typo instead.
+We also originally thought of only trimming the first space. We eventually decided to trim every whitespace though, since we believe that any extra whitespace would be unintentional. For example, it does not make much sense for users to search with a regex that starts with two spaces, say `␣␣John`, as it is very rare for contacts to have two consecutive spaces in their name. Those cases are very likely to be a typo instead.
 
 === Logging
 
