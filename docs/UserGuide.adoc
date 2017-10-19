@@ -12,7 +12,15 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team PIMP (W10-B1)`      Since: `Sep 2016`      Licence: `MIT`
+
+== Introduction
+
+To be filled.
+
+== About
+
+To be filled.
 
 == Quick Start
 
