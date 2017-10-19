@@ -345,6 +345,26 @@ image::UndoRedoActivityDiagram.png[width="200"]
 **Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. +
 // end::undoredo[]
 
+=== Remark Command
+
+The `remark` command allows the user to edit the remark field of a contact. The field is initially empty when a new
+`Person` is instantiated.
+
+`RemarkCommand` is implemented as a subclass of the `UndoableCommand`, and thus changes to the remarks
+column are undoable.
+
+==== Design Considerations
+
+**Aspect:** Implementation of `RemarkCommand` +
+**Alternative 1 (current choice):** Add a single command to update the remark property of the Person +
+**Pros:** Developer does not have to worry about commands to manage a list of remarks. +
+**Cons:** User might assume that remarks can be added. Instead, any changes will overwrite the existing remark stored. +
+**Alternative 2:** Create CRUD functionalities for Remark (i.e. `AddRemarkCommand`, `RemoveRemarkCommand`,
+`Edit Remark Command`) +
+**Pros:** The user can manage multiple remarks without overriding any one of them. +
+**Cons:** The user might be confused with so many commands to manage a contact's remarks.
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
