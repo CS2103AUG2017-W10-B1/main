@@ -1,25 +1,25 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static pimp.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static pimp.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static pimp.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static pimp.testutil.TestUtil.getLastIndex;
+import static pimp.testutil.TestUtil.getMidIndex;
+import static pimp.testutil.TestUtil.getPerson;
+import static pimp.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static pimp.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import pimp.commons.core.Messages;
+import pimp.commons.core.index.Index;
+import pimp.logic.commands.DeleteCommand;
+import pimp.logic.commands.RedoCommand;
+import pimp.logic.commands.UndoCommand;
+import pimp.model.Model;
+import pimp.model.person.ReadOnlyPerson;
+import pimp.model.person.exceptions.PersonNotFoundException;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 

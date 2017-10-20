@@ -1,0 +1,45 @@
+package pimp.testutil;
+
+import static pimp.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static pimp.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static pimp.logic.parser.CliSyntax.PREFIX_NAME;
+import static pimp.logic.parser.CliSyntax.PREFIX_PHONE;
+import static pimp.logic.parser.CliSyntax.PREFIX_TAG;
+
+import pimp.logic.commands.AddCommand;
+import pimp.model.person.ReadOnlyPerson;
+
+/**
+ * A utility class for Person.
+ */
+public class PersonUtil {
+
+    /**
+     * Returns an add command string for adding the {@code person}.
+     */
+    public static String getAddCommand(ReadOnlyPerson person) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    }
+
+    /**
+     * Returns an add command string using alias for adding the {@code person}.
+     */
+    public static String getAddCommandAlias(ReadOnlyPerson person) {
+        return AddCommand.COMMAND_ALIAS + " " + getPersonDetails(person);
+    }
+
+    /**
+     * Returns the part of command string for the given {@code person}'s details.
+     */
+    public static String getPersonDetails(ReadOnlyPerson person) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + person.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        person.getTags().stream().forEach(
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        );
+        return sb.toString();
+    }
+}

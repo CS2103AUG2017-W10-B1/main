@@ -5,8 +5,8 @@ import java.util.concurrent.TimeoutException;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
-import seedu.address.TestApp;
-import seedu.address.testutil.TypicalPersons;
+import pimp.TestApp;
+import pimp.testutil.TypicalPersons;
 
 /**
  * Contains helper methods that system tests require.
