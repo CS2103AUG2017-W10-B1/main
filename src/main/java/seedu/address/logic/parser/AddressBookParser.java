@@ -7,13 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddTagsCommand;
+import seedu.address.logic.commands.AddRemoveTagsCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindRegexCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -74,6 +75,10 @@ public class AddressBookParser {
         case FindCommand.COMMAND_ALIAS:
             return new FindCommandParser().parse(arguments);
 
+        case FindRegexCommand.COMMAND_WORD:
+        case FindRegexCommand.COMMAND_ALIAS:
+            return new FindRegexCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
@@ -101,9 +106,9 @@ public class AddressBookParser {
         case RemarkCommand.COMMAND_WORD:
             return new RemarkCommandParser().parse(arguments);
 
-        case AddTagsCommand.COMMAND_WORD:
-        case AddTagsCommand.COMMAND_ALIAS:
-            return new AddTagsCommandParser().parse(arguments);
+        case AddRemoveTagsCommand.COMMAND_WORD:
+        case AddRemoveTagsCommand.COMMAND_ALIAS:
+            return new AddRemoveTagsCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
