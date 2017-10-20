@@ -20,11 +20,11 @@ public class TagContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     @Override
     public boolean test(ReadOnlyPerson person) {
         Set<Tag> tags = person.getTags();
-        for(Tag t : tags){
-            if(keywords.stream()
+        for (Tag t : tags) {
+            if (keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(t.toTagName(), keyword))) {
                 return true;
-            };
+            }
         }
         return false;
     }
