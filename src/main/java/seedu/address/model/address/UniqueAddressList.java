@@ -32,9 +32,9 @@ public class UniqueAddressList implements Iterable<Address> {
      * Creates a UniqueAddressList using given Addresses.
      * Enforces no nulls.
      */
-    public UniqueAddressList(Set<Address> Addresses) {
-        requireAllNonNull(Addresses);
-        internalList.addAll(Addresses);
+    public UniqueAddressList(Set<Address> addresses) {
+        requireAllNonNull(addresses);
+        internalList.addAll(addresses);
 
         assert CollectionUtil.elementsAreUnique(internalList);
     }
