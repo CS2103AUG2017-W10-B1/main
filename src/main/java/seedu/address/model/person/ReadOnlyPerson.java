@@ -53,7 +53,7 @@ public interface ReadOnlyPerson {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ");
-        for(Address address: getAddresses()){
+        for (Address address: getAddresses()) {
             builder.append(address).append(" | ");
         }
         builder.append(" Remark: ")

@@ -51,9 +51,9 @@ public class UniqueAddressList implements Iterable<Address> {
     /**
      * Replaces the Addresses in this list with those in the argument Address list.
      */
-    public void setAddresses(Set<Address> Addresses) {
-        requireAllNonNull(Addresses);
-        internalList.setAll(Addresses);
+    public void setAddresses(Set<Address> addresses) {
+        requireAllNonNull(addresses);
+        internalList.setAll(addresses);
         assert CollectionUtil.elementsAreUnique(internalList);
     }
 

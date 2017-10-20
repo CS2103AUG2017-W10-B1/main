@@ -90,8 +90,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (addresses.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> addressSet = addresses.size() == 1 &&
-                addresses.contains("") ? Collections.emptySet() : addresses;
+        Collection<String> addressSet = addresses.size() == 1
+                && addresses.contains("") ? Collections.emptySet() : addresses;
         return Optional.of(ParserUtil.parseAddresses(addressSet));
     }
 

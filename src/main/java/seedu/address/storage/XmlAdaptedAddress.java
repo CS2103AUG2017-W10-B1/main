@@ -11,7 +11,7 @@ import seedu.address.model.address.Address;
 public class XmlAdaptedAddress {
 
     @XmlValue
-    private String AddressName;
+    private String addressName;
 
     /**
      * Constructs an XmlAdaptedAddress.
@@ -25,7 +25,7 @@ public class XmlAdaptedAddress {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedAddress(Address source) {
-        AddressName = source.value;
+        addressName = source.value;
     }
 
     /**
@@ -34,7 +34,7 @@ public class XmlAdaptedAddress {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Address toModelType() throws IllegalValueException {
-        return new Address(AddressName);
+        return new Address(addressName);
     }
 
 }
