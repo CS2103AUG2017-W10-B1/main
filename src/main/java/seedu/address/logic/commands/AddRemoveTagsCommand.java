@@ -94,7 +94,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         newTags.addAll(tags);
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), newTags);
+                personToEdit.getAddresses(), personToEdit.getRemark(), newTags);
     }
 
     /**
@@ -109,7 +109,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         newTags.removeAll(tags);
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), newTags);
+                personToEdit.getAddresses(), personToEdit.getRemark(), newTags);
     }
 
     @Override

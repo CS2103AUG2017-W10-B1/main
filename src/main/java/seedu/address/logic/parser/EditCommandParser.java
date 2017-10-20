@@ -18,7 +18,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.address.Address;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -48,7 +50,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).ifPresent(editPersonDescriptor::setName);
             ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).ifPresent(editPersonDescriptor::setPhone);
             ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).ifPresent(editPersonDescriptor::setEmail);
-            ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editPersonDescriptor::setAddress);
+            parseAddressesForEdit(argMultimap.getAllValues(PREFIX_ADDRESS))
+                    .ifPresent(editPersonDescriptor::setAddresses);
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
@@ -74,6 +77,22 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> addresses} into a {@code Set<Address>} if {@code addresses} is non-empty.
+     * If {@code addresses} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Address>} containing zero addresses.
+     */
+    private Optional<Set<Address>> parseAddressesForEdit(Collection<String> addresses) throws IllegalValueException {
+        assert addresses != null;
+
+        if (addresses.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> addressSet = addresses.size() == 1
+                && addresses.contains("") ? Collections.emptySet() : addresses;
+        return Optional.of(ParserUtil.parseAddresses(addressSet));
     }
 
 }

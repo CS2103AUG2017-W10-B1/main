@@ -3,6 +3,10 @@ package seedu.address.model.person;
 import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
+import seedu.address.model.address.Address;
+import seedu.address.model.address.UniqueAddressList;
+import seedu.address.model.email.Email;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -18,8 +22,8 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     ObjectProperty<Email> emailProperty();
     Email getEmail();
-    ObjectProperty<Address> addressProperty();
-    Address getAddress();
+    ObjectProperty<UniqueAddressList> addressProperty();
+    Set<Address> getAddresses();
     ObjectProperty<Remark> remarkProperty();
     Remark getRemark();
     ObjectProperty<UniqueTagList> tagProperty();
@@ -34,7 +38,7 @@ public interface ReadOnlyPerson {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress())
+                && other.getAddresses().equals(this.getAddresses())
                 && other.getRemark().equals(this.getRemark()));
     }
 
@@ -48,9 +52,11 @@ public interface ReadOnlyPerson {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Remark: ")
+                .append(" Address: ");
+        for (Address address: getAddresses()) {
+            builder.append(address).append(" | ");
+        }
+        builder.append(" Remark: ")
                 .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
