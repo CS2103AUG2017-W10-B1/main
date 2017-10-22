@@ -1,12 +1,13 @@
 package pimp.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static pimp.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static pimp.logic.commands.RemarkCommand.MESSAGE_USAGE;
 
-import pimp.commons.core.Messages;
 import pimp.commons.core.index.Index;
+import pimp.commons.exceptions.IllegalValueException;
 import pimp.logic.commands.RemarkCommand;
 import pimp.logic.parser.exceptions.ParseException;
-import pimp.commons.exceptions.IllegalValueException;
 import pimp.model.person.Remark;
 
 /**
@@ -23,7 +24,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         String remark = argMultimap.getValue(CliSyntax.PREFIX_REMARK).orElse("");

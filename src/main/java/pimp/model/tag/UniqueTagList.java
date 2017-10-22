@@ -1,7 +1,6 @@
 package pimp.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static pimp.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Iterator;

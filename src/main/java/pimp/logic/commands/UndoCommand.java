@@ -1,11 +1,9 @@
 package pimp.logic.commands;
 
-import static pimp.commons.util.CollectionUtil.requireAllNonNull;
-
 import pimp.commons.util.CollectionUtil;
-import pimp.logic.commands.exceptions.CommandException;
 import pimp.logic.CommandHistory;
 import pimp.logic.UndoRedoStack;
+import pimp.logic.commands.exceptions.CommandException;
 import pimp.model.Model;
 
 /**

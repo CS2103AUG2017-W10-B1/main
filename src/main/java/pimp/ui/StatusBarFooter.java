@@ -11,8 +11,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import pimp.commons.events.model.AddressBookChangedEvent;
 import pimp.commons.core.LogsCenter;
+import pimp.commons.events.model.AddressBookChangedEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

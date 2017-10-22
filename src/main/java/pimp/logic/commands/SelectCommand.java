@@ -2,9 +2,9 @@ package pimp.logic.commands;
 
 import java.util.List;
 
-import pimp.commons.core.index.Index;
 import pimp.commons.core.EventsCenter;
 import pimp.commons.core.Messages;
+import pimp.commons.core.index.Index;
 import pimp.commons.events.ui.JumpToListRequestEvent;
 import pimp.logic.commands.exceptions.CommandException;
 import pimp.model.person.ReadOnlyPerson;

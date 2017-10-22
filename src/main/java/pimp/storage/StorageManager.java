@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import pimp.commons.core.ComponentManager;
-import pimp.commons.events.model.AddressBookChangedEvent;
 import pimp.commons.core.LogsCenter;
+import pimp.commons.events.model.AddressBookChangedEvent;
 import pimp.commons.events.storage.DataSavingExceptionEvent;
 import pimp.commons.exceptions.DataConversionException;
 import pimp.model.ReadOnlyAddressBook;

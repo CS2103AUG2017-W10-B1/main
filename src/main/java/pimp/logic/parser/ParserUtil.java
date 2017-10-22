@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import pimp.commons.core.index.Index;
+import pimp.commons.exceptions.IllegalValueException;
 import pimp.commons.util.StringUtil;
+import pimp.model.person.Address;
 import pimp.model.person.Email;
 import pimp.model.person.Name;
-import pimp.commons.exceptions.IllegalValueException;
-import pimp.model.person.Address;
 import pimp.model.person.Phone;
 import pimp.model.tag.Tag;
 

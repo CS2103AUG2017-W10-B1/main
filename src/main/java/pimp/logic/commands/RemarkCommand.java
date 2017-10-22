@@ -4,14 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import pimp.commons.core.Messages;
 import pimp.commons.core.index.Index;
 import pimp.logic.commands.exceptions.CommandException;
 import pimp.logic.parser.CliSyntax;
 import pimp.model.person.Person;
-import pimp.model.person.exceptions.DuplicatePersonException;
-import pimp.commons.core.Messages;
 import pimp.model.person.ReadOnlyPerson;
 import pimp.model.person.Remark;
+import pimp.model.person.exceptions.DuplicatePersonException;
 import pimp.model.person.exceptions.PersonNotFoundException;
 
 /**

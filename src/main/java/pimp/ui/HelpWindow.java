@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import pimp.commons.util.FxViewUtil;
 import pimp.commons.core.LogsCenter;
+import pimp.commons.util.FxViewUtil;
 
 /**
  * Controller for a help page

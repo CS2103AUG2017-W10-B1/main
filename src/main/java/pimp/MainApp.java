@@ -10,30 +10,31 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import pimp.commons.core.Config;
+import pimp.commons.core.EventsCenter;
+import pimp.commons.core.LogsCenter;
 import pimp.commons.core.Version;
+import pimp.commons.events.ui.ExitAppRequestEvent;
+import pimp.commons.exceptions.DataConversionException;
 import pimp.commons.util.ConfigUtil;
 import pimp.commons.util.StringUtil;
 import pimp.logic.Logic;
 import pimp.logic.LogicManager;
-import pimp.storage.AddressBookStorage;
-import pimp.storage.XmlAddressBookStorage;
-import pimp.ui.UiManager;
-import pimp.commons.core.EventsCenter;
-import pimp.commons.core.LogsCenter;
-import pimp.commons.events.ui.ExitAppRequestEvent;
-import pimp.commons.exceptions.DataConversionException;
 import pimp.model.AddressBook;
 import pimp.model.Model;
 import pimp.model.ModelManager;
 import pimp.model.ReadOnlyAddressBook;
 import pimp.model.UserPrefs;
 import pimp.model.util.SampleDataUtil;
+import pimp.storage.AddressBookStorage;
 import pimp.storage.JsonUserPrefsStorage;
 import pimp.storage.Storage;
 import pimp.storage.StorageManager;
 import pimp.storage.UserPrefsStorage;
+import pimp.storage.XmlAddressBookStorage;
 import pimp.ui.Ui;
+import pimp.ui.UiManager;
 
 /**
  * The main entry point to the application.

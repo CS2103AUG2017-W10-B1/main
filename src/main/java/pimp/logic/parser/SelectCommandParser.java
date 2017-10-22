@@ -2,9 +2,9 @@ package pimp.logic.parser;
 
 import pimp.commons.core.Messages;
 import pimp.commons.core.index.Index;
+import pimp.commons.exceptions.IllegalValueException;
 import pimp.logic.commands.SelectCommand;
 import pimp.logic.parser.exceptions.ParseException;
-import pimp.commons.exceptions.IllegalValueException;
 
 /**
  * Parses input arguments and creates a new SelectCommand object

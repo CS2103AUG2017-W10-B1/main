@@ -2,10 +2,10 @@ package pimp.logic;
 
 import java.util.Stack;
 
+import pimp.logic.commands.Command;
 import pimp.logic.commands.RedoCommand;
 import pimp.logic.commands.UndoCommand;
 import pimp.logic.commands.UndoableCommand;
-import pimp.logic.commands.Command;
 
 /**
  * Maintains the undo-stack (the stack of commands that can be undone) and the redo-stack (the stack of

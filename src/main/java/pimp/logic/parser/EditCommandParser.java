@@ -14,10 +14,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import pimp.commons.core.index.Index;
-import pimp.logic.parser.exceptions.ParseException;
 import pimp.commons.exceptions.IllegalValueException;
 import pimp.logic.commands.EditCommand;
 import pimp.logic.commands.EditCommand.EditPersonDescriptor;
+import pimp.logic.parser.exceptions.ParseException;
 import pimp.model.tag.Tag;
 
 /**

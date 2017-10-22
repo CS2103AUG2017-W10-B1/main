@@ -1,7 +1,5 @@
 package pimp.commons.util;
 
-import static pimp.commons.util.AppUtil.checkArgument;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

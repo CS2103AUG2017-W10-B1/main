@@ -1,7 +1,7 @@
 package pimp.logic.commands;
 
-import pimp.commons.events.ui.ExitAppRequestEvent;
 import pimp.commons.core.EventsCenter;
+import pimp.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Terminates the program.

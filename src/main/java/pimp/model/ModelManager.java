@@ -1,7 +1,6 @@
 package pimp.model;
 
 import static java.util.Objects.requireNonNull;
-import static pimp.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -9,12 +8,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import pimp.commons.events.model.AddressBookChangedEvent;
-import pimp.commons.util.CollectionUtil;
-import pimp.model.person.exceptions.DuplicatePersonException;
+
 import pimp.commons.core.ComponentManager;
 import pimp.commons.core.LogsCenter;
+import pimp.commons.events.model.AddressBookChangedEvent;
+import pimp.commons.util.CollectionUtil;
 import pimp.model.person.ReadOnlyPerson;
+import pimp.model.person.exceptions.DuplicatePersonException;
 import pimp.model.person.exceptions.PersonNotFoundException;
 
 /**

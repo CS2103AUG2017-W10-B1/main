@@ -7,13 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import pimp.logic.Logic;
-import pimp.logic.commands.exceptions.CommandException;
-import pimp.logic.parser.exceptions.ParseException;
 import pimp.commons.core.LogsCenter;
 import pimp.commons.events.ui.NewResultAvailableEvent;
 import pimp.logic.ListElementPointer;
+import pimp.logic.Logic;
 import pimp.logic.commands.CommandResult;
+import pimp.logic.commands.exceptions.CommandException;
+import pimp.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

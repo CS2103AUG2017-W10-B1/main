@@ -7,8 +7,13 @@ import pimp.commons.core.Messages;
 import pimp.logic.commands.AddCommand;
 import pimp.logic.commands.AddRemoveTagsCommand;
 import pimp.logic.commands.ClearCommand;
+import pimp.logic.commands.Command;
+import pimp.logic.commands.DeleteCommand;
+import pimp.logic.commands.EditCommand;
+import pimp.logic.commands.ExitCommand;
 import pimp.logic.commands.FindCommand;
 import pimp.logic.commands.FindRegexCommand;
+import pimp.logic.commands.FindTagCommand;
 import pimp.logic.commands.HelpCommand;
 import pimp.logic.commands.HistoryCommand;
 import pimp.logic.commands.ListCommand;
@@ -17,11 +22,6 @@ import pimp.logic.commands.RemarkCommand;
 import pimp.logic.commands.SelectCommand;
 import pimp.logic.commands.UndoCommand;
 import pimp.logic.parser.exceptions.ParseException;
-import pimp.logic.commands.Command;
-import pimp.logic.commands.DeleteCommand;
-import pimp.logic.commands.EditCommand;
-import pimp.logic.commands.ExitCommand;
-import pimp.logic.commands.FindTagCommand;
 
 /**
  * Parses user input.

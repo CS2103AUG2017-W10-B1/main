@@ -8,13 +8,13 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import pimp.commons.exceptions.IllegalValueException;
+import pimp.model.person.Address;
 import pimp.model.person.Email;
 import pimp.model.person.Name;
 import pimp.model.person.Person;
-import pimp.model.person.ReadOnlyPerson;
-import pimp.commons.exceptions.IllegalValueException;
-import pimp.model.person.Address;
 import pimp.model.person.Phone;
+import pimp.model.person.ReadOnlyPerson;
 import pimp.model.person.Remark;
 import pimp.model.tag.Tag;
 

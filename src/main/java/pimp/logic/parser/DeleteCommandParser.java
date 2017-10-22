@@ -3,8 +3,8 @@ package pimp.logic.parser;
 import pimp.commons.core.Messages;
 import pimp.commons.core.index.Index;
 import pimp.commons.exceptions.IllegalValueException;
-import pimp.logic.parser.exceptions.ParseException;
 import pimp.logic.commands.DeleteCommand;
+import pimp.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

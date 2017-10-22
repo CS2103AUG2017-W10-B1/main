@@ -22,13 +22,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import pimp.commons.util.FxViewUtil;
-import pimp.logic.Logic;
 import pimp.commons.core.Config;
 import pimp.commons.core.GuiSettings;
 import pimp.commons.core.LogsCenter;
 import pimp.commons.events.ui.ExitAppRequestEvent;
 import pimp.commons.events.ui.ShowHelpRequestEvent;
+import pimp.commons.util.FxViewUtil;
+import pimp.logic.Logic;
 import pimp.model.UserPrefs;
 import pimp.model.person.ReadOnlyPerson;
 

@@ -9,13 +9,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import pimp.commons.core.Config;
-import pimp.commons.util.StringUtil;
-import pimp.logic.Logic;
 import pimp.MainApp;
 import pimp.commons.core.ComponentManager;
+import pimp.commons.core.Config;
 import pimp.commons.core.LogsCenter;
 import pimp.commons.events.storage.DataSavingExceptionEvent;
+import pimp.commons.util.StringUtil;
+import pimp.logic.Logic;
 import pimp.model.UserPrefs;
 
 /**

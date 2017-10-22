@@ -1,7 +1,6 @@
 package pimp.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static pimp.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Date;

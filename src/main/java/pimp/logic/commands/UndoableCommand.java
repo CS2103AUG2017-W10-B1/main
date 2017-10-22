@@ -1,7 +1,6 @@
 package pimp.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static pimp.commons.util.CollectionUtil.requireAllNonNull;
 import static pimp.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import pimp.commons.util.CollectionUtil;

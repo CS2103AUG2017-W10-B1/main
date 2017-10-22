@@ -1,16 +1,17 @@
 package pimp.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static pimp.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static pimp.logic.commands.AddRemoveTagsCommand.MESSAGE_USAGE;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import pimp.commons.core.Messages;
 import pimp.commons.core.index.Index;
-import pimp.logic.parser.exceptions.ParseException;
 import pimp.commons.exceptions.IllegalValueException;
 import pimp.logic.commands.AddRemoveTagsCommand;
+import pimp.logic.parser.exceptions.ParseException;
 import pimp.model.tag.Tag;
 
 /**
@@ -32,13 +33,13 @@ public class AddRemoveTagsCommandParser implements Parser<AddRemoveTagsCommand> 
         requireNonNull(args);
 
         if (args.equals("")) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRemoveTagsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         List<String> argsList = Arrays.asList(args.substring(ARGUMENT_START_INDEX).split(" "));
 
         if (argsList.size() < TAG_ARGUMENT_INDEX + 1 || argsList.contains("")) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRemoveTagsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         boolean isAdd;
@@ -47,14 +48,14 @@ public class AddRemoveTagsCommandParser implements Parser<AddRemoveTagsCommand> 
         } else if (argsList.get(TYPE_ARGUMENT_INDEX).equals("remove")) {
             isAdd = false;
         } else {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRemoveTagsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         Index index;
         try {
             index = ParserUtil.parseIndex(argsList.get(INDEX_ARGUMENT_INDEX));
         } catch (IllegalValueException e) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRemoveTagsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         List<String> tagsList = argsList.subList(TAG_ARGUMENT_INDEX, argsList.size());

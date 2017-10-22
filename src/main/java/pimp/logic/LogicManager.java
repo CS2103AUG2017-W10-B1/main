@@ -3,13 +3,14 @@ package pimp.logic;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import pimp.logic.commands.exceptions.CommandException;
-import pimp.logic.parser.exceptions.ParseException;
+
 import pimp.commons.core.ComponentManager;
 import pimp.commons.core.LogsCenter;
 import pimp.logic.commands.Command;
 import pimp.logic.commands.CommandResult;
+import pimp.logic.commands.exceptions.CommandException;
 import pimp.logic.parser.AddressBookParser;
+import pimp.logic.parser.exceptions.ParseException;
 import pimp.model.Model;
 import pimp.model.person.ReadOnlyPerson;
 

@@ -1,7 +1,7 @@
 package pimp.commons.events.ui;
 
-import pimp.ui.PersonCard;
 import pimp.commons.events.BaseEvent;
+import pimp.ui.PersonCard;
 
 /**
  * Represents a selection change in the Person List Panel
