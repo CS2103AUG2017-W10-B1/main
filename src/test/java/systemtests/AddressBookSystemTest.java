@@ -3,13 +3,13 @@ package systemtests;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
-import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static pimp.ui.BrowserPanel.DEFAULT_PAGE;
+import static pimp.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
+import static pimp.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
+import static pimp.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static pimp.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static pimp.ui.UiPart.FXML_FILE_FOLDER;
+import static pimp.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,15 +29,15 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.MainApp;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.Model;
-import seedu.address.ui.CommandBox;
+import pimp.MainApp;
+import pimp.TestApp;
+import pimp.commons.core.EventsCenter;
+import pimp.commons.core.index.Index;
+import pimp.logic.commands.FindCommand;
+import pimp.logic.commands.ListCommand;
+import pimp.logic.commands.SelectCommand;
+import pimp.model.Model;
+import pimp.ui.CommandBox;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
