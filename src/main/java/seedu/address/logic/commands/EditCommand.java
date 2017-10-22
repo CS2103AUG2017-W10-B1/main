@@ -24,6 +24,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.SocialMedia;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -104,9 +105,10 @@ public class EditCommand extends UndoableCommand {
         Remark updatedRemark = personToEdit.getRemark();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Date createdAt = editPersonDescriptor.getCreatedAt().orElse(personToEdit.getCreatedAt());
+        SocialMedia updatedSocialMedia = editPersonDescriptor.getSocialMedia().orElse(personToEdit.getSocialMedia());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
-                updatedTags, createdAt);
+                updatedTags, createdAt, updatedSocialMedia);
     }
 
     @Override
@@ -138,6 +140,7 @@ public class EditCommand extends UndoableCommand {
         private Address address;
         private Set<Tag> tags;
         private Date createdAt;
+        private SocialMedia socialMedia;
 
         public EditPersonDescriptor() {}
 
@@ -148,6 +151,7 @@ public class EditCommand extends UndoableCommand {
             this.address = toCopy.address;
             this.tags = toCopy.tags;
             this.createdAt = toCopy.createdAt;
+            this.socialMedia = toCopy.socialMedia;
         }
 
         /**
@@ -155,7 +159,7 @@ public class EditCommand extends UndoableCommand {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address,
-                    this.tags, this.createdAt);
+                    this.tags, this.createdAt, this.socialMedia);
         }
 
         public void setName(Name name) {
@@ -206,6 +210,9 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(createdAt);
         }
 
+        public void setSocialMedia(SocialMedia socialMedia) { this.socialMedia = socialMedia; }
+
+        public Optional<SocialMedia> getSocialMedia() { return Optional.ofNullable(socialMedia); }
 
         @Override
         public boolean equals(Object other) {

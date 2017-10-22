@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,6 +78,7 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
+        final SocialMedia socialMedia = new SocialMedia();
         final Remark remark = new Remark(this.remark);
         final Set<Tag> tags = new HashSet<>(personTags);
         final Date createdAt;
@@ -88,6 +90,6 @@ public class XmlAdaptedPerson {
             createdAt = new Date(this.createdAt.getTime());
         }
 
-        return new Person(name, phone, email, address, remark, tags, createdAt);
+        return new Person(name, phone, email, address, remark, tags, createdAt, socialMedia);
     }
 }
