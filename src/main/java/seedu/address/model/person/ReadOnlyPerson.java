@@ -56,7 +56,7 @@ public interface ReadOnlyPerson {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Social Media: ")
+                .append(" ")
                 .append(getSocialMedia())
                 .append(" Remark: ")
                 .append(getRemark())
