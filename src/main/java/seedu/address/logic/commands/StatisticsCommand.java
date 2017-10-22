@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ToggleStatisticsPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -11,9 +14,11 @@ public class StatisticsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays the statistics of the address book to the user.\n"
             + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_SUCCESS = "Listed statistics";
 
     @Override
     public CommandResult execute() throws CommandException {
-        return null;
+        EventsCenter.getInstance().post(new ToggleStatisticsPanelEvent());
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

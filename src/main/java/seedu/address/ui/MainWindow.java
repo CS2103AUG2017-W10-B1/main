@@ -27,6 +27,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.commons.events.ui.ToggleStatisticsPanelEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -167,11 +168,13 @@ public class MainWindow extends UiPart<Region> {
 
     void switchToStatisticsPanel() {
         statisticsPanel = new StatisticsPanel();
+        browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }
 
     void switchToBrowserPanel() {
         browserPanel = new BrowserPanel();
+        browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
     }
 
@@ -252,7 +255,14 @@ public class MainWindow extends UiPart<Region> {
     }
 
     @Subscribe
+    private void handleToggleBrowserPanelEvent(ToggleBrowserPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchToBrowserPanel();
+    }
+
+    @Subscribe
     private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchToStatisticsPanel();
     }
 }
