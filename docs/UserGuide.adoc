@@ -20,7 +20,9 @@ To be filled.
 
 == About
 
-To be filled.
+This user guide serves as an overview on using PIMP. This user guide also gives a reference of commands available within the application, as well as tips and examples on using it.
+
+This user guide is simple and intuitive enough for anyone to understand. Gone are the days of you asking your techie friends what a certain technical jargon means.
 
 == Quick Start
 
@@ -76,7 +78,7 @@ Format: `add n/NAME [p/PHONE_NUMBER]... [e/EMAIL]... [a/ADDRESS]... [f/FACEBOOK]
 Alias: `a`
 
 [TIP]
-A person can have any number of tags, phone numbers, emails or addresses (including 0)
+A person can have any number of tags, phone numbers, emails or addresses (including 0) (Coming v2.0)
 
 ****
 * If a person to be added is similar to one of the existing contacts, a prompt will show you that similar contact/s. (Coming in v2.0)
@@ -188,6 +190,16 @@ Examples:
 * `findregex ^Joh?n$` +
 Returns `Jon` and `John`
 
+=== Locating persons by tags: `findtag` (Since v1.2)
+
+Finds persons who has has a tag matching any of the search tags. +
+Format: `findtag TAG`
+
+Examples:
+
+* `findtag friends family` +
+Returns all person having tags `friends` or `family`
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -230,7 +242,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Changing a person's remark : `remark`
+=== Changing a person's remark : `remark` (Since v1.2)
 
 Changes the remark of an existing person in the address book. +
 Format: `remark INDEX r/[Remark]` +
@@ -252,11 +264,6 @@ Changes the remark of the 1st person in the address book to "Loves beer".
 * `find Tony` +
 `remark 2 r/Going overseas` +
 Changes the remark of the 2nd person returned by the `find` command to "Going overseas".
-
-=== Viewing statistics : `statistics`
-View a monthly breakdown on the number of persons added to the address book. +
-Format: `statistics` +
-Alias: `st`
 
 === Viewing contacts with birthday in current month : `birthday`
 View a list of persons with birthdays in the current month +
@@ -403,6 +410,18 @@ Examples:
 Exits the program. +
 Format: `exit` +
 Alias: `ex`
+
+=== Viewing total number of persons stored
+
+The column titled "Total: " at the bottom of the screen contains a numerical value
+representing the total number of persons in the last person listing.
+
+=== Viewing newly added persons (Since v1.2)
+
+The column titled "New: " at the bottom of the screen contains a numerical value
+representing the total number of newly added persons in the last person listing.
+A newly added person is defined as a person that was added in the current month.
+
 
 === Saving the data
 
