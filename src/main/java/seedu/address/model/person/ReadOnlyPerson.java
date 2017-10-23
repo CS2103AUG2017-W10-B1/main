@@ -27,6 +27,9 @@ public interface ReadOnlyPerson {
     Set<Tag> getTags();
     ObjectProperty<Date> createdAtProperty();
     Date getCreatedAt();
+    ObjectProperty<AccessCount> accessCountProperty();
+    AccessCount getAccessCount();
+
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

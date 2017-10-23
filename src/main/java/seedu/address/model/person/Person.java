@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -26,12 +27,13 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<Remark> remark;
     private ObjectProperty<UniqueTagList> tags;
     private ObjectProperty<Date> createdAt;
+    private ObjectProperty<AccessCount> accessCount;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark,
-                  Set<Tag> tags, Date createdAt) {
+                  Set<Tag> tags, Date createdAt, AccessCount accessCount) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
@@ -42,6 +44,7 @@ public class Person implements ReadOnlyPerson {
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
 
         this.createdAt = new SimpleObjectProperty<>(createdAt);
+        this.accessCount = new SimpleObjectProperty<>(accessCount);
     }
 
     /**
@@ -49,7 +52,7 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getRemark(), source.getTags(), source.getCreatedAt());
+                source.getRemark(), source.getTags(), source.getCreatedAt(), source.getAccessCount());
     }
 
     public void setName(Name name) {
@@ -172,6 +175,20 @@ public class Person implements ReadOnlyPerson {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public ObjectProperty<AccessCount> accessCountProperty() {
+        return accessCount;
+    }
+
+    @Override
+    public AccessCount getAccessCount() {
+        return accessCount.get();
+    }
+
+    public void incrementAccess() throws IllegalValueException {
+        accessCount.set(new AccessCount(accessCount.get().numAccess() + 1));
     }
 
 }

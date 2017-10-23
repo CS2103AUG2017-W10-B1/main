@@ -1,0 +1,50 @@
+package seedu.address.model.person;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
+/**
+ * Represents the number of accesses to a person's data.
+ */
+public class AccessCount {
+
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
+            "Number of access cannot be less than 0.";
+
+    private int value;
+
+    /**
+     * Validates given address.
+     *
+     * @throws IllegalValueException if given address string is invalid.
+     */
+    public AccessCount(int accessCount) throws IllegalValueException {
+        if (accessCount < 0) {
+            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+        this.value = accessCount;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccessCount // instanceof handles nulls
+                && this.value == ((AccessCount) other).value); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
+    }
+
+    public int numAccess() {
+        return value;
+    }
+
+}
