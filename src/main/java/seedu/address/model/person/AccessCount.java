@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -19,7 +17,7 @@ public class AccessCount {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public AccessCount(int accessCount){
+    public AccessCount(int accessCount) {
         this.value = accessCount;
     }
 

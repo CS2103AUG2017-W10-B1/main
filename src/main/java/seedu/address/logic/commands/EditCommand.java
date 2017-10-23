@@ -15,10 +15,16 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.AccessCount;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
@@ -99,7 +105,7 @@ public class EditCommand extends UndoableCommand {
         Remark updatedRemark = personToEdit.getRemark();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Date createdAt = editPersonDescriptor.getCreatedAt().orElse(personToEdit.getCreatedAt());
-        AccessCount accessCount = new AccessCount((personToEdit.getAccessCount().numAccess() + 1 ));
+        AccessCount accessCount = new AccessCount((personToEdit.getAccessCount().numAccess() + 1));
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
                 updatedTags, createdAt, accessCount);
