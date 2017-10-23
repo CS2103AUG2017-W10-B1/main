@@ -25,6 +25,9 @@ public class PersonCard extends UiPart<Region> {
 
     public final ReadOnlyPerson person;
 
+    private int smallFontSize = 13;
+    private int bigFontSize = 16;
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -52,6 +55,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         initTags(person);
         bindListeners(person);
+        setFontSize();
     }
 
     /**
@@ -92,5 +96,14 @@ public class PersonCard extends UiPart<Region> {
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
+    }
+
+    private void setFontSize() {
+        name.setStyle("-fx-font-size: " + bigFontSize);
+        id.setStyle("-fx-font-size: " + bigFontSize);
+        phone.setStyle("-fx-font-size: " + smallFontSize);
+        address.setStyle("-fx-font-size: " + smallFontSize);
+        email.setStyle("-fx-font-size: " + smallFontSize);
+        remark.setStyle("-fx-font-size: " + smallFontSize);
     }
 }
