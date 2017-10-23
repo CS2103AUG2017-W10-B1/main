@@ -39,7 +39,7 @@ public class PersonBuilder {
             Remark defaultRemark = new Remark(DEFAULT_REMARK);
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
             Date createdAt = new Date();
-            SocialMedia socialMedia = new SocialMedia(DEFAULT_USERNAME, DEFAULT_USERNAME,DEFAULT_USERNAME);
+            SocialMedia socialMedia = new SocialMedia(DEFAULT_USERNAME, DEFAULT_USERNAME, DEFAULT_USERNAME);
             this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultRemark,
                     defaultTags, createdAt, socialMedia);
         } catch (IllegalValueException ive) {

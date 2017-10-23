@@ -69,7 +69,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    public String getSocialMedia() { return socialMediaLabel.getText(); }
+    public String getSocialMedia() {
+        return socialMediaLabel.getText();
+    }
 
     public String getRemark() {
         return remarkLabel.getText();
