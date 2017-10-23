@@ -110,8 +110,11 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static SocialMedia parseSocialMedia(Optional<String> facebook
-            , Optional<String> twitter, Optional<String> instagram) throws IllegalValueException {
+    /**
+     * Parses three {@code String facebook, twitter, instagram} into an {@code SocialMedia}.
+     */
+    public static SocialMedia parseSocialMedia(Optional<String> facebook,
+            Optional<String> twitter, Optional<String> instagram) throws IllegalValueException {
         requireAllNonNull(facebook, twitter, instagram);
 
         String fb = facebook.isPresent() ? facebook.get() : "";

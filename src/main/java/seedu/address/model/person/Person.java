@@ -159,12 +159,18 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public ObjectProperty<SocialMedia> socialMediaProperty() { return socialMedia; }
+    public ObjectProperty<SocialMedia> socialMediaProperty() {
+        return socialMedia;
+    }
 
     @Override
-    public SocialMedia getSocialMedia() { return socialMedia.get(); }
+    public SocialMedia getSocialMedia() {
+        return socialMedia.get();
+    }
 
-    public void setSocialMedia(SocialMedia socialMedia) { this.socialMedia.set(requireNonNull(socialMedia)); }
+    public void setSocialMedia(SocialMedia socialMedia) {
+        this.socialMedia.set(requireNonNull(socialMedia));
+    }
 
     @Override
     public boolean equals(Object other) {

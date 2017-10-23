@@ -1,8 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -80,7 +77,7 @@ public class SocialMedia {
         if (!instagram.equals("")) {
             toString += "IG: " + instagram;
         }
-        if(toString.equals("")) {
+        if (toString.equals("")) {
             toString = "-No Social Media Accounts-";
         }
         return toString;

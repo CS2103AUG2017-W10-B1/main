@@ -36,8 +36,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG
-                , PREFIX_FACEBOOK, PREFIX_TWITTER, PREFIX_INSTAGRAM);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG,
+                PREFIX_FACEBOOK, PREFIX_TWITTER, PREFIX_INSTAGRAM);
 
         Index index;
 
@@ -55,11 +55,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editPersonDescriptor::setAddress);
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
-            if(argMultimap.getValue(PREFIX_FACEBOOK).isPresent() ||
-                    argMultimap.getValue(PREFIX_TWITTER).isPresent() ||
-                    argMultimap.getValue(PREFIX_INSTAGRAM).isPresent()) {
-                editPersonDescriptor.setSocialMedia(ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_FACEBOOK)
-                        , argMultimap.getValue(PREFIX_TWITTER), argMultimap.getValue(PREFIX_INSTAGRAM)));
+            if (argMultimap.getValue(PREFIX_FACEBOOK).isPresent()
+                    || argMultimap.getValue(PREFIX_TWITTER).isPresent()
+                    || argMultimap.getValue(PREFIX_INSTAGRAM).isPresent()) {
+                editPersonDescriptor.setSocialMedia(ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_FACEBOOK),
+                        argMultimap.getValue(PREFIX_TWITTER), argMultimap.getValue(PREFIX_INSTAGRAM)));
             }
 
         } catch (IllegalValueException ive) {

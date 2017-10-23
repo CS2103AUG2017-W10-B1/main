@@ -108,10 +108,9 @@ public class EditCommand extends UndoableCommand {
 
         SocialMedia updatedSocialMedia;
         if (editPersonDescriptor.getSocialMedia().isPresent()) {
-            updatedSocialMedia = new SocialMedia(personToEdit.getSocialMedia()
-                    , editPersonDescriptor.getSocialMedia().get());
-        }
-        else {
+            updatedSocialMedia = new SocialMedia(personToEdit.getSocialMedia(),
+                    editPersonDescriptor.getSocialMedia().get());
+        } else {
             updatedSocialMedia = personToEdit.getSocialMedia();
         }
 
@@ -218,9 +217,13 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(createdAt);
         }
 
-        public void setSocialMedia(SocialMedia socialMedia) { this.socialMedia = socialMedia; }
+        public void setSocialMedia(SocialMedia socialMedia) {
+            this.socialMedia = socialMedia;
+        }
 
-        public Optional<SocialMedia> getSocialMedia() { return Optional.ofNullable(socialMedia); }
+        public Optional<SocialMedia> getSocialMedia() {
+            return Optional.ofNullable(socialMedia);
+        }
 
         @Override
         public boolean equals(Object other) {

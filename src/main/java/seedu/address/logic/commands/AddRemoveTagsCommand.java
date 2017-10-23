@@ -110,8 +110,8 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         newTags.removeAll(tags);
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt()
-                , personToEdit.getSocialMedia());
+                personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt(),
+                personToEdit.getSocialMedia());
     }
 
     @Override

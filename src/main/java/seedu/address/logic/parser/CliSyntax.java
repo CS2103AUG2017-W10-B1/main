@@ -14,6 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_FACEBOOK = new Prefix("fb/");
     public static final Prefix PREFIX_TWITTER = new Prefix("tw/");
-    public static final Prefix PREFIX_INSTAGRAM = new Prefix("in/");
+    public static final Prefix PREFIX_INSTAGRAM = new Prefix("ig/");
 
 }
