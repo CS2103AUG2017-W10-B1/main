@@ -29,7 +29,7 @@ public interface ReadOnlyPerson {
     Date getCreatedAt();
     ObjectProperty<AccessCount> accessCountProperty();
     AccessCount getAccessCount();
-
+    void incrementAccess();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

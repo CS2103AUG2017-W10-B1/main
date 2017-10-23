@@ -187,7 +187,8 @@ public class Person implements ReadOnlyPerson {
         return accessCount.get();
     }
 
-    public void incrementAccess() throws IllegalValueException {
+    @Override
+    public void incrementAccess() {
         accessCount.set(new AccessCount(accessCount.get().numAccess() + 1));
     }
 
