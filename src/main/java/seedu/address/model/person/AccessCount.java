@@ -19,10 +19,7 @@ public class AccessCount {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
-    public AccessCount(int accessCount) throws IllegalValueException {
-        if (accessCount < 0) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
-        }
+    public AccessCount(int accessCount){
         this.value = accessCount;
     }
 

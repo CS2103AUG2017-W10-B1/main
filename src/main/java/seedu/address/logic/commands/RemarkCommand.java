@@ -7,7 +7,9 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.AccessCount;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.Remark;
@@ -57,8 +59,9 @@ public class RemarkCommand extends UndoableCommand {
         }
 
         ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
+        AccessCount accessCount = new AccessCount((personToEdit.getAccessCount().numAccess() + 1 ));
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags(), personToEdit.getCreatedAt());
+                personToEdit.getAddress(), remark, personToEdit.getTags(), personToEdit.getCreatedAt(), accessCount);
 
         try {
             model.updatePerson(personToEdit, editedPerson);
