@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+
 /**
  * Changes the font size.
  */
@@ -29,13 +33,13 @@ public class SizeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        // EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         if (isReset) {
+            EventsCenter.getInstance().post(new FontSizeChangeRequestEvent());
             return new CommandResult(MESSAGE_RESET_FONT_SUCCESS);
-        } else if (sizeChange >= 0) {
-            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "increased", sizeChange));
         } else {
-            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "decreased", sizeChange));
+            EventsCenter.getInstance().post(new FontSizeChangeRequestEvent(sizeChange));
+            String changeText = sizeChange >= 0 ? "increased" : "decreased";
+            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, changeText, sizeChange));
         }
 
     }
