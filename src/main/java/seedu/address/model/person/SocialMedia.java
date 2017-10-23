@@ -33,15 +33,15 @@ public class SocialMedia {
      * @throws IllegalValueException if either of given username string is invalid.
      */
     public SocialMedia(String facebook, String twitter, String instagram) throws IllegalValueException {
-        if(facebook == null) {
+        if (facebook == null) {
             facebook = "";
         }
 
-        if(twitter == null) {
+        if (twitter == null) {
             twitter = "";
         }
 
-        if(instagram == null) {
+        if (instagram == null) {
             instagram = "";
         }
 
@@ -54,6 +54,12 @@ public class SocialMedia {
         this.instagram = instagram;
     }
 
+    public SocialMedia(SocialMedia oldData, SocialMedia newData) {
+        facebook = newData.facebook.equals("") ? oldData.facebook : newData.facebook;
+        twitter = newData.twitter.equals("") ? oldData.twitter : newData.twitter;
+        instagram = newData.instagram.equals("") ? oldData.instagram : newData.instagram;
+    }
+
     /**
      * Returns true if a given string is a valid person name.
      */
@@ -63,7 +69,21 @@ public class SocialMedia {
 
     @Override
     public String toString() {
-        return "Facebook: " + facebook + " Twitter: " + twitter + " Instagram: " + instagram;
+        String toString = "";
+
+        if (!facebook.equals("")) {
+            toString += "FB: " + facebook + " ";
+        }
+        if (!twitter.equals("")) {
+            toString += "TW: " + twitter + " ";
+        }
+        if (!instagram.equals("")) {
+            toString += "IG: " + instagram;
+        }
+        if(toString.equals("")) {
+            toString = "-No Social Media Accounts-";
+        }
+        return toString;
     }
 
     @Override

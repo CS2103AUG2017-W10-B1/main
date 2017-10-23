@@ -73,7 +73,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
-            assert(false);
+            throw new AssertionError("The target person should not be duplicated");
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }

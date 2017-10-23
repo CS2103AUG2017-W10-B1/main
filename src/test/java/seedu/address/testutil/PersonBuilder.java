@@ -26,6 +26,7 @@ public class PersonBuilder {
     public static final String DEFAULT_REMARK = "";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TAGS = "friends";
+    public static final String DEFAULT_USERNAME = "alicepaul123";
 
     private Person person;
 
@@ -38,7 +39,7 @@ public class PersonBuilder {
             Remark defaultRemark = new Remark(DEFAULT_REMARK);
             Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
             Date createdAt = new Date();
-            SocialMedia socialMedia = new SocialMedia();
+            SocialMedia socialMedia = new SocialMedia(DEFAULT_USERNAME, DEFAULT_USERNAME,DEFAULT_USERNAME);
             this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultRemark,
                     defaultTags, createdAt, socialMedia);
         } catch (IllegalValueException ive) {
@@ -118,6 +119,18 @@ public class PersonBuilder {
      */
     public PersonBuilder withRemark(String remark) {
         this.person.setRemark(new Remark(remark));
+        return this;
+    }
+
+    /**
+     * Sets the {@code SocialMedia} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSocialMedia(String facebook, String twitter, String instagram) {
+        try {
+            this.person.setSocialMedia(new SocialMedia(facebook, twitter, instagram));
+        } catch (IllegalValueException e) {
+            throw new IllegalArgumentException("usernames is expected to be unique.");
+        }
         return this;
     }
 

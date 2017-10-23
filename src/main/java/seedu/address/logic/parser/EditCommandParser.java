@@ -54,8 +54,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).ifPresent(editPersonDescriptor::setEmail);
             ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).ifPresent(editPersonDescriptor::setAddress);
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-            editPersonDescriptor.setSocialMedia(ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_FACEBOOK)
-                    , argMultimap.getValue(PREFIX_TWITTER), argMultimap.getValue(PREFIX_INSTAGRAM)));
+
+            if(argMultimap.getValue(PREFIX_FACEBOOK).isPresent() ||
+                    argMultimap.getValue(PREFIX_TWITTER).isPresent() ||
+                    argMultimap.getValue(PREFIX_INSTAGRAM).isPresent()) {
+                editPersonDescriptor.setSocialMedia(ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_FACEBOOK)
+                        , argMultimap.getValue(PREFIX_TWITTER), argMultimap.getValue(PREFIX_INSTAGRAM)));
+            }
+
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

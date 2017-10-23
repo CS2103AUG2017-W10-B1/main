@@ -105,7 +105,15 @@ public class EditCommand extends UndoableCommand {
         Remark updatedRemark = personToEdit.getRemark();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Date createdAt = editPersonDescriptor.getCreatedAt().orElse(personToEdit.getCreatedAt());
-        SocialMedia updatedSocialMedia = editPersonDescriptor.getSocialMedia().orElse(personToEdit.getSocialMedia());
+
+        SocialMedia updatedSocialMedia;
+        if (editPersonDescriptor.getSocialMedia().isPresent()) {
+            updatedSocialMedia = new SocialMedia(personToEdit.getSocialMedia()
+                    , editPersonDescriptor.getSocialMedia().get());
+        }
+        else {
+            updatedSocialMedia = personToEdit.getSocialMedia();
+        }
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
                 updatedTags, createdAt, updatedSocialMedia);
@@ -234,7 +242,8 @@ public class EditCommand extends UndoableCommand {
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags())
-                    && getCreatedAt().equals(e.getCreatedAt());
+                    && getCreatedAt().equals(e.getCreatedAt())
+                    && getSocialMedia().equals(e.getSocialMedia());
         }
     }
 }

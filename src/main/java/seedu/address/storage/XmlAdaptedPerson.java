@@ -38,6 +38,12 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
     private Date createdAt;
+    @XmlElement (required = true)
+    private String facebook;
+    @XmlElement (required = true)
+    private String twitter;
+    @XmlElement (required = true)
+    private String instagram;
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -62,6 +68,9 @@ public class XmlAdaptedPerson {
             tagged.add(new XmlAdaptedTag(tag));
         }
         createdAt = source.getCreatedAt();
+        facebook = source.getSocialMedia().facebook;
+        twitter = source.getSocialMedia().twitter;
+        instagram = source.getSocialMedia().instagram;
     }
 
     /**
@@ -78,10 +87,11 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
-        final SocialMedia socialMedia = new SocialMedia();
         final Remark remark = new Remark(this.remark);
         final Set<Tag> tags = new HashSet<>(personTags);
         final Date createdAt;
+        final SocialMedia socialMedia = new SocialMedia(
+                facebook == null ? "" : facebook, twitter == null ? "" : twitter, instagram == null ? "" : instagram);
 
         if (this.createdAt == null) {
             // In the event that there is no createdAt attribute for that person
