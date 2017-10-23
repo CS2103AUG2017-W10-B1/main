@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void switchToStatisticsPanel() {
-        statisticsPanel = new StatisticsPanel();
+        statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
     }
