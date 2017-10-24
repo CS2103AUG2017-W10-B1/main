@@ -37,8 +37,11 @@ public class SizeCommand extends Command {
             return new CommandResult(MESSAGE_RESET_FONT_SUCCESS);
         } else {
             EventsCenter.getInstance().post(new FontSizeChangeRequestEvent(sizeChange));
-            String changeText = sizeChange >= 0 ? "increased" : "decreased";
-            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, changeText, sizeChange));
+            if (sizeChange >= 0) {
+                return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "increased", sizeChange));
+            } else {
+                return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "decreased", -1 * sizeChange));
+            }
         }
 
     }

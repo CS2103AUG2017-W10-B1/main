@@ -15,8 +15,8 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
-    private static int defaultSmallFontSize = 13;
-    private static int defaultBigFontSize = 16;
+    private static final int DEFAULT_SMALL_FONT_SIZE = 13;
+    private static final int DEFAULT_BIG_FONT_SIZE = 16;
     private static int fontSizeChange = 0;
 
     /**
@@ -121,11 +121,11 @@ public class PersonCard extends UiPart<Region> {
      * Updates the font size of this card.
      */
     public void refreshFontSizes() {
-        name.setStyle("-fx-font-size: " + (defaultBigFontSize + fontSizeChange));
-        id.setStyle("-fx-font-size: " + (defaultBigFontSize + fontSizeChange));
-        phone.setStyle("-fx-font-size: " + (defaultSmallFontSize + fontSizeChange));
-        address.setStyle("-fx-font-size: " + (defaultSmallFontSize + fontSizeChange));
-        email.setStyle("-fx-font-size: " + (defaultSmallFontSize + fontSizeChange));
-        remark.setStyle("-fx-font-size: " + (defaultSmallFontSize + fontSizeChange));
+        name.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
+        id.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
+        phone.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+        address.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+        email.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+        remark.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
     }
 }
