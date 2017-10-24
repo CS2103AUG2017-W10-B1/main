@@ -27,12 +27,13 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<UniqueTagList> tags;
     private ObjectProperty<Date> createdAt;
     private ObjectProperty<AccessCount> accessCount;
+    private ObjectProperty<SocialMedia> socialMedia;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark,
-                  Set<Tag> tags, Date createdAt, AccessCount accessCount) {
+                  Set<Tag> tags, Date createdAt, SocialMedia socialMedia, AccessCount accessCount) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
@@ -44,6 +45,7 @@ public class Person implements ReadOnlyPerson {
 
         this.createdAt = new SimpleObjectProperty<>(createdAt);
         this.accessCount = new SimpleObjectProperty<>(accessCount);
+        this.socialMedia = new SimpleObjectProperty<>(socialMedia);
     }
 
     /**
@@ -51,7 +53,7 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getRemark(), source.getTags(), source.getCreatedAt(), source.getAccessCount());
+                source.getRemark(), source.getTags(), source.getCreatedAt(), source.getSocialMedia(), source.getAccessCount());
     }
 
     public void setName(Name name) {
@@ -156,6 +158,20 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Date getCreatedAt() {
         return createdAt.get();
+    }
+
+    @Override
+    public ObjectProperty<SocialMedia> socialMediaProperty() {
+        return socialMedia;
+    }
+
+    @Override
+    public SocialMedia getSocialMedia() {
+        return socialMedia.get();
+    }
+
+    public void setSocialMedia(SocialMedia socialMedia) {
+        this.socialMedia.set(requireNonNull(socialMedia));
     }
 
     @Override

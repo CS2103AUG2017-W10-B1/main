@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.Remark;
+import seedu.address.model.person.SocialMedia;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,6 +41,12 @@ public class XmlAdaptedPerson {
     private Date createdAt;
     @XmlElement
     private int accessCount;
+    @XmlElement (required = true)
+    private String facebook;
+    @XmlElement (required = true)
+    private String twitter;
+    @XmlElement (required = true)
+    private String instagram;
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -64,6 +71,9 @@ public class XmlAdaptedPerson {
             tagged.add(new XmlAdaptedTag(tag));
         }
         createdAt = source.getCreatedAt();
+        facebook = source.getSocialMedia().facebook;
+        twitter = source.getSocialMedia().twitter;
+        instagram = source.getSocialMedia().instagram;
     }
 
     /**
@@ -84,6 +94,8 @@ public class XmlAdaptedPerson {
         final Set<Tag> tags = new HashSet<>(personTags);
         final Date createdAt;
         final AccessCount accessCount = new AccessCount(this.accessCount);
+        final SocialMedia socialMedia = new SocialMedia(
+                facebook == null ? "" : facebook, twitter == null ? "" : twitter, instagram == null ? "" : instagram);
 
         if (this.createdAt == null) {
             // In the event that there is no createdAt attribute for that person
@@ -92,6 +104,8 @@ public class XmlAdaptedPerson {
             createdAt = new Date(this.createdAt.getTime());
         }
 
-        return new Person(name, phone, email, address, remark, tags, createdAt, accessCount);
+
+        return new Person(name, phone, email, address, remark, tags, createdAt, socialMedia, accessCount);
+
     }
 }

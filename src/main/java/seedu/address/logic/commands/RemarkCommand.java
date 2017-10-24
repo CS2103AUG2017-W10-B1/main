@@ -61,8 +61,8 @@ public class RemarkCommand extends UndoableCommand {
         ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
         AccessCount accessCount = new AccessCount((personToEdit.getAccessCount().numAccess() + 1));
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags(), personToEdit.getCreatedAt(), accessCount);
-
+                personToEdit.getAddress(), remark, personToEdit.getTags(), personToEdit.getCreatedAt(),
+                        personToEdit.getSocialMedia(), accessCount);
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {

@@ -74,7 +74,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
-            assert(false);
+            throw new AssertionError("The target person should not be duplicated");
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
@@ -98,7 +98,8 @@ public class AddRemoveTagsCommand extends UndoableCommand {
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), newTags,
-                personToEdit.getCreatedAt(), accessCount);
+                personToEdit.getCreatedAt(), personToEdit.getSocialMedia(), accessCount);
+
     }
 
     /**
@@ -115,7 +116,8 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         AccessCount accessCount = new AccessCount((personToEdit.getAccessCount().numAccess() + 1));
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt(), accessCount);
+                personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt(),
+                        personToEdit.getSocialMedia(), accessCount);
     }
 
     @Override
