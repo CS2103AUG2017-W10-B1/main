@@ -58,7 +58,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             AccessCount accessCount = new AccessCount(0);
             SocialMedia socialMedia = ParserUtil.parseSocialMedia(argMultimap.getValue(PREFIX_FACEBOOK),
                     argMultimap.getValue(PREFIX_TWITTER), argMultimap.getValue(PREFIX_INSTAGRAM));
-            ReadOnlyPerson person = new Person(name, phone, email, address, remark, tagList, createdAt, socialMedia, accessCount);
+            ReadOnlyPerson person = new Person(name, phone, email,
+                    address, remark, tagList, createdAt, socialMedia, accessCount);
             return new AddCommand(person);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
