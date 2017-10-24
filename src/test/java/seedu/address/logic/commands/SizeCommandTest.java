@@ -46,7 +46,7 @@ public class SizeCommandTest {
     public void execute_increaseSize() {
         SizeCommand sizeCommand = prepareCommand(3);
         CommandResult commandResult = sizeCommand.execute();
-        assertEquals(String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "increment", 3),
+        assertEquals(String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "increased", 3),
                 commandResult.feedbackToUser);
 
         FontSizeChangeRequestEvent lastEvent =
@@ -59,7 +59,7 @@ public class SizeCommandTest {
     public void execute_decreaseSize() {
         SizeCommand sizeCommand = prepareCommand(-3);
         CommandResult commandResult = sizeCommand.execute();
-        assertEquals(String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "decrement", 3),
+        assertEquals(String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "decreased", 3),
                      commandResult.feedbackToUser);
 
         FontSizeChangeRequestEvent lastEvent =
@@ -72,7 +72,7 @@ public class SizeCommandTest {
     public void equals() {
         SizeCommand sizeResetCommand = new SizeCommand();
         SizeCommand sizeIncrementCommand = new SizeCommand(1);
-        SizeCommand sizeDecrementCommand = new SizeCommand(1);
+        SizeCommand sizeDecrementCommand = new SizeCommand(-1);
 
         // same object -> returns true
         assertTrue(sizeResetCommand.equals(sizeResetCommand));

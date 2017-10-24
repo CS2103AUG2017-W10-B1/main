@@ -50,6 +50,7 @@ public class SizeCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SizeCommand // instanceof handles nulls
-                && this.sizeChange == ((SizeCommand) other).sizeChange); // state check
+                && this.sizeChange == ((SizeCommand) other).sizeChange
+                && this.isReset == ((SizeCommand) other).isReset); // state check
     }
 }
