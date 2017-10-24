@@ -424,6 +424,9 @@ The column titled "New: " at the bottom of the screen contains a numerical value
 representing the total number of newly added persons in the last person listing.
 A newly added person is defined as a person that was added in the current month.
 
+=== Viewing access counts (Since v1.3)
+
+At the left side of the screen where the addressbook entries are displayed, we can see an "Accesses: #number" row, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag functions will increase this counter. 
 
 === Saving the data
 
