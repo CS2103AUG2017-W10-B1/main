@@ -1,12 +1,5 @@
 package seedu.address.ui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
-import javafx.scene.layout.Region;
-import seedu.address.model.person.ReadOnlyPerson;
-
 import java.time.Clock;
 import java.time.Year;
 import java.time.ZoneId;
@@ -16,6 +9,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.Region;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Statistics Panel of the App.
@@ -38,15 +38,18 @@ public class StatisticsPanel extends UiPart<Region> {
         pieChart.setData(tabulateAddedByYear(list));
     }
 
+    /**
+     * Formats the data into PieChart.Data for display
+     */
     private ObservableList<PieChart.Data> tabulateAddedByYear(ObservableList<ReadOnlyPerson> list) {
 
         ArrayList<PieChart.Data> data = new ArrayList<>();
 
         ArrayList<Integer> yearData = collectYear(list);
-        for(int y = 0; y < yearData.size(); y++) {
+        for (int y = 0; y < yearData.size(); y++) {
             if (yearData.get(y) > 0) {
-                String yearLabel = Integer.toString(y + PERSON_ADDED_EARLIEST_YEAR) +
-                        " - " + yearData.get(y);
+                String yearLabel = Integer.toString(y + PERSON_ADDED_EARLIEST_YEAR)
+                        + " - " + yearData.get(y);
                 data.add(new PieChart.Data(yearLabel, yearData.get(y)));
             }
         }
@@ -54,6 +57,9 @@ public class StatisticsPanel extends UiPart<Region> {
         return FXCollections.observableArrayList(data);
     }
 
+    /**
+     * Collects the observablelist by year
+     */
     private ArrayList<Integer> collectYear(ObservableList<ReadOnlyPerson> list) {
 
         int yearsToCollect = getCurrentYear() - PERSON_ADDED_EARLIEST_YEAR + 1;
@@ -76,7 +82,9 @@ public class StatisticsPanel extends UiPart<Region> {
 
         return count;
     }
-
+    /**
+     * Fetches the current year
+     */
     private Integer getCurrentYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
