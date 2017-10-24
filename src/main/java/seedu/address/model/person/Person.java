@@ -26,12 +26,14 @@ public class Person implements ReadOnlyPerson {
     private ObjectProperty<Remark> remark;
     private ObjectProperty<UniqueTagList> tags;
     private ObjectProperty<Date> createdAt;
+    private ObjectProperty<AccessCount> accessCount;
+    private ObjectProperty<SocialMedia> socialMedia;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Remark remark,
-                  Set<Tag> tags, Date createdAt) {
+                  Set<Tag> tags, Date createdAt, SocialMedia socialMedia, AccessCount accessCount) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = new SimpleObjectProperty<>(name);
         this.phone = new SimpleObjectProperty<>(phone);
@@ -42,14 +44,16 @@ public class Person implements ReadOnlyPerson {
         this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
 
         this.createdAt = new SimpleObjectProperty<>(createdAt);
+        this.accessCount = new SimpleObjectProperty<>(accessCount);
+        this.socialMedia = new SimpleObjectProperty<>(socialMedia);
     }
 
     /**
      * Creates a copy of the given ReadOnlyPerson.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getRemark(), source.getTags(), source.getCreatedAt());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getRemark(),
+                source.getTags(), source.getCreatedAt(), source.getSocialMedia(), source.getAccessCount());
     }
 
     public void setName(Name name) {
@@ -157,6 +161,20 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public ObjectProperty<SocialMedia> socialMediaProperty() {
+        return socialMedia;
+    }
+
+    @Override
+    public SocialMedia getSocialMedia() {
+        return socialMedia.get();
+    }
+
+    public void setSocialMedia(SocialMedia socialMedia) {
+        this.socialMedia.set(requireNonNull(socialMedia));
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyPerson // instanceof handles nulls
@@ -172,6 +190,21 @@ public class Person implements ReadOnlyPerson {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public ObjectProperty<AccessCount> accessCountProperty() {
+        return accessCount;
+    }
+
+    @Override
+    public AccessCount getAccessCount() {
+        return accessCount.get();
+    }
+
+    @Override
+    public void incrementAccess() {
+        accessCount.set(new AccessCount(accessCount.get().numAccess() + 1));
     }
 
 }

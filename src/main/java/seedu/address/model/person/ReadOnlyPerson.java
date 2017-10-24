@@ -27,6 +27,11 @@ public interface ReadOnlyPerson {
     Set<Tag> getTags();
     ObjectProperty<Date> createdAtProperty();
     Date getCreatedAt();
+    ObjectProperty<AccessCount> accessCountProperty();
+    AccessCount getAccessCount();
+    void incrementAccess();
+    ObjectProperty<SocialMedia> socialMediaProperty();
+    SocialMedia getSocialMedia();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -38,7 +43,8 @@ public interface ReadOnlyPerson {
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
                 && other.getAddress().equals(this.getAddress())
-                && other.getRemark().equals(this.getRemark()));
+                && other.getRemark().equals(this.getRemark())
+                && other.getSocialMedia().equals(this.getSocialMedia()));
     }
 
     /**
@@ -53,6 +59,8 @@ public interface ReadOnlyPerson {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" ")
+                .append(getSocialMedia())
                 .append(" Remark: ")
                 .append(getRemark())
                 .append(" Tags: ");
