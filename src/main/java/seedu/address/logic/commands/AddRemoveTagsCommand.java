@@ -117,7 +117,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
 
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt(),
-                        personToEdit.getSocialMedia(), accessCount);
+                personToEdit.getSocialMedia(), accessCount);
     }
 
     @Override

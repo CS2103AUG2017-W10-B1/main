@@ -104,7 +104,6 @@ public class XmlAdaptedPerson {
             createdAt = new Date(this.createdAt.getTime());
         }
 
-
         return new Person(name, phone, email, address, remark, tags, createdAt, socialMedia, accessCount);
 
     }
