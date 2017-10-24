@@ -119,57 +119,6 @@ Lists the 5 most recently accessed entries.
 * `list m/tag tag/work`
 Returns a list of all persons tagged with "work"
 
-==== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear` +
-Alias: `c`
-
-==== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [t/TAG]...`
-Format: `edit INDEX [n/NAME] [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [f/FACEBOOK] [t/TWITTER] [i/INSTAGRAM] [t/TAG]...` +
-Alias: `e`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-* `edit 3 f/becca93` +
-Edits the Facebook username of 3rd person.
-
-==== Add/Remove tag/s to existing contact : `tags` (Since v1.2)
-
-Add one or more tags to an existing person in the address book. +
-Format: `tags TYPE INDEX TAG [TAG]...` +
-Alias: `t`
-
-****
-* The TYPE can be either "add" or "remove".
-* Add tag/s to the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
-* At least 1 tag must be added
-* For adding, the command will ignore tags that already exist in that contact.
-* For removing, the command will ignore tags that do not exist in that contact.
-****
-
-Examples:
-
-* `tags add 1 friends` +
-Add a tag 'friends' to the 1st person.
-* `tags remove 2 classmate CS2103` +
-Remove tags "classmate" and "CS2103" from the 2nd person.
-
 ==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
@@ -211,27 +160,6 @@ Examples:
 * `findtag friends family` +
 Returns all person having tags `friends` or `family`
 
-==== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX` +
-Alias: `d`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
 ==== Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
@@ -253,6 +181,57 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+==== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE]... [e/EMAIL]... [a/ADDRESS]... [f/FACEBOOK] [t/TWITTER] [i/INSTAGRAM] [t/TAG]...` +
+Alias: `e`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 3 f/becca93` +
+Edits the Facebook username of 3rd person.
+
+==== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX` +
+Alias: `d`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear` +
+Alias: `c`
+
 ==== Exiting the program : `exit`
 
 Exits the program. +
@@ -260,6 +239,27 @@ Format: `exit` +
 Alias: `ex`
 
 === Advanced Commands
+
+==== Add/Remove tag/s to existing contact : `tags` (Since v1.2)
+
+Add one or more tags to an existing person in the address book. +
+Format: `tags TYPE INDEX TAG [TAG]...` +
+Alias: `t`
+
+****
+* The TYPE can be either "add" or "remove".
+* Add tag/s to the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* At least 1 tag must be added
+* For adding, the command will ignore tags that already exist in that contact.
+* For removing, the command will ignore tags that do not exist in that contact.
+****
+
+Examples:
+
+* `tags add 1 friends` +
+Add a tag 'friends' to the 1st person.
+* `tags remove 2 classmate CS2103` +
+Remove tags "classmate" and "CS2103" from the 2nd person.
 
 ==== Changing a person's remark : `remark` (Since v1.2)
 
@@ -289,7 +289,7 @@ View a list of persons with birthdays in the current month +
 Format: `birthday` +
 Alias: `bd`
 
-==== Access a person's social media : `socialmedia` (Coming v2.0)
+==== Accessing a person's social media : `socialmedia` (Coming v2.0)
 
 Access a person's social media profile on the browser. +
 Format: `socialmedia INDEX TYPE` +
@@ -302,7 +302,7 @@ Alias: `sm`
 * TYPE can be either of the following: 'facebook', 'twitter', 'instagram'
 ****
 
-==== Increase/decrease font size : `size`
+==== Increasing/decreasing font size : `size`
 
 Increases the font size by the number given, in pts. +
 Format: `size [AMOUNT]`
@@ -404,7 +404,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo 2` (reapplies the last 2 commands) +
 // end::undoredo[]
 
-==== Export all entries : `export`
+==== Exporting all entries : `export`
 
 Exports all entries in the address book into the given format and stores it at the given location. (Coming in v2.0) +
 Format: `export FORMAT LOCATION`
