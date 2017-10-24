@@ -240,7 +240,7 @@ Alias: `ex`
 
 === Advanced Commands
 
-==== Add/Remove tag/s to existing contact : `tags` (Since v1.2)
+==== Adding/Removing tag/s to existing contact : `tags` (Since v1.2)
 
 Add one or more tags to an existing person in the address book. +
 Format: `tags TYPE INDEX TAG [TAG]...` +
@@ -284,11 +284,6 @@ Changes the remark of the 1st person in the address book to "Loves beer".
 `remark 2 r/Going overseas` +
 Changes the remark of the 2nd person returned by the `find` command to "Going overseas".
 
-==== Viewing contacts with birthday in current month : `birthday`
-View a list of persons with birthdays in the current month +
-Format: `birthday` +
-Alias: `bd`
-
 ==== Accessing a person's social media : `socialmedia` (Coming v2.0)
 
 Access a person's social media profile on the browser. +
@@ -301,6 +296,11 @@ Alias: `sm`
 * The index *must be a positive integer* `1, 2, 3, ...`
 * TYPE can be either of the following: 'facebook', 'twitter', 'instagram'
 ****
+
+==== Viewing contacts with birthday in current month : `birthday`
+View a list of persons with birthdays in the current month +
+Format: `birthday` +
+Alias: `bd`
 
 ==== Increasing/decreasing font size : `size`
 
