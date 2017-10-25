@@ -1,4 +1,4 @@
-= PIMP - User Guide
+= Personal Information Manager Program (PIMP) - User Guide
 :toc:
 :toclevels: 4
 :toc-title:
@@ -17,7 +17,7 @@ By: `Team PIMP (W10-B1)`      Since: `Sep 2016`      Licence: `MIT`
 
 == Introduction
 
-PIMP (Personal Information Manager Program) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands.
+Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands.
 
 PIMP v1.5 is available on any platform running Java 8.
 
@@ -63,12 +63,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * The alias stated below refers to the command shortcut you can use instead of typing the full command. e.g. `l` instead of `list`
 
-PIMP has numerous commands. The following section describes the basic commands. 
+PIMP has numerous commands. The following section describes the basic commands.
 ====
 
 === Basic Commands
 
-These are the most basic commands required for the usage of PIMP. 
+These are the most basic commands required for the usage of PIMP.
 
 ==== Viewing help : `help`
 
@@ -244,7 +244,7 @@ Alias: `ex`
 
 === Advanced Commands
 
-These are the more advanced commands. Functionality here is useful for the user, but not essential. 
+These are the more advanced commands. Functionality here is useful for the user, but is not essential to the use.
 
 ==== Adding/Removing tag/s to existing contact : `tags` (Since v1.2)
 
