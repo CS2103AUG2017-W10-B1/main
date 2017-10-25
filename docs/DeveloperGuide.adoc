@@ -593,10 +593,10 @@ b. Require developers to download those libraries manually (this creates extra w
 [appendix]
 == User Profile
 
-.  X is a 20 year old socialite and her life revolves around her friends and acquaintances.
-.  Birthdays are highly important to X as her schedule will revolve around the various birthday celebrations of her friends.
-.  X shares a lot of secrets with her friends. She wants to be able to keep records of what she has said to each friend.
-.  X wants to be able to view the public social media information of her contact, especially the updates from her friends who are influencers.
+-  X is a 20 year old socialite and her life revolves around her friends and acquaintances.
+-  Birthdays are highly important to X as her schedule will revolve around the various birthday celebrations of her friends.
+-  X shares a lot of secrets with her friends. She wants to be able to keep records of what she has said to each friend.
+-  X wants to be able to view the public social media information of her contact, especially the updates from her friends who are influencers.
 
 [appendix]
 == User Stories
