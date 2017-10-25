@@ -311,7 +311,7 @@ This command takes no arguments.
 
 === Advanced Commands
 
-These are the more advanced commands. Functionality here is useful for the user, but is not essential to the use.
+These are advanced commands available in PIMP that might be useful for the user.
 
 ==== Adding/Removing tag/s to existing contact : `tags` (Since v1.2)
 
