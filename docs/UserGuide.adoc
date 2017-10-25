@@ -510,9 +510,9 @@ Alias example:
 
 * `r 1`
 
-==== Exporting all entries : `export`
+==== Exporting all entries : `export` (Coming in v2.0)
 
-Exports all entries in the address book into the given format and stores it at the given location. (Coming in v2.0) +
+Exports all entries in the address book into the given format and stores it at the given location. +
 Format: `export FORMAT LOCATION`
 
 ****
