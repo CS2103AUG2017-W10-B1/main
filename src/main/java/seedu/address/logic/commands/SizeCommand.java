@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FontSizeOutOfBoundsException;
 

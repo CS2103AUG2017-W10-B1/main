@@ -51,12 +51,12 @@ public class SizeCommandTest {
 
     @Test
     public void execute_increaseSize() {
-        assertExecutionSuccess(3);
+        assertExecutionSuccess(3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "increased", 3));
     }
 
     @Test
     public void execute_decreaseSize() {
-        assertExecutionSuccess(-3);
+        assertExecutionSuccess(-3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "dncreased", 3));
     }
 
     @Test
@@ -110,12 +110,16 @@ public class SizeCommandTest {
         return sizeCommand;
     }
 
-    private void assertExecutionSuccess(int change) {
+    /**
+     * Executes a {@code SizeCommand} with the given {@code change}, and checks that {@code FontSizeChangeRequestEvent}
+     * is raised with the correct size change.
+     */
+    private void assertExecutionSuccess(int change, String message) {
         SizeCommand sizeCommand = prepareCommand(change);
         try {
             CommandResult commandResult = sizeCommand.execute();
 
-            assertEquals(SizeCommand.MESSAGE_RESET_FONT_SUCCESS, commandResult.feedbackToUser);
+            assertEquals(message, commandResult.feedbackToUser);
 
             FontSizeChangeRequestEvent lastEvent =
                     (FontSizeChangeRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
@@ -125,6 +129,10 @@ public class SizeCommandTest {
         }
     }
 
+    /**
+     * Executes a {@code SizeCommand} with the given {@code change}, and checks that a {@code CommandException}
+     * is thrown.
+     */
     private void assertExecutionFailure(int change) {
         SizeCommand sizeCommand = prepareCommand(change);
         try {
