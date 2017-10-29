@@ -6,10 +6,12 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeBrowserPanelUrlEvent;
-import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 
+/**
+ * Display social media page of the person identified using it's last displayed index from the address book.
+ */
 public class SocialMediaCommand extends Command {
 
     public static final String COMMAND_WORD = "socialmedia";
@@ -53,7 +55,7 @@ public class SocialMediaCommand extends Command {
 
         switch(type) {
         case TYPE_FACEBOOK:
-            if(personToEdit.getSocialMedia().facebook.equals("")) {
+            if (personToEdit.getSocialMedia().facebook.equals("")) {
                 throw new CommandException(MESSAGE_NO_FACEBOOK);
             } else {
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
@@ -61,7 +63,7 @@ public class SocialMediaCommand extends Command {
             }
             break;
         case TYPE_TWITTER:
-            if(personToEdit.getSocialMedia().twitter.equals("")) {
+            if (personToEdit.getSocialMedia().twitter.equals("")) {
                 throw new CommandException(MESSAGE_NO_TWITTER);
             } else {
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
@@ -69,7 +71,7 @@ public class SocialMediaCommand extends Command {
             }
             break;
         case TYPE_INSTAGRAM:
-            if(personToEdit.getSocialMedia().instagram.equals("")) {
+            if (personToEdit.getSocialMedia().instagram.equals("")) {
                 throw new CommandException(MESSAGE_NO_INSTAGRAM);
             } else {
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
@@ -78,7 +80,7 @@ public class SocialMediaCommand extends Command {
             break;
         default:
         }
-        //EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
