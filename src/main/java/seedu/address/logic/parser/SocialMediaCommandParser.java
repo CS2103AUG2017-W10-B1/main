@@ -30,6 +30,10 @@ public class SocialMediaCommandParser implements Parser<SocialMediaCommand> {
 
         List<String> argsList = Arrays.asList(args.substring(ARGUMENT_START_INDEX).split(" "));
 
+        if (argsList.size() < INDEX_ARGUMENT_INDEX + 1 || argsList.contains("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SocialMediaCommand.MESSAGE_USAGE));
+        }
+
         String type = argsList.get(TYPE_ARGUMENT_INDEX);
         if (!(type.equals(SocialMediaCommand.TYPE_FACEBOOK)
                 || type.equals(SocialMediaCommand.TYPE_TWITTER)

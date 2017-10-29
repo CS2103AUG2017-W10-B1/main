@@ -34,6 +34,7 @@ public class SocialMediaCommand extends Command {
     public static final String MESSAGE_NO_FACEBOOK = "This person has no facebook.";
     public static final String MESSAGE_NO_TWITTER = "This person has no twitter.";
     public static final String MESSAGE_NO_INSTAGRAM = "This person has no instagram.";
+    public static final String MESSAGE_INVALID_TYPE = "No such social media type.";
 
     private final Index targetIndex;
     private final String type;
@@ -79,8 +80,25 @@ public class SocialMediaCommand extends Command {
             }
             break;
         default:
+            throw new CommandException(MESSAGE_INVALID_TYPE);
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SocialMediaCommand)) {
+            return false;
+        }
+
+        SocialMediaCommand e = (SocialMediaCommand) other;
+        return targetIndex.equals(e.targetIndex) && type.equals(e.type);
     }
 }
