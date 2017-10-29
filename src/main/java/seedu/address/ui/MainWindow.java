@@ -76,9 +76,6 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
-
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
 
@@ -158,10 +155,6 @@ public class MainWindow extends UiPart<Region> {
                     ZonedDateTime ref = Instant.now().atZone(ZoneId.of("UTC"));
                     return Month.from(given) == Month.from(ref) && Year.from(given).equals(Year.from(ref));
                 });
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
-                logic.getFilteredPersonList().size(), newlyAddedInFilteredList.size());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
