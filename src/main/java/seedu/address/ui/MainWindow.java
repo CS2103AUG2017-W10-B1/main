@@ -79,6 +79,9 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    private StatusBarFooter statusBarFooter;
+    private ResultDisplay resultDisplay;
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
 
@@ -147,7 +150,7 @@ public class MainWindow extends UiPart<Region> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        ResultDisplay resultDisplay = new ResultDisplay();
+        resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         ObservableList<ReadOnlyPerson> newlyAddedInFilteredList;
@@ -159,7 +162,7 @@ public class MainWindow extends UiPart<Region> {
                     return Month.from(given) == Month.from(ref) && Year.from(given).equals(Year.from(ref));
                 });
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
+        statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
                 logic.getFilteredPersonList().size(), newlyAddedInFilteredList.size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -272,8 +275,16 @@ public class MainWindow extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.isReset) {
             personListPanel.resetFontSize();
+            statusBarFooter.resetFontSize();
+
+            ResultDisplay.resetFontSize();
+            resultDisplay.refreshFontSizes();
         } else {
             personListPanel.changeFontSize(event.sizeChange);
+            statusBarFooter.changeFontSize(event.sizeChange);
+
+            ResultDisplay.changeFontSize(event.sizeChange);
+            resultDisplay.refreshFontSizes();
         }
     }
 }

@@ -101,6 +101,26 @@ public class StatusBarFooter extends UiPart<Region> {
         this.newPersons.setText(newPersonsString);
     }
 
+    /**
+     * Resets the font sizes of this class.
+     */
+    public void resetFontSize() {
+        // syncStatus.setStyle("-fx-font-size: 12pt");
+        // saveLocationStatus.setStyle("-fx-font-size: 12pt");
+        // totalPersons.setStyle("-fx-font-size: 12pt");
+        // newPersons.setStyle("-fx-font-size: 12pt");
+    }
+
+    /**
+     * Changes the font sizes of this class by {@code change}.
+     */
+    public void changeFontSize(int change) {
+        // syncStatus.setStyle("-fx-font-size: 20pt");
+        // saveLocationStatus.setStyle("-fx-font-size: 20pt");
+        // totalPersons.setStyle("-fx-font-size: 20pt");
+        // newPersons.setStyle("-fx-font-size: 20pt");
+    }
+
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         long now = clock.millis();
