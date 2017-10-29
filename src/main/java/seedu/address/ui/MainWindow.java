@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -45,6 +46,9 @@ public class MainWindow extends UiPart<Region> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
+
+    private static final int DEFAULT_MENU_BAR_FONT_SIZE = 11;
+    private int fontSizeChange = 0;
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -79,8 +83,8 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    private StatusBarFooter statusBarFooter;
-    private ResultDisplay resultDisplay;
+    @FXML
+    private MenuBar menuBar;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -150,7 +154,7 @@ public class MainWindow extends UiPart<Region> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
+        ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         ObservableList<ReadOnlyPerson> newlyAddedInFilteredList;
@@ -162,7 +166,7 @@ public class MainWindow extends UiPart<Region> {
                     return Month.from(given) == Month.from(ref) && Year.from(given).equals(Year.from(ref));
                 });
 
-        statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
                 logic.getFilteredPersonList().size(), newlyAddedInFilteredList.size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -274,17 +278,10 @@ public class MainWindow extends UiPart<Region> {
     private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.isReset) {
-            personListPanel.resetFontSize();
-            statusBarFooter.resetFontSize();
-
-            ResultDisplay.resetFontSize();
-            resultDisplay.refreshFontSizes();
+            fontSizeChange = 0;
         } else {
-            personListPanel.changeFontSize(event.sizeChange);
-            statusBarFooter.changeFontSize(event.sizeChange);
-
-            ResultDisplay.changeFontSize(event.sizeChange);
-            resultDisplay.refreshFontSizes();
+            fontSizeChange += event.sizeChange;
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,7 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
+
+import java.util.logging.Logger;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -19,7 +24,12 @@ public class PersonCard extends UiPart<Region> {
     private static final int DEFAULT_TAG_FONT_SIZE = 11;
     private static final int DEFAULT_SMALL_FONT_SIZE = 13;
     private static final int DEFAULT_BIG_FONT_SIZE = 16;
-    private static int fontSizeChange = 0;
+
+    public final ReadOnlyPerson person;
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
+    private int fontSizeChange = 0;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -28,9 +38,6 @@ public class PersonCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final ReadOnlyPerson person;
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -58,6 +65,7 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         initTags(person);
         bindListeners(person);
+        registerAsAnEventHandler(this);
         refreshFontSizes();
     }
 
@@ -101,28 +109,21 @@ public class PersonCard extends UiPart<Region> {
                 && person.equals(card.person);
     }
 
-    /**
-     * Changes the font size of all text inside this class by the amount of {@code change}.
-     * Note that existing cards will not have its font size changed. Call {@code refreshFontSizes}
-     * on existing cards to update their fonts.
-     */
-    public static void changeFontSize(int change) {
-        fontSizeChange += change;
-    }
-
-    /**
-     * Resets the font size of all text inside this class into its defaults.
-     * Note that existing cards will not have its font size changed. Call {@code refreshFontSizes}
-     * on existing cards to update their fonts.
-     */
-    public static void resetFontSize() {
-        fontSizeChange = 0;
+    @Subscribe
+    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.isReset) {
+            fontSizeChange = 0;
+        } else {
+            fontSizeChange += event.sizeChange;
+        }
+        refreshFontSizes();
     }
 
     /**
      * Updates the font size of this card.
      */
-    public void refreshFontSizes() {
+    private void refreshFontSizes() {
         name.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
         id.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
 

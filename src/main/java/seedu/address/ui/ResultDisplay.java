@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 
 /**
@@ -22,7 +23,7 @@ public class ResultDisplay extends UiPart<Region> {
     private static final String FXML = "ResultDisplay.fxml";
 
     private static final int DEFAULT_FONT_SIZE = 17;
-    private static int fontSizeChange = 0;
+    private int fontSizeChange = 0;
 
     private final StringProperty displayed = new SimpleStringProperty("");
 
@@ -41,28 +42,21 @@ public class ResultDisplay extends UiPart<Region> {
         Platform.runLater(() -> displayed.setValue(event.message));
     }
 
-    /**
-     * Changes the font size of all text inside this class by the amount of {@code change}.
-     * Note that existing cards will not have its font size changed. Call {@code refreshFontSizes}
-     * on existing cards to update their fonts.
-     */
-    public static void changeFontSize(int change) {
-        fontSizeChange = change;
+    @Subscribe
+    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.isReset) {
+            fontSizeChange = 0;
+        } else {
+            fontSizeChange += event.sizeChange;
+        }
+        refreshFontSizes();
     }
 
     /**
-     * Resets the font size of all text inside this class into its defaults.
-     * Note that existing cards will not have its font size changed. Call {@code refreshFontSizes}
-     * on existing cards to update their fonts.
+     * Updates the font sizes of all components of this component with the {@code fontSizeChange} given.
      */
-    public static void resetFontSize() {
-        fontSizeChange = 0;
-    }
-
-    /**
-     * Updates the font size of this card.
-     */
-    public void refreshFontSizes() {
+    private void refreshFontSizes() {
         resultDisplay.setStyle("-fx-font-size: " + (DEFAULT_FONT_SIZE + fontSizeChange));
     }
 }
