@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -23,8 +24,13 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static final int FONT_SIZE_LOWER_BOUND = -5;
+    private static final int FONT_SIZE_UPPER_BOUND = 5;
+
     private final AddressBook addressBook;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
+
+    private int fontSizeChange = 0;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -106,6 +112,31 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void resetFontSize() {
+        fontSizeChange = 0;
+        indicateFontSizeChanged();
+    }
+
+    @Override
+    public void updateFontSize(int change) throws FontSizeOutOfBoundsException {
+        int newFontSizeChange = fontSizeChange + change;
+
+        if (newFontSizeChange < FONT_SIZE_LOWER_BOUND || newFontSizeChange > FONT_SIZE_UPPER_BOUND) {
+            throw new FontSizeOutOfBoundsException();
+        }
+
+        fontSizeChange = newFontSizeChange;
+        indicateFontSizeChanged();
+    }
+
+    /**
+     * Raises an event to indicate the font size has changed.
+     */
+    private void indicateFontSizeChanged() {
+        raise(new FontSizeChangeRequestEvent(fontSizeChange));
     }
 
     @Override

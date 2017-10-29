@@ -48,4 +48,13 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
+    /**
+     * Resets the font size of the model to its defaults.
+     */
+    void resetFontSize();
+
+    /**
+     * Resets the font size of the model to its defaults.
+     */
+    void updateFontSize(int change) throws FontSizeOutOfBoundsException;
 }

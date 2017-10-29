@@ -47,9 +47,6 @@ public class MainWindow extends UiPart<Region> {
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
 
-    private static final int DEFAULT_MENU_BAR_FONT_SIZE = 11;
-    private int fontSizeChange = 0;
-
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private Stage primaryStage;
@@ -273,15 +270,4 @@ public class MainWindow extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToStatisticsPanel();
     }
-
-    @Subscribe
-    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.isReset) {
-            fontSizeChange = 0;
-        } else {
-            fontSizeChange += event.sizeChange;
-        }
-    }
-
 }

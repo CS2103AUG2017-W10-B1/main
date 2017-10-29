@@ -45,11 +45,7 @@ public class ResultDisplay extends UiPart<Region> {
     @Subscribe
     private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.isReset) {
-            fontSizeChange = 0;
-        } else {
-            fontSizeChange += event.sizeChange;
-        }
+        fontSizeChange = event.sizeChange;
         refreshFontSizes();
     }
 
