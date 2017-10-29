@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -15,6 +16,7 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
+    private static final int DEFAULT_TAG_FONT_SIZE = 11;
     private static final int DEFAULT_SMALL_FONT_SIZE = 13;
     private static final int DEFAULT_BIG_FONT_SIZE = 16;
     private static int fontSizeChange = 0;
@@ -123,9 +125,13 @@ public class PersonCard extends UiPart<Region> {
     public void refreshFontSizes() {
         name.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
         id.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
-        phone.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
-        address.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
-        email.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
-        remark.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+
+        for (Label l : new Label[] { phone, address, email, socialMedia, remark, accesses }) {
+            l.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+        }
+
+        for (Node tag : tags.getChildren()) {
+            tag.setStyle("-fx-font-size: " + (DEFAULT_TAG_FONT_SIZE + fontSizeChange));
+        }
     }
 }
