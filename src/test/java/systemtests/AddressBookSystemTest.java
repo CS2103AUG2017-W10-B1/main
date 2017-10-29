@@ -12,13 +12,11 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
