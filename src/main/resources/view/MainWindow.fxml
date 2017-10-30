@@ -34,19 +34,19 @@
     </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-         
+
               <StackPane fx:id="commandBoxPlaceholder" prefHeight="22.0" prefWidth="22.0" styleClass="pane-with-border">
              <padding>
                <Insets bottom="5" left="10" right="10" top="5" />
              </padding>
            </StackPane>
-         
+
            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120.0" minHeight="120.0" prefHeight="120.0" styleClass="pane-with-border">
              <padding>
                <Insets bottom="5" left="10" right="10" top="5" />
              </padding>
            </StackPane>
-      
+
           <StackPane fx:id="browserOrStatisticsPlaceholder" prefWidth="340">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
