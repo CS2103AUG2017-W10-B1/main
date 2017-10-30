@@ -71,9 +71,15 @@ public class StatisticsPanel extends UiPart<Region> {
     private void tabulateSocialMediaUsage (ObservableList<ReadOnlyPerson> list) {
         for (ReadOnlyPerson aList : list) {
             SocialMedia current = aList.getSocialMedia();
-            if (current.facebook.isEmpty()) this.hasNoFacebook++;
-            if (current.twitter.isEmpty()) this.hasNoTwitter++;
-            if (current.instagram.isEmpty()) this.hasNoInstagram++;
+            if (current.facebook.isEmpty()) {
+                this.hasNoFacebook++;
+            }
+            if (current.twitter.isEmpty()) {
+                this.hasNoTwitter++;
+            }
+            if (current.instagram.isEmpty()) {
+                this.hasNoInstagram++;
+            }
         }
     }
 
