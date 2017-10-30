@@ -472,24 +472,9 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 Since v1.3, users can add social media account details to their contacts. They are mainly Facebook, Twitter, and Instagram.
 Users can use the command `socialmedia TYPE INDEX` to load the contact's social media page to the browser panel.
 
-A new event is created when the browser panel URL needs to be changed. Previously, the URL was completely handled within the BrowserPanel UI and not exposed to the other components.
-With this event, other components will be able to call it and change the url of the browser. In the case of `SocialMediaCommand`, the URL will be changed to Facebook, Twitter, or Instagram according to the TYPE that the user indicated.
-[source, java]
-----
-public class ChangeBrowserPanelUrlEvent extends BaseEvent {
+A new event `ChangeBrowserPanelUrlEvent` is created for the purpose when the browser panel URL needs to be changed. Previously, the URL was completely handled within the BrowserPanel UI and not exposed to the other components.
+With this event, other components will be able to call it and change the url of the browser. In the case of `SocialMediaCommand`, the URL will be changed to Facebook, Twitter, or Instagram according to the TYPE that the user indicated in the command.
 
-    public final String url;
-
-    public ChangeBrowserPanelUrlEvent(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-}
-----
 
 Subsequently, the `BrowserPanel` UI will handle the event and change the URL accordingly.
 
@@ -500,6 +485,12 @@ Subsequently, the `BrowserPanel` UI will handle the event and change the URL acc
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPage(event.url);
     }
+----
+
+To call the event, simply invoke the `EventsCenter` and post that event like such:
+[source, java]
+----
+EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(url));
 ----
 
 ==== Design considerations
