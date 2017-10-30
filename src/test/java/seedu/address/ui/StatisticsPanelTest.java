@@ -1,34 +1,16 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.*;
-
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.TypicalPersons;
 
 public class StatisticsPanelTest extends GuiUnitTest {
     private Model model;
@@ -39,7 +21,6 @@ public class StatisticsPanelTest extends GuiUnitTest {
         this.model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-
         StatisticsPanel statisticsPanel = new StatisticsPanel(expectedAddressBook.getPersonList());
 
         assertEquals(statisticsPanel.getTotalNumberOfPeople().intValue(), 9);
@@ -52,7 +33,7 @@ public class StatisticsPanelTest extends GuiUnitTest {
 
         StatisticsPanel statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
 
-        assertEquals(logic.getAllPersonList().size(), 0);
+        assertEquals(statisticsPanel.getTotalNumberOfPeople().intValue(), 0);
     }
 
     @Test
