@@ -79,6 +79,7 @@ public class PersonListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    //@@author Zzmobie
     @Subscribe
     private void handleAccessCountDisplayToggleEvent(AccessCountDisplayToggleEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event) + event.isDisplayed());
@@ -90,6 +91,7 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.refresh();
     }
 
+    //@@author
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */

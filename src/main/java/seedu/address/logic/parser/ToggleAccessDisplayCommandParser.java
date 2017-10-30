@@ -5,8 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.logic.commands.ToggleAccessDisplayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author Zzmobie
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new ToggleAccessDisplayCommand object
  */
 public class ToggleAccessDisplayCommandParser implements Parser<ToggleAccessDisplayCommand> {
 
