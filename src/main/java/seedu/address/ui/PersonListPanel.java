@@ -102,7 +102,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     @Subscribe
     private void handleAccessCountDisplayToggleEvent(AccessCountDisplayToggleEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event) + event.isDisplayed());
         if (event.isDisplayed()) {
             personListView.setItems(mappedListWithAccessCount);
         }

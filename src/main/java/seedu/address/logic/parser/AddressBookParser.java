@@ -113,7 +113,7 @@ public class AddressBookParser {
 
         case ToggleAccessDisplayCommand.COMMAND_WORD:
         case ToggleAccessDisplayCommand.COMMAND_ALIAS:
-                return new ToggleAccessDisplayCommand();
+            return new ToggleAccessDisplayCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

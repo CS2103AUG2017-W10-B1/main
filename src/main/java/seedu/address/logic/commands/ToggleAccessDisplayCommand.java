@@ -15,9 +15,15 @@ public class ToggleAccessDisplayCommand extends Command {
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Display toggled";
 
+    boolean isDisplayed;
+
+    public ToggleAccessDisplayCommand (boolean isDisplayed) {
+        this.isDisplayed = isDisplayed;
+    }
+
     @Override
     public CommandResult execute() throws CommandException {
-        EventsCenter.getInstance().post(new AccessCountDisplayToggleEvent(false));
+        EventsCenter.getInstance().post(new AccessCountDisplayToggleEvent(isDisplayed));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
