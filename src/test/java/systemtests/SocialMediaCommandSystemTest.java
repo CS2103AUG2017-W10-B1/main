@@ -6,8 +6,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SocialMediaCommand;
