@@ -21,7 +21,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String FXML_WITHOUT_ACCESSES = "PersonListCardAccess.fxml";
+    private static final String FXML_WITHOUT_ACCESSES = "PersonListCardNoAccess.fxml";
 
     private static final int DEFAULT_TAG_FONT_SIZE = 11;
     private static final int DEFAULT_SMALL_FONT_SIZE = 13;
