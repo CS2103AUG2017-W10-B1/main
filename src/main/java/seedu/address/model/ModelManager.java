@@ -24,9 +24,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static final int FONT_SIZE_LOWER_BOUND = -5;
-    private static final int FONT_SIZE_UPPER_BOUND = 5;
-
     private final AddressBook addressBook;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
 
@@ -121,15 +118,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFontSize(int change) throws FontSizeOutOfBoundsException {
+    public int updateFontSize(int change) throws FontSizeOutOfBoundsException {
         int newFontSizeChange = fontSizeChange + change;
 
         if (newFontSizeChange < FONT_SIZE_LOWER_BOUND || newFontSizeChange > FONT_SIZE_UPPER_BOUND) {
-            throw new FontSizeOutOfBoundsException();
+            throw new FontSizeOutOfBoundsException(fontSizeChange, newFontSizeChange);
         }
 
         fontSizeChange = newFontSizeChange;
         indicateFontSizeChanged();
+
+        return fontSizeChange;
     }
 
     /**

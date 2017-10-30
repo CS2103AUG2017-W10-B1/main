@@ -139,7 +139,7 @@ public class SizeCommandTest {
             sizeCommand.execute();
             fail("CommandException should be thrown.");
         } catch (CommandException e) {
-            assertEquals(SizeCommand.MESSAGE_FAILURE, e.getMessage());
+            assertEquals(String.format(SizeCommand.MESSAGE_FAILURE, 0, change), e.getMessage());
             assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
         }
     }
