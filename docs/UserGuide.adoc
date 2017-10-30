@@ -419,6 +419,17 @@ Decreases the font size by 3 pts.
 * `size` +
 Resets the font size back to the default.
 
+=== Toggling the display of the access counts : `accessdisplay`
+Toggles the display option for the access count numbers. +
+Format: `accessdisplay TYPE` +
+Alias: `ad`
+TYPE can be either 'on' or 'off'
+
+Examples:
+
+* `accessdisplay off`
+The description cards on the left plane no longer display access counts.
+
 ==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -542,7 +553,7 @@ A newly added person is defined as a person that was added in the current month.
 
 ==== Viewing access counts (Since v1.3)
 
-At the left side of the screen where the addressbook entries are displayed, we can see an "Accesses: #number" row, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag functions will increase this counter.
+At the left side of the screen where the addressbook entries are displayed, we can see an "Accesses: #number" row, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag functions will increase this counter. This can be toggled on and off using the `accessdisplay` command.
 
 ==== Saving the data
 
@@ -585,6 +596,7 @@ e.g.`remark 4 r/new remark`
 e.g. `socialmedia 1 facebook`
 * *Birthday* : `birthday`
 * *Font size* : `size AMOUNT` +
+* *Access display* : `accessdisplay TYPE` +
 e.g. `size 3`
 * *History* : `history`
 * *Undo* : `undo [AMOUNT]`
