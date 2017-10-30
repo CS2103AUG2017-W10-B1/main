@@ -16,10 +16,14 @@ public class ToggleAccessDisplayCommand extends Command {
             + "Example: " + COMMAND_WORD + " on";
     public static final String MESSAGE_SUCCESS = "Display toggled ";
 
-    boolean isDisplayed;
+    private boolean isDisplayed;
 
     public ToggleAccessDisplayCommand (boolean isDisplayed) {
         this.isDisplayed = isDisplayed;
+    }
+
+    public boolean isDisplayed() {
+        return isDisplayed;
     }
 
     @Override
