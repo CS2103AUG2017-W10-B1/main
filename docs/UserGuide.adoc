@@ -419,7 +419,7 @@ Decreases the font size by 3 pts.
 * `size` +
 Resets the font size back to the default.
 
-=== Toggling the display of the access counts : `accessdisplay`
+=== Toggling the display of the access counts : `accessdisplay` (Since v1.4)
 Toggles the display option for the access count numbers. +
 Format: `accessdisplay TYPE` +
 Alias: `ad`
