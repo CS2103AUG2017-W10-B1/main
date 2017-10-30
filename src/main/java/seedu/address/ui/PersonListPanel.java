@@ -41,10 +41,10 @@ public class PersonListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
         mappedListWithAccessCount = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1,
-                        "PersonListCard.fxml", true));
+                         true));
         mappedListWithoutAccessCount = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1,
-                        "PersonListCardAccess.fxml", false));
+                         false));
         personListView.setItems(mappedListWithAccessCount);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
