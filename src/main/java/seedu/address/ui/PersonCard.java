@@ -51,12 +51,12 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex, String fxmlFileName) {
+    public PersonCard(ReadOnlyPerson person, int displayedIndex, String fxmlFileName, boolean isAccessDisplayed) {
         super(fxmlFileName);
         this.person = person;
         id.setText(displayedIndex + ". ");
         initTags(person);
-        bindListeners(person);
+        bindListeners(person, isAccessDisplayed);
         refreshFontSizes();
     }
 
@@ -64,14 +64,16 @@ public class PersonCard extends UiPart<Region> {
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
      */
-    private void bindListeners(ReadOnlyPerson person) {
+    private void bindListeners(ReadOnlyPerson person, boolean isAccessDisplayed) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
         socialMedia.textProperty().bind(Bindings.convert(person.socialMediaProperty()));
         remark.textProperty().bind(Bindings.convert(person.remarkProperty()));
-        accesses.textProperty().bind(Bindings.convert(person.accessCountProperty()));
+        if (isAccessDisplayed) {
+            accesses.textProperty().bind(Bindings.convert(person.accessCountProperty()));
+        }
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
             person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
