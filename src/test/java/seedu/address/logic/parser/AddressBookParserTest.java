@@ -36,6 +36,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SizeCommand;
+import seedu.address.logic.commands.SocialMediaCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -303,6 +305,20 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_sizeCommandWord_returnsSizeCommand() throws Exception {
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_WORD + " 1") instanceof SizeCommand);
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_WORD + " -1") instanceof SizeCommand);
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_WORD) instanceof SizeCommand);
+    }
+
+    @Test
+    public void parseCommand_sizeCommandAlias_returnsSizeCommand() throws Exception {
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_ALIAS + " 1") instanceof SizeCommand);
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_ALIAS + " -1") instanceof SizeCommand);
+        assertTrue(parser.parseCommand(SizeCommand.COMMAND_ALIAS) instanceof SizeCommand);
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -314,5 +330,21 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_socialmedia() throws Exception {
+        SocialMediaCommand command = (SocialMediaCommand) parser.parseCommand(
+                SocialMediaCommand.COMMAND_WORD + " "
+                        + SocialMediaCommand.TYPE_FACEBOOK + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SocialMediaCommand(INDEX_FIRST_PERSON, SocialMediaCommand.TYPE_FACEBOOK), command);
+    }
+
+    @Test
+    public void parseCommand_socialmedia_alias() throws Exception {
+        SocialMediaCommand command = (SocialMediaCommand) parser.parseCommand(
+                SocialMediaCommand.COMMAND_ALIAS + " "
+                        + SocialMediaCommand.TYPE_FACEBOOK + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new SocialMediaCommand(INDEX_FIRST_PERSON, SocialMediaCommand.TYPE_FACEBOOK), command);
     }
 }

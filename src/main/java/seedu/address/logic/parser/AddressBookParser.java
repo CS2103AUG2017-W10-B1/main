@@ -22,6 +22,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SizeCommand;
+import seedu.address.logic.commands.SocialMediaCommand;
+import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -114,6 +117,18 @@ public class AddressBookParser {
         case AddRemoveTagsCommand.COMMAND_WORD:
         case AddRemoveTagsCommand.COMMAND_ALIAS:
             return new AddRemoveTagsCommandParser().parse(arguments);
+
+        case StatisticsCommand.COMMAND_WORD:
+        case StatisticsCommand.COMMAND_ALIAS:
+            return new StatisticsCommand();
+
+        case SizeCommand.COMMAND_WORD:
+        case SizeCommand.COMMAND_ALIAS:
+            return new SizeCommandParser().parse(arguments);
+
+        case SocialMediaCommand.COMMAND_WORD:
+        case SocialMediaCommand.COMMAND_ALIAS:
+            return new SocialMediaCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
