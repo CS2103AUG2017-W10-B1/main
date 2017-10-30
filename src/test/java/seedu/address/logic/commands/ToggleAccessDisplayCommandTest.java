@@ -23,15 +23,15 @@ public class ToggleAccessDisplayCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        assertCommandSuccess(prepareCommand(model,true), model,
+        assertCommandSuccess(prepareCommand(model, true), model,
                 ToggleAccessDisplayCommand.MESSAGE_SUCCESS + "on. ", model);
     }
 
     //@@author Zzmobie
     @Test
-    public void execute_toggle_off_nonEmptyAddressBook_success() {
+    public void execute_toggleOffNonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        assertCommandSuccess(prepareCommand(model,false), model,
+        assertCommandSuccess(prepareCommand(model, false), model,
                 ToggleAccessDisplayCommand.MESSAGE_SUCCESS + "off. ", model);
     }
     //@@author
