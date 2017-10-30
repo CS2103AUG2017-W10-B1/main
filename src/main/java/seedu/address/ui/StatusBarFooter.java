@@ -1,11 +1,6 @@
 package seedu.address.ui;
 
 import java.time.Clock;
-import java.time.Instant;
-import java.time.Month;
-import java.time.Year;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -13,7 +8,6 @@ import org.controlsfx.control.StatusBar;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -42,20 +36,11 @@ public class StatusBarFooter extends UiPart<Region> {
     private static final String FXML = "StatusBarFooter.fxml";
 
     @FXML
-    private StatusBar syncStatus;
-    @FXML
-    private StatusBar saveLocationStatus;
-    @FXML
     private StatusBar totalPersons;
-    @FXML
-    private StatusBar newPersons;
 
     public StatusBarFooter(String saveLocation, int totalPersons, int newPersons) {
         super(FXML);
-        setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation("./" + saveLocation);
         setTotalPersons(totalPersons);
-        setNewPersons(newPersons);
         registerAsAnEventHandler(this);
     }
 
@@ -73,32 +58,8 @@ public class StatusBarFooter extends UiPart<Region> {
         return clock;
     }
 
-    private void setSaveLocation(String location) {
-        Platform.runLater(() -> this.saveLocationStatus.setText(location));
-    }
-
-    private void setSyncStatus(String status) {
-        Platform.runLater(() -> this.syncStatus.setText(status));
-    }
-
     private void setTotalPersons(int totalPersons) {
-        String totalPersonsString;
-        if (totalPersons <= 1) {
-            totalPersonsString = "Total: " + totalPersons + " person";
-        } else {
-            totalPersonsString = "Total: " + totalPersons + " persons";
-        }
-        this.totalPersons.setText(totalPersonsString);
-    }
-
-    private void setNewPersons(int newPersons) {
-        String newPersonsString;
-        if (newPersons <= 0) {
-            newPersonsString = "New: " + newPersons + " person";
-        } else {
-            newPersonsString = "New: " + newPersons + " persons";
-        }
-        this.newPersons.setText(newPersonsString);
+        this.totalPersons.setText(Integer.toString(totalPersons));
     }
 
     @Subscribe
@@ -106,13 +67,6 @@ public class StatusBarFooter extends UiPart<Region> {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
         setTotalPersons(abce.data.getPersonList().size());
-        setNewPersons(abce.data.getPersonList().filtered(t-> {
-            Date givenDate = t.getCreatedAt();
-            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
-            ZonedDateTime ref = Instant.now().atZone(ZoneId.of("UTC"));
-            return Month.from(given) == Month.from(ref) && Year.from(given).equals(Year.from(ref));
-        }).size());
     }
 }
