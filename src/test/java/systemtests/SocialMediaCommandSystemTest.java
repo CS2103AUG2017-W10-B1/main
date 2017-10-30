@@ -87,7 +87,6 @@ public class SocialMediaCommandSystemTest extends AddressBookSystemTest {
             throw new AssertionError();
         }
 
-        assertUrlChanged(url);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
     }

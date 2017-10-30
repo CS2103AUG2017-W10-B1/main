@@ -207,23 +207,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to specified {@code url}.
-     * @see BrowserPanelHandle#isUrlChanged()
-     */
-    protected void assertUrlChanged(String url) {
-        assertEquals(url, getBrowserPanel().getLoadedUrl().toString());
-        assertTrue(getBrowserPanel().isUrlChanged());
-    }
-
-    /**
-     * Asserts that the browser's url is unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
-     */
-    protected void assertUrlUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
-    }
-
-    /**
      * Asserts that the command box's shows the default style.
      */
     protected void assertCommandBoxShowsDefaultStyle() {
