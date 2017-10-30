@@ -51,12 +51,12 @@ public class SizeCommandTest {
 
     @Test
     public void execute_increaseSize() {
-        assertExecutionSuccess(3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "increased", 3));
+        assertExecutionSuccess(3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "increased", 3, 3));
     }
 
     @Test
     public void execute_decreaseSize() {
-        assertExecutionSuccess(-3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "decreased", 3));
+        assertExecutionSuccess(-3, String.format(SizeCommand.MESSAGE_CHANGE_FONT_SUCCESS, "decreased", 3, -3));
     }
 
     @Test

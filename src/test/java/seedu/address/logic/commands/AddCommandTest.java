@@ -147,8 +147,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFontSize(int change) throws FontSizeOutOfBoundsException {
+        public int updateFontSize(int change) throws FontSizeOutOfBoundsException {
             fail("This method should not be called.");
+            return 0;
         }
     }
 
