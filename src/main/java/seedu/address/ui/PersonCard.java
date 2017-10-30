@@ -14,6 +14,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML_WITH_ACCESSES = "PersonListCardAccess.fxml";
 
     private static final int DEFAULT_SMALL_FONT_SIZE = 13;
     private static final int DEFAULT_BIG_FONT_SIZE = 16;
@@ -50,8 +51,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
-        super(FXML);
+    public PersonCard(ReadOnlyPerson person, int displayedIndex, String fxmlFileName) {
+        super(fxmlFileName);
         this.person = person;
         id.setText(displayedIndex + ". ");
         initTags(person);
@@ -128,4 +129,6 @@ public class PersonCard extends UiPart<Region> {
         email.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
         remark.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
     }
+
+
 }

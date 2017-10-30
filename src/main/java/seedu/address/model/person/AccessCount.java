@@ -12,11 +12,6 @@ public class AccessCount {
 
     private int value;
 
-    /**
-     * Validates given address.
-     *
-     * @throws IllegalValueException if given address string is invalid.
-     */
     public AccessCount(int accessCount) {
         this.value = accessCount;
     }
