@@ -40,10 +40,10 @@ public class ToggleAccessDisplayCommandParser implements Parser<ToggleAccessDisp
      * @throws ParseException if the user input does not conform the expected format
      */
     public ToggleAccessDisplayCommand parse(String args) throws ParseException {
-        if (args.trim().equalsIgnoreCase("yes")) {
+        if (args.trim().equalsIgnoreCase("on")) {
             return new ToggleAccessDisplayCommand(true);
         }
-        else if (args.trim().equalsIgnoreCase("no")) {
+        else if (args.trim().equalsIgnoreCase("off")) {
             return new ToggleAccessDisplayCommand(false);
         }
         else {

@@ -11,9 +11,10 @@ public class ToggleAccessDisplayCommand extends Command {
     public static final String COMMAND_WORD = "accessdisplay";
     public static final String COMMAND_ALIAS = "ad";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Toggles the display of the access count.\n"
-            + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Display toggled";
+            + ": Toggles the display of the access count. "
+            + "Parameters: TYPE (either \"on\" or \"off\")\n"
+            + "Example: " + COMMAND_WORD + " on";
+    public static final String MESSAGE_SUCCESS = "Display toggled ";
 
     boolean isDisplayed;
 
@@ -24,6 +25,6 @@ public class ToggleAccessDisplayCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         EventsCenter.getInstance().post(new AccessCountDisplayToggleEvent(isDisplayed));
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS + (isDisplayed ? "on. " : "off. "));
     }
 }
