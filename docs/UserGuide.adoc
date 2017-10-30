@@ -596,7 +596,7 @@ e.g.`remark 4 r/new remark`
 e.g. `socialmedia 1 facebook`
 * *Birthday* : `birthday`
 * *Font size* : `size AMOUNT` +
-* *Access display* : `accessdisplay TYPE` +
+* *Toggle access display* : `accessdisplay TYPE` +
 e.g. `size 3`
 * *History* : `history`
 * *Undo* : `undo [AMOUNT]`
