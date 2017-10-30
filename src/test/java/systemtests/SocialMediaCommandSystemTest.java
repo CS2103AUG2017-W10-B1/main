@@ -6,12 +6,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SocialMediaCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.SocialMedia;
 
 public class SocialMediaCommandSystemTest extends AddressBookSystemTest {
     @Test
@@ -72,18 +73,20 @@ public class SocialMediaCommandSystemTest extends AddressBookSystemTest {
 
         String url = "";
         switch (type) {
-            case SocialMediaCommand.TYPE_FACEBOOK:
-                url = SocialMediaCommand.URL_FACEBOOK
-                        + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().facebook;
-                break;
-            case SocialMediaCommand.TYPE_TWITTER:
-                url = SocialMediaCommand.URL_TWITTER
-                        + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().twitter;
-                break;
-            case SocialMediaCommand.TYPE_INSTAGRAM:
-                url = SocialMediaCommand.URL_INSTAGRAM
-                        + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().instagram;
-                break;
+        case SocialMediaCommand.TYPE_FACEBOOK:
+            url = SocialMediaCommand.URL_FACEBOOK
+                    + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().facebook;
+            break;
+        case SocialMediaCommand.TYPE_TWITTER:
+            url = SocialMediaCommand.URL_TWITTER
+                    + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().twitter;
+            break;
+        case SocialMediaCommand.TYPE_INSTAGRAM:
+            url = SocialMediaCommand.URL_INSTAGRAM
+                    + expectedModel.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().instagram;
+            break;
+        default:
+            throw new AssertionError();
         }
 
         assertUrlChanged(url);

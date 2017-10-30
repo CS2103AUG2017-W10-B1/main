@@ -110,18 +110,20 @@ public class SocialMediaCommandTest {
 
         String url = "";
         switch (type) {
-            case SocialMediaCommand.TYPE_FACEBOOK:
-                url = SocialMediaCommand.URL_FACEBOOK
-                        + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().facebook;
-                break;
-            case SocialMediaCommand.TYPE_TWITTER:
-                url = SocialMediaCommand.URL_TWITTER
-                        + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().twitter;
-                break;
-            case SocialMediaCommand.TYPE_INSTAGRAM:
-                url = SocialMediaCommand.URL_INSTAGRAM
-                        + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().instagram;
-                break;
+        case SocialMediaCommand.TYPE_FACEBOOK:
+            url = SocialMediaCommand.URL_FACEBOOK
+                    + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().facebook;
+            break;
+        case SocialMediaCommand.TYPE_TWITTER:
+            url = SocialMediaCommand.URL_TWITTER
+                    + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().twitter;
+            break;
+        case SocialMediaCommand.TYPE_INSTAGRAM:
+            url = SocialMediaCommand.URL_INSTAGRAM
+                    + model.getFilteredPersonList().get(index.getZeroBased()).getSocialMedia().instagram;
+            break;
+        default:
+            throw new AssertionError();
         }
 
         ChangeBrowserPanelUrlEvent lastEvent =
