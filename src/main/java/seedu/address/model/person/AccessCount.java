@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * Represents the number of accesses to a person's data.
  */

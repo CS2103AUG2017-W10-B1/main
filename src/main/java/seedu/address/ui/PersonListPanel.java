@@ -105,8 +105,7 @@ public class PersonListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event) + event.isDisplayed());
         if (event.isDisplayed()) {
             personListView.setItems(mappedListWithAccessCount);
-        }
-        else {
+        } else {
             personListView.setItems(mappedListWithoutAccessCount);
         }
         personListView.refresh();
