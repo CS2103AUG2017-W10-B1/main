@@ -85,7 +85,7 @@ Alias: `h`
 
 This command takes no arguments.
 
-==== Viewing quick help : `quickhelp` (Coming v2.0)
+==== Viewing quick help : `quickhelp` (Not implemented yet. Coming in v2.0)
 
 Opens a quick summary of using the address book. +
 Format: `quickhelp` +
@@ -96,14 +96,14 @@ This command takes no arguments.
 ==== Adding a person: `add`
 
 Adds a person to the address book. +
-Format: `add n/NAME [p/PHONE_NUMBER]... [e/EMAIL]... [a/ADDRESS]... [fb/FACEBOOK] [tw/TWITTER] [ig/INSTAGRAM] [t/TAG]...` +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [fb/FACEBOOK] [tw/TWITTER] [ig/INSTAGRAM] [t/TAG]...` +
 Alias: `a`
 
 [TIP]
-A person can have any number of tags, phone numbers, emails or addresses (including 0) (Coming v2.0)
+A person can have any number of tags, phone numbers, emails or addresses (including 0) (Not implemented yet. Coming in v2.0)
 
 ****
-* If a person to be added is similar to one of the existing contacts, a prompt will show you that similar contact/s. (Coming in v2.0)
+* If a person to be added is similar to one of the existing contacts, a prompt will show you that similar contact/s. (Not implemented yet. Coming in v2.0)
 ****
 
 Examples:
@@ -521,7 +521,7 @@ Alias example:
 
 * `r 1`
 
-==== Exporting all entries : `export` (Coming in v2.0)
+==== Exporting all entries : `export` (Not implemented yet. Coming in v2.0)
 
 Exports all entries in the address book into the given format and stores it at the given location. +
 Format: `export FORMAT LOCATION`
@@ -596,7 +596,7 @@ e.g.`remark 4 r/new remark`
 e.g. `socialmedia 1 facebook`
 * *Birthday* : `birthday`
 * *Font size* : `size AMOUNT` +
-* *Access display* : `accessdisplay TYPE` +
+* *Toggle access display* : `accessdisplay TYPE` +
 e.g. `size 3`
 * *History* : `history`
 * *Undo* : `undo [AMOUNT]`
