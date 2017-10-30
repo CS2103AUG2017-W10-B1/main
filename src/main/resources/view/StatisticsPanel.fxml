@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           prefHeight="400.0" prefWidth="600.0"
@@ -26,12 +28,19 @@
         <RowConstraints vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <PieChart id="pieChart0"
-                  fx:id="pieChart0"
+        <BarChart id="personAddedChart"
+                  fx:id="personAddedChart"
                   GridPane.rowIndex="0"
                   GridPane.columnIndex="0"
                   GridPane.columnSpan="6"
-        />
+        >
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </BarChart>
         <PieChart id="fbChart"
                   fx:id="fbChart"
                   GridPane.rowIndex="1"

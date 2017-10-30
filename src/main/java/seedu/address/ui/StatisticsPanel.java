@@ -1,10 +1,9 @@
 package seedu.address.ui;
 
-import java.time.Clock;
+import java.time.Month;
 import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -13,7 +12,9 @@ import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.SocialMedia;
@@ -23,17 +24,25 @@ import seedu.address.model.person.SocialMedia;
  */
 public class StatisticsPanel extends UiPart<Region> {
     private static final String FXML = "StatisticsPanel.fxml";
-    private static final Integer PERSON_ADDED_EARLIEST_YEAR = 2000;
+    private static final Integer PERSON_ADDED_DISPLAY_YEARS = 2;
 
-    private static Clock clock = Clock.systemDefaultZone();
+    private static final String FACEBOOK_BREAKDOWN_CHART_TITLE = "% of Persons with Facebook";
+    private static final String INSTAGRAM_BREAKDOWN_CHART_TITLE = "% of Persons with Instagram";
+    private static final String TWITTER_BREAKDOWN_CHART_TITLE = "% of Persons with Twitter";
+
+    private static final Double PERSON_ADDED_CHART_BAR_GAP = 0.1;
+    private static final String PERSON_ADDED_CHART_TITLE = "Persons Added in Recent Months";
 
     private Integer totalNumberOfPeople = 0;
     private Integer hasNoFacebook = 0;
     private Integer hasNoTwitter = 0;
     private Integer hasNoInstagram = 0;
 
+    private Integer currentYear;
+    private Integer currentMonth;
+
     @FXML
-    private PieChart pieChart0;
+    private BarChart personAddedChart;
     @FXML
     private PieChart fbChart;
     @FXML
@@ -41,34 +50,120 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private PieChart igChart;
 
-    public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
-        super(FXML);
-
+    private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
         tabulateTotalNumberOfPeople(list);
         tabulateSocialMediaUsage(list);
 
-        pieChart0.setTitle("Record of Persons Added By Year0");
-        pieChart0.setData(tabulateAddedByYear(list));
+        personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
+        personAddedChart.setData(getPersonAddedChartData(list));
+        personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
 
-        fbChart.setTitle("% of Persons with Facebook");
+        /*fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
         fbChart.setData(formatFacebookData());
-        twChart.setTitle("% of Persons with Twitter");
+        twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
         twChart.setData(formatTwitterData());
-        igChart.setTitle("% of Persons with Instagram");
-        igChart.setData(formatInstagramData());
+        igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
+        igChart.setData(formatInstagramData());*/
+    }
+
+    public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
+        super(FXML);
+
+        this.currentYear = this.getCurrentYear();
+        this.currentMonth = this.getCurrentMonth();
+
+        initialiseStatisticsPanel(list);
+    }
+
+    public StatisticsPanel(ObservableList<ReadOnlyPerson> list, int currentMonth, int currentYear) {
+        super(FXML);
+
+        this.currentYear = currentYear;
+        this.currentMonth = currentMonth;
+
+        initialiseStatisticsPanel(list);
+
+    }
+
+    private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(ObservableList<ReadOnlyPerson> list) {
+
+        ObservableList<XYChart.Series<String, Integer>> answer = FXCollections.observableArrayList();
+        XYChart.Series<String, Integer> aSeries = new XYChart.Series<String, Integer>();
+        aSeries.setName("Persons added");
+
+        int endYear = this.currentYear;
+        int startYear = endYear - PERSON_ADDED_DISPLAY_YEARS;
+
+        int startMonth;
+        int endMonth;
+        int monthCount = 0;
+
+        ArrayList<Integer> monthPersonsAdded = getNewPersonsAddByMonth(list);
+
+        for (int i = startYear; i <= endYear; i++) {
+
+            startMonth = 1;
+            endMonth = 12;
+
+            if (i == startYear) {
+                startMonth = this.currentMonth;
+            }
+
+            if (i == endYear) {
+                endMonth = this.currentMonth;
+            }
+
+            for (int m = startMonth; m <= endMonth; m++) {
+
+                String labelName = Month.of(m).name().substring(0, 3) + " " + Integer.toString(i);
+                aSeries.getData().add(new XYChart.Data(labelName, monthPersonsAdded.get(monthCount)));
+
+                monthCount++;
+            }
+        }
+        answer.addAll(aSeries);
+        return answer;
+    }
+
+    private ArrayList<Integer> getNewPersonsAddByMonth(ObservableList<ReadOnlyPerson> list) {
+
+
+        ArrayList<Integer> countByMonth = new ArrayList<>(Collections.nCopies(PERSON_ADDED_DISPLAY_YEARS * 12 + 1, 0));
+
+        list.forEach((p) -> {
+            Date givenDate = p.getCreatedAt();
+            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
+
+            int personAddedYear = Integer.parseInt(Year.from(given).toString());
+            int personAddedMonth = Month.from(given).getValue();
+
+            int indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
+            if ( indOffset >= 0 && indOffset <= PERSON_ADDED_DISPLAY_YEARS * 12) {
+                countByMonth.set(indOffset, countByMonth.get(indOffset) + 1);
+            }
+        });
+
+        return countByMonth;
+    }
+    /**
+     * Count the offset when adding to the array list of sum by months
+     */
+    public int calculateCountByMonthOffset(int personAddedMonth, int personAddedYear) {
+        return (this.currentYear - personAddedYear) * 12 +
+                (this.currentMonth - personAddedMonth);
     }
 
     /**
      * Tabulate the total number of people in the list
      */
-    private void tabulateTotalNumberOfPeople (ObservableList<ReadOnlyPerson> list) {
+    public void tabulateTotalNumberOfPeople(ObservableList<ReadOnlyPerson> list) {
         this.totalNumberOfPeople = list.size();
     }
 
     /**
      * Tabulates number of users of each social media platform
      */
-    private void tabulateSocialMediaUsage (ObservableList<ReadOnlyPerson> list) {
+    public void tabulateSocialMediaUsage(ObservableList<ReadOnlyPerson> list) {
         for (ReadOnlyPerson aList : list) {
             SocialMedia current = aList.getSocialMedia();
             if (current.facebook.isEmpty()) {
@@ -135,53 +230,45 @@ public class StatisticsPanel extends UiPart<Region> {
     }
 
     /**
-     * Formats the data into PieChart.Data for display
-     */
-    private ObservableList<PieChart.Data> tabulateAddedByYear(ObservableList<ReadOnlyPerson> list) {
-
-        ArrayList<PieChart.Data> data = new ArrayList<>();
-
-        ArrayList<Integer> yearData = collectYear(list);
-        for (int y = 0; y < yearData.size(); y++) {
-            if (yearData.get(y) > 0) {
-                String yearLabel = Integer.toString(y + PERSON_ADDED_EARLIEST_YEAR)
-                        + " - " + yearData.get(y);
-                data.add(new PieChart.Data(yearLabel, yearData.get(y)));
-            }
-        }
-
-        return FXCollections.observableArrayList(data);
-    }
-
-    /**
-     * Collects the observablelist by year
-     */
-    private ArrayList<Integer> collectYear(ObservableList<ReadOnlyPerson> list) {
-
-        int yearsToCollect = getCurrentYear() - PERSON_ADDED_EARLIEST_YEAR + 1;
-
-        ArrayList<Integer> count = new ArrayList<>(Collections.nCopies(yearsToCollect + 1, 0));
-
-        list.forEach((p) -> {
-            Date givenDate = p.getCreatedAt();
-            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
-
-            int personAddedYear = Integer.parseInt(Year.from(given).toString());
-
-            if (personAddedYear >= PERSON_ADDED_EARLIEST_YEAR && personAddedYear <= getCurrentYear()) {
-
-                int indexOffset = personAddedYear - PERSON_ADDED_EARLIEST_YEAR;
-                int oldValue = count.get(indexOffset);
-                count.set(indexOffset, oldValue + 1);
-            }
-        });
-
-        return count;
-    }
-    /**
      * Fetches the current year
      */
     private Integer getCurrentYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
+
+    /**
+     * Fetches the current month
+     */
+    private Integer getCurrentMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH);
+    }
+
+    /**
+     * Fetches number of persons with no facebook information added
+     */
+    public Integer getHasNoFacebook() {
+        return this.hasNoFacebook;
+    }
+
+    /**
+     * Fetches number of persons with no twitter information added
+     */
+    public Integer getHasNoTwitter() {
+        return this.hasNoTwitter;
+    }
+
+    /**
+     * Fetches number of persons with no instagram information added
+     */
+    public Integer getHasNoInstagram() {
+        return this.hasNoInstagram;
+    }
+
+    /**
+     * Fetches total number of persons
+     */
+    public Integer getTotalNumberOfPeople() {
+        return this.totalNumberOfPeople;
+    }
+
 }
