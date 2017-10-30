@@ -17,6 +17,9 @@ public class ToggleAccessDisplayCommand extends Command {
             + "Example: " + COMMAND_WORD + " on";
     public static final String MESSAGE_SUCCESS = "Display toggled ";
 
+    public static final String TYPE_ON = "on";
+    public static final String TYPE_OFF = "off";
+
     private boolean isDisplayed;
 
     public ToggleAccessDisplayCommand (boolean isDisplayed) {
@@ -30,6 +33,6 @@ public class ToggleAccessDisplayCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         EventsCenter.getInstance().post(new AccessCountDisplayToggleEvent(isDisplayed));
-        return new CommandResult(MESSAGE_SUCCESS + (isDisplayed ? "on. " : "off. "));
+        return new CommandResult(MESSAGE_SUCCESS + (isDisplayed ? TYPE_ON : TYPE_OFF) + ". ");
     }
 }

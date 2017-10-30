@@ -69,6 +69,9 @@ public class ToggleAccessDisplayCommand extends Command {
             + "Example: " + COMMAND_WORD + " on";
     public static final String MESSAGE_SUCCESS = "Display toggled ";
 
+    public static final String TYPE_ON = "on";
+    public static final String TYPE_OFF = "off";
+
     private boolean isDisplayed;
 
     public ToggleAccessDisplayCommand (boolean isDisplayed) {
@@ -82,7 +85,7 @@ public class ToggleAccessDisplayCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         EventsCenter.getInstance().post(new AccessCountDisplayToggleEvent(isDisplayed));
-        return new CommandResult(MESSAGE_SUCCESS + (isDisplayed ? "on. " : "off. "));
+        return new CommandResult(MESSAGE_SUCCESS + (isDisplayed ? TYPE_ON : TYPE_OFF) + ". ");
     }
 }
 ```
@@ -125,9 +128,9 @@ public class ToggleAccessDisplayCommandParser implements Parser<ToggleAccessDisp
      * @throws ParseException if the user input does not conform the expected format
      */
     public ToggleAccessDisplayCommand parse(String args) throws ParseException {
-        if (args.trim().equalsIgnoreCase("on")) {
+        if (args.trim().equalsIgnoreCase(TYPE_ON)) {
             return new ToggleAccessDisplayCommand(true);
-        } else if (args.trim().equalsIgnoreCase("off")) {
+        } else if (args.trim().equalsIgnoreCase(TYPE_OFF)) {
             return new ToggleAccessDisplayCommand(false);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

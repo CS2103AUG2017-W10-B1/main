@@ -61,9 +61,12 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    private boolean isAccessDisplayed;
+
     public PersonCard(ReadOnlyPerson person, int displayedIndex, boolean isAccessDisplayed) {
         super(isAccessDisplayed ? FXML : FXML_WITHOUT_ACCESSES);
         this.person = person;
+        this.isAccessDisplayed = isAccessDisplayed;
         id.setText(displayedIndex + ". ");
         initTags(person);
         bindListeners(person, isAccessDisplayed);
@@ -127,8 +130,14 @@ public class PersonCard extends UiPart<Region> {
         name.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
         id.setStyle("-fx-font-size: " + (DEFAULT_BIG_FONT_SIZE + fontSizeChange));
 
-        for (Label l : new Label[] { phone, address, email, socialMedia, remark, accesses }) {
-            l.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+        if (isAccessDisplayed) {
+            for (Label l : new Label[] { phone, address, email, socialMedia, remark, accesses }) {
+                l.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+            }
+        } else {
+            for (Label l : new Label[] { phone, address, email, socialMedia, remark}) {
+                l.setStyle("-fx-font-size: " + (DEFAULT_SMALL_FONT_SIZE + fontSizeChange));
+            }
         }
 
         for (Node tag : tags.getChildren()) {

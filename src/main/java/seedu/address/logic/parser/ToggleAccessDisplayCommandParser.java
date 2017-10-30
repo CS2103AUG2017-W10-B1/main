@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ToggleAccessDisplayCommand.TYPE_OFF;
+import static seedu.address.logic.commands.ToggleAccessDisplayCommand.TYPE_ON;
 
 import seedu.address.logic.commands.ToggleAccessDisplayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,9 +19,9 @@ public class ToggleAccessDisplayCommandParser implements Parser<ToggleAccessDisp
      * @throws ParseException if the user input does not conform the expected format
      */
     public ToggleAccessDisplayCommand parse(String args) throws ParseException {
-        if (args.trim().equalsIgnoreCase("on")) {
+        if (args.trim().equalsIgnoreCase(TYPE_ON)) {
             return new ToggleAccessDisplayCommand(true);
-        } else if (args.trim().equalsIgnoreCase("off")) {
+        } else if (args.trim().equalsIgnoreCase(TYPE_OFF)) {
             return new ToggleAccessDisplayCommand(false);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
