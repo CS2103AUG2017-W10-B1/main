@@ -14,10 +14,10 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.AddressBookBuilder;
-
-import javafx.collections.ObservableList;
 
 /**
  * Tests for Statistics model
