@@ -1,15 +1,15 @@
 * {
-    -fx-bg-color: #f9f2f2;
+    -fx-bg-color: #ffffff;
     -fx-text-color: #010504;
     -fx-input-border-color: #030303;
-    -fx-result-display-color: #fedcba;
+    -fx-result-display-color: #fbede6;
     -fx-tag-color: #e5a227;
     -fx-label-color: #555555;
     -fx-split-pane-color: #b1b1b1;
-    -fx-cell-even-color: #9f25b2;
-    -fx-cell-odd-color: #bc36d1;
-    -fx-cell-selected-color: #811891;
-    -fx-cell-empty-color: #f9f2f2;
+    -fx-cell-even-color: #ab4973;
+    -fx-cell-odd-color: #964262;
+    -fx-cell-selected-color: #b33045;
+    -fx-cell-empty-color: #eaa47f;
     -fx-button-border-color: #e2e2e2;
     -fx-button-background-color: #d8d8d8;
     -fx-button-hover-color: #3a3a3a;
