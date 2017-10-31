@@ -109,6 +109,11 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    /**
+     * Converts a string in the date format into a date object. Returns the current date if input is invalid.
+     * @param inputString
+     * @return
+     */
     private static Date stringToDate(String inputString) {
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
