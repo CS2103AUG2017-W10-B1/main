@@ -27,9 +27,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.commons.events.ui.ToggleStatisticsPanelEvent;
+import seedu.address.commons.events.ui.RefreshStatisticsPanelIfOpenEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -58,6 +59,8 @@ public class MainWindow extends UiPart<Region> {
     private StatisticsPanel statisticsPanel;
     private Config config;
     private UserPrefs prefs;
+
+    private Boolean statisticsPanelOpen;
 
     @FXML
     private StackPane browserOrStatisticsPlaceholder;
@@ -173,12 +176,14 @@ public class MainWindow extends UiPart<Region> {
         statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        statisticsPanelOpen = true;
     }
 
     void switchToBrowserPanel() {
         browserPanel = new BrowserPanel();
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
+        statisticsPanelOpen = false;
     }
 
     void hide() {
@@ -267,6 +272,14 @@ public class MainWindow extends UiPart<Region> {
     private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToStatisticsPanel();
+    }
+
+    @Subscribe
+    private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (statisticsPanelOpen) {
+            switchToStatisticsPanel();
+        }
     }
 
     @Subscribe
