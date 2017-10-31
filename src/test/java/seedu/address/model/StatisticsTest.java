@@ -50,6 +50,9 @@ public class StatisticsTest {
 
         statistics = new Statistics(allPersonsList1, 12, 2017);
         assertEquals(statistics.getTotalNumberOfPeople().intValue(), 7);
+
+        statistics = new Statistics(allPersonsList2, 12, 2017);
+        assertEquals(statistics.getTotalNumberOfPeople().intValue(), 4);
     }
 
     @Test
@@ -82,7 +85,6 @@ public class StatisticsTest {
 
         statistics = new Statistics(allPersonsList2, 12, 2015);
         assertEquals(statistics.getHasNoFacebook().intValue(), 2);
-
     }
 
     @Test
