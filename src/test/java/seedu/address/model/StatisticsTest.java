@@ -45,6 +45,7 @@ public class StatisticsTest {
 
     private Statistics statistics;
 
+    //@@author 500poundbear
     @Test
     public void getTotalNumberOfPeopleTest() {
 
@@ -55,6 +56,7 @@ public class StatisticsTest {
         assertEquals(statistics.getTotalNumberOfPeople().intValue(), 4);
     }
 
+    //@@author 500poundbear
     @Test
     public void calculateCountByMonthOffsetTest() {
 
@@ -77,6 +79,7 @@ public class StatisticsTest {
         assertEquals(statistics.calculateCountByMonthOffset(5, 2016), 10);
     }
 
+    //@@author 500poundbear
     @Test
     public void getTotalNumberOfNoFacebookRecordsTest() {
 
@@ -87,6 +90,7 @@ public class StatisticsTest {
         assertEquals(statistics.getHasNoFacebook().intValue(), 2);
     }
 
+    //@@author 500poundbear
     @Test
     public void getTotalNumberOfNoTwitterRecordsTest() {
 
@@ -98,6 +102,7 @@ public class StatisticsTest {
 
     }
 
+    //@@author 500poundbear
     @Test
     public void getTotalNumberOfNoInstagramRecordsTest() {
 
@@ -109,6 +114,7 @@ public class StatisticsTest {
 
     }
 
+    //@@author 500poundbear
     @Test
     public void getNewPersonsAddByMonthTest() {
 

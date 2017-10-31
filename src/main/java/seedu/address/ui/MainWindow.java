@@ -185,6 +185,7 @@ public class MainWindow extends UiPart<Region> {
         statisticsPanelOpen = true;
     }
 
+    //@@author 500poundbear
     /**
      * Instantiates and adds the browser panel to the UI
      */
@@ -271,18 +272,21 @@ public class MainWindow extends UiPart<Region> {
         handleHelp();
     }
 
+    //@@author 500poundbear
     @Subscribe
     private void handleToggleBrowserPanelEvent(ToggleBrowserPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToBrowserPanel();
     }
 
+    //@@author 500poundbear
     @Subscribe
     private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToStatisticsPanel();
     }
 
+    //@@author 500poundbear
     @Subscribe
     private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
