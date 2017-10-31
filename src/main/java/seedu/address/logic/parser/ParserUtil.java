@@ -46,6 +46,7 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    // @@author donjar
     /**
      * Parses {@code num} into a positive integer and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws IllegalValueException if the specified argument is invalid, or is not a positive integer.
@@ -61,6 +62,7 @@ public class ParserUtil {
             throw new IllegalValueException(MESSAGE_INVALID_NUMBER);
         }
     }
+    // @@author
 
     /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
@@ -110,6 +112,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@author kenpaxtonlim
     /**
      * Parses three {@code String facebook, twitter, instagram} into an {@code SocialMedia}.
      */
@@ -123,4 +126,5 @@ public class ParserUtil {
 
         return new SocialMedia(fb, tw, in);
     }
+    //@@author
 }
