@@ -89,7 +89,7 @@ public class StatisticsPanel extends UiPart<Region> {
 
         int startMonth;
         int endMonth;
-        int monthCount = 0;
+        int monthCount = PERSON_ADDED_DISPLAY_YEARS * 12;
 
         ArrayList<Integer> monthPersonsAdded = statistics.getNewPersonsAddByMonth(PERSON_ADDED_DISPLAY_YEARS);
 
@@ -107,11 +107,10 @@ public class StatisticsPanel extends UiPart<Region> {
             }
 
             for (int m = startMonth; m <= endMonth; m++) {
-
                 String labelName = Month.of(m).name().substring(0, 3) + " " + Integer.toString(i);
                 aSeries.getData().add(new XYChart.Data(labelName, monthPersonsAdded.get(monthCount)));
 
-                monthCount++;
+                monthCount--;
             }
         }
         answer.addAll(aSeries);
@@ -180,7 +179,7 @@ public class StatisticsPanel extends UiPart<Region> {
      * Fetches the current month
      */
     private Integer getCurrentMonth() {
-        return Calendar.getInstance().get(Calendar.MONTH);
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
     }
 
 }

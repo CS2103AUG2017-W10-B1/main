@@ -13,8 +13,7 @@
           xmlns:fx="http://javafx.com/fxml"
           prefHeight="400.0" prefWidth="600.0"
           minWidth="800.0"
-          maxWidth="800.0"
-          stylesheets="Statistics.css">
+          maxWidth="800.0">
     <columnConstraints>
         <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
         <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
@@ -61,4 +60,3 @@
         />
     </children>
 </GridPane>
-
