@@ -1,14 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import org.junit.Test;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.ui.StatisticsPanel;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static junit.framework.TestCase.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -18,8 +9,15 @@ import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import javafx.collections.ObservableList;
+import org.junit.Test;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.AddressBookBuilder;
+
 public class StatisticsTest {
-    AddressBook addressBook1 = new AddressBookBuilder()
+    private AddressBook addressBook1 = new AddressBookBuilder()
             .withPerson(ALICE)
             .withPerson(BENSON)
             .withPerson(CARL)
@@ -29,17 +27,17 @@ public class StatisticsTest {
             .withPerson(GEORGE)
             .build();
 
-    AddressBook addressBook2 = new AddressBookBuilder()
+    private AddressBook addressBook2 = new AddressBookBuilder()
             .withPerson(ELLE)
             .withPerson(FIONA)
             .withPerson(GEORGE)
             .withPerson(ALICE)
             .build();
 
-    ObservableList<ReadOnlyPerson> allPersonsList1 = addressBook1.getPersonList();
-    ObservableList<ReadOnlyPerson> allPersonsList2 = addressBook2.getPersonList();
+    private ObservableList<ReadOnlyPerson> allPersonsList1 = addressBook1.getPersonList();
+    private ObservableList<ReadOnlyPerson> allPersonsList2 = addressBook2.getPersonList();
 
-    Statistics statistics;
+    private Statistics statistics;
 
     @Test
     public void getTotalNumberOfPeopleTest() {
@@ -108,11 +106,13 @@ public class StatisticsTest {
 
         statistics = new Statistics(allPersonsList1, 12, 2017);
         assertEquals(statistics.getNewPersonsAddByMonth(2),
-                new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0, 0, 5, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
+                new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0, 0, 5, 1, 0, 0, 0, 0, 1,
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
 
         statistics = new Statistics(allPersonsList1, 6, 2017);
         assertEquals(statistics.getNewPersonsAddByMonth(2),
-                new ArrayList<Integer>(Arrays.asList(5, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
+                new ArrayList<Integer>(Arrays.asList(5, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
 
         statistics = new Statistics(allPersonsList1, 6, 2017);
         assertEquals(statistics.getNewPersonsAddByMonth(0),
