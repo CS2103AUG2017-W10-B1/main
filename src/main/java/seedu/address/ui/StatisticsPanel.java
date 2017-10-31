@@ -1,13 +1,8 @@
 package seedu.address.ui;
 
 import java.time.Month;
-import java.time.Year;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +11,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
+import seedu.address.model.Statistics;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.SocialMedia;
 
 /**
  * The Statistics Panel of the App.
@@ -32,6 +27,8 @@ public class StatisticsPanel extends UiPart<Region> {
 
     private static final Double PERSON_ADDED_CHART_BAR_GAP = 0.1;
     private static final String PERSON_ADDED_CHART_TITLE = "Persons Added in Recent Months";
+
+    private Statistics statistics;
 
     private Integer totalNumberOfPeople = 0;
     private Integer hasNoFacebook = 0;
@@ -51,8 +48,6 @@ public class StatisticsPanel extends UiPart<Region> {
     private PieChart igChart;
 
     private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
-        tabulateTotalNumberOfPeople(list);
-        tabulateSocialMediaUsage(list);
 
         personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
         personAddedChart.setData(getPersonAddedChartData(list));
@@ -69,20 +64,18 @@ public class StatisticsPanel extends UiPart<Region> {
     public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
         super(FXML);
 
-        this.currentYear = this.getCurrentYear();
-        this.currentMonth = this.getCurrentMonth();
+        currentYear = this.getCurrentYear();
+        currentMonth = this.getCurrentMonth();
+
+        statistics = new Statistics(list, this.currentMonth, this.currentYear);
+
+        totalNumberOfPeople = statistics.getTotalNumberOfPeople();
+
+        hasNoFacebook = statistics.getHasNoFacebook();
+        hasNoTwitter = statistics.getHasNoTwitter();
+        hasNoInstagram = statistics.getHasNoInstagram();
 
         initialiseStatisticsPanel(list);
-    }
-
-    public StatisticsPanel(ObservableList<ReadOnlyPerson> list, int currentMonth, int currentYear) {
-        super(FXML);
-
-        this.currentYear = currentYear;
-        this.currentMonth = currentMonth;
-
-        initialiseStatisticsPanel(list);
-
     }
 
     private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(ObservableList<ReadOnlyPerson> list) {
@@ -98,7 +91,7 @@ public class StatisticsPanel extends UiPart<Region> {
         int endMonth;
         int monthCount = 0;
 
-        ArrayList<Integer> monthPersonsAdded = getNewPersonsAddByMonth(list);
+        ArrayList<Integer> monthPersonsAdded = statistics.getNewPersonsAddByMonth(PERSON_ADDED_DISPLAY_YEARS);
 
         for (int i = startYear; i <= endYear; i++) {
 
@@ -123,59 +116,6 @@ public class StatisticsPanel extends UiPart<Region> {
         }
         answer.addAll(aSeries);
         return answer;
-    }
-
-    private ArrayList<Integer> getNewPersonsAddByMonth(ObservableList<ReadOnlyPerson> list) {
-
-
-        ArrayList<Integer> countByMonth = new ArrayList<>(Collections.nCopies(PERSON_ADDED_DISPLAY_YEARS * 12 + 1, 0));
-
-        list.forEach((p) -> {
-            Date givenDate = p.getCreatedAt();
-            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
-
-            int personAddedYear = Integer.parseInt(Year.from(given).toString());
-            int personAddedMonth = Month.from(given).getValue();
-
-            int indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
-            if ( indOffset >= 0 && indOffset <= PERSON_ADDED_DISPLAY_YEARS * 12) {
-                countByMonth.set(indOffset, countByMonth.get(indOffset) + 1);
-            }
-        });
-
-        return countByMonth;
-    }
-    /**
-     * Count the offset when adding to the array list of sum by months
-     */
-    public int calculateCountByMonthOffset(int personAddedMonth, int personAddedYear) {
-        return (this.currentYear - personAddedYear) * 12 +
-                (this.currentMonth - personAddedMonth);
-    }
-
-    /**
-     * Tabulate the total number of people in the list
-     */
-    public void tabulateTotalNumberOfPeople(ObservableList<ReadOnlyPerson> list) {
-        this.totalNumberOfPeople = list.size();
-    }
-
-    /**
-     * Tabulates number of users of each social media platform
-     */
-    public void tabulateSocialMediaUsage(ObservableList<ReadOnlyPerson> list) {
-        for (ReadOnlyPerson aList : list) {
-            SocialMedia current = aList.getSocialMedia();
-            if (current.facebook.isEmpty()) {
-                this.hasNoFacebook++;
-            }
-            if (current.twitter.isEmpty()) {
-                this.hasNoTwitter++;
-            }
-            if (current.instagram.isEmpty()) {
-                this.hasNoInstagram++;
-            }
-        }
     }
 
     /**
@@ -241,34 +181,6 @@ public class StatisticsPanel extends UiPart<Region> {
      */
     private Integer getCurrentMonth() {
         return Calendar.getInstance().get(Calendar.MONTH);
-    }
-
-    /**
-     * Fetches number of persons with no facebook information added
-     */
-    public Integer getHasNoFacebook() {
-        return this.hasNoFacebook;
-    }
-
-    /**
-     * Fetches number of persons with no twitter information added
-     */
-    public Integer getHasNoTwitter() {
-        return this.hasNoTwitter;
-    }
-
-    /**
-     * Fetches number of persons with no instagram information added
-     */
-    public Integer getHasNoInstagram() {
-        return this.hasNoInstagram;
-    }
-
-    /**
-     * Fetches total number of persons
-     */
-    public Integer getTotalNumberOfPeople() {
-        return this.totalNumberOfPeople;
     }
 
 }

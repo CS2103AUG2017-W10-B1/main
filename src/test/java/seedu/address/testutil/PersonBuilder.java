@@ -136,6 +136,15 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code SocialMedia} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCreatedAt(Date createdAt) {
+        this.person.setCreatedAt(createdAt);
+
+        return this;
+    }
+
     public Person build() {
         return this.person;
     }
