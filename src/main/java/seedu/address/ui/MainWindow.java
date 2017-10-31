@@ -175,7 +175,7 @@ public class MainWindow extends UiPart<Region> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    /*
+    /**
      * Instantiates and adds the statistics panel to the UI
      */
     private void switchToStatisticsPanel() {
@@ -185,7 +185,7 @@ public class MainWindow extends UiPart<Region> {
         statisticsPanelOpen = true;
     }
 
-    /*
+    /**
      * Instantiates and adds the browser panel to the UI
      */
     private void switchToBrowserPanel() {

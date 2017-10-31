@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.SocialMedia;
 
-/*
+/**
  * A model for calculating the values for Statistics Panel
  */
 public class Statistics {
@@ -50,7 +50,7 @@ public class Statistics {
             int personAddedMonth = Month.from(given).getValue();
 
             int indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
-            if ( indOffset >= 0 && indOffset <= displayYears * 12) {
+            if (indOffset >= 0 && indOffset <= displayYears * 12) {
                 countByMonth.set(indOffset, countByMonth.get(indOffset) + 1);
             }
         });

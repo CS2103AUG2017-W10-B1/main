@@ -64,7 +64,7 @@ public class    StatisticsPanel extends UiPart<Region> {
         initialiseStatisticsPanel(list);
     }
 
-    /*
+    /**
      * Sets up the fxml objects with data
      */
     private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {

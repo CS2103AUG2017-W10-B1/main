@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates that there is a need to recalculate statistics
  */
-public class RefreshStatisticsPanelIfOpenEvent extends BaseEvent{
+public class RefreshStatisticsPanelIfOpenEvent extends BaseEvent {
 
     public RefreshStatisticsPanelIfOpenEvent() {
     }
