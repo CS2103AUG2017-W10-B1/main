@@ -285,14 +285,4 @@ public class MainWindow extends UiPart<Region> {
             switchToStatisticsPanel();
         }
     }
-
-    @Subscribe
-    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.isReset) {
-            personListPanel.resetFontSize();
-        } else {
-            personListPanel.changeFontSize(event.sizeChange);
-        }
-    }
 }
