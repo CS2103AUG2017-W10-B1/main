@@ -47,20 +47,6 @@ public class    StatisticsPanel extends UiPart<Region> {
     @FXML
     private PieChart igChart;
 
-    private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
-
-        personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
-        personAddedChart.setData(getPersonAddedChartData(list));
-        personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
-
-        fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
-        fbChart.setData(formatFacebookData());
-        twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
-        twChart.setData(formatTwitterData());
-        igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
-        igChart.setData(formatInstagramData());
-    }
-
     public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
         super(FXML);
 
@@ -78,7 +64,25 @@ public class    StatisticsPanel extends UiPart<Region> {
         initialiseStatisticsPanel(list);
     }
 
-    private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(ObservableList<ReadOnlyPerson> list) {
+    /*
+     * Sets up the fxml objects with data
+     */
+    private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
+
+        personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
+        personAddedChart.setData(getPersonAddedChartData(list));
+        personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
+
+        fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
+        fbChart.setData(formatFacebookData());
+        twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
+        twChart.setData(formatTwitterData());
+        igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
+        igChart.setData(formatInstagramData());
+    }
+
+    private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(
+            ObservableList<ReadOnlyPerson> list) {
 
         ObservableList<XYChart.Series<String, Integer>> answer = FXCollections.observableArrayList();
         XYChart.Series<String, Integer> aSeries = new XYChart.Series<String, Integer>();

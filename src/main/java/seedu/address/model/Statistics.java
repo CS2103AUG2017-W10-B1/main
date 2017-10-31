@@ -1,9 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.SocialMedia;
-
 import java.time.Month;
 import java.time.Year;
 import java.time.ZoneId;
@@ -12,9 +8,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.SocialMedia;
+
+/*
+ * A model for calculating the values for Statistics Panel
+ */
 public class Statistics {
 
-    ObservableList<ReadOnlyPerson> personList;
+    private ObservableList<ReadOnlyPerson> personList;
 
     private Integer totalNumberOfPeople = 0;
     private Integer hasNoFacebook = 0;
@@ -24,7 +27,7 @@ public class Statistics {
     private Integer currentYear;
     private Integer currentMonth;
 
-    public Statistics(ObservableList<ReadOnlyPerson> list, int currentMonth, int currentYear) {
+    public Statistics (ObservableList<ReadOnlyPerson> list, int currentMonth, int currentYear) {
 
         this.currentYear = currentYear;
         this.currentMonth = currentMonth;
@@ -59,8 +62,8 @@ public class Statistics {
      * Count the offset when adding to the array list of sum by months
      */
     public int calculateCountByMonthOffset(int personAddedMonth, int personAddedYear) {
-        return (this.currentYear - personAddedYear) * 12 +
-                (this.currentMonth - personAddedMonth);
+        return (this.currentYear - personAddedYear) * 12
+                + (this.currentMonth - personAddedMonth);
     }
 
 
