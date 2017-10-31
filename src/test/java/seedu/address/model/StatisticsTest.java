@@ -11,11 +11,17 @@ import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.collections.ObservableList;
+
 import org.junit.Test;
+
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.AddressBookBuilder;
 
+import javafx.collections.ObservableList;
+
+/**
+ * Tests for Statistics model
+ */
 public class StatisticsTest {
     private AddressBook addressBook1 = new AddressBookBuilder()
             .withPerson(ALICE)
