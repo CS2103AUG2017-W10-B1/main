@@ -58,12 +58,12 @@ public class StatisticsPanel extends UiPart<Region> {
         personAddedChart.setData(getPersonAddedChartData(list));
         personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
 
-        /*fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
+        fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
         fbChart.setData(formatFacebookData());
         twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
         twChart.setData(formatTwitterData());
         igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
-        igChart.setData(formatInstagramData());*/
+        igChart.setData(formatInstagramData());
     }
 
     public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
