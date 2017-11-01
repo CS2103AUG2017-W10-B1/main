@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Personal Information Management Application (PIMP) - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103AUG2017-W10-B1/main
 
 By: `Team PIMP (W10-B1)`      Since: `Sep 2017`      Licence: `MIT`
 
@@ -18,7 +18,7 @@ By: `Team PIMP (W10-B1)`      Since: `Sep 2017`      Licence: `MIT`
 
 === Software Outline
 
-PIMP (Personal Information Manager Program) is a command line interface (CLI) address book that allows users to maintain their contacts. This program allows users to store various properties of their contacts, such as their home addresses, email addresses, phone numbers, or even custom tags. It also allows users to view the social media profiles of their addressbook entries. Since PIMP is targetted at young socialites, it includes many functionalities suitable for such an audience, such as birthday alerts. The program has four main components, namely the `User Interface (UI)`, `Logic`, `Model` and `Storage` components. Addressbook data is stored locally in an .xml file.
+PIMP (Personal Information Manager Program) is a command line interface (CLI) address book that allows users to maintain their contacts. This program allows users to store various properties of their contacts, such as their home addresses, email addresses, phone numbers, or even custom tags. It also allows users to view the social media profiles of their address book entries. Since PIMP is targeted at young socialites, it includes many functionalities suitable for such an audience, such as birthday alerts. The program has four main components, namely the `User Interface (UI)`, `Logic`, `Model` and `Storage` components. Addressbook data is stored locally in an .xml file.
 
 === Purpose of Developer Guide
 
@@ -26,7 +26,7 @@ This developer guide aims to give an overview to any developer who wishes to mod
 
 A few documentation guidelines will also be described, so that any improvements made can be documented in a consistent style for the convenience of future developers.
 
-Various user profiles, user stories and use cases have also been included, so that future developers can gain some insight as to the design decisions made during the development process. Potential improvements that can be made to the addressbook can also be found in this section.
+Various user profiles, user stories and use cases have also been included, so that future developers can gain some insight as to the design decisions made during the development process. Potential improvements that can be made to the address book can also be found in this section.
 
 == Setting up
 
@@ -82,7 +82,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+After forking the repo, links in the documentation will still point to the `CS2103AUG2017-W10-B1/main` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `CS2103AUG2017-W10-B1/main`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
 
 ==== Setting up CI
 
@@ -388,6 +388,48 @@ column are undoable.
 ** **Pros:** The user can manage multiple remarks without overriding any one of them.
 ** **Cons:** The user might be confused with so many commands to manage a contact's remarks.
 
+=== Statistics Command
+
+The `statistics` command allows the user to view information about the system. The `statistics` command does not take
+any additional parameters.
+
+The `MainWindow` class controls the UI
+interface to swap out the `BrowserPanel` for the `StatisticsPanel` class. When other commands require the `BrowserPanel`,
+`MainWindow` will do the corresponding swap in the UI.
+
+The `StatisticsPanel` extends the `UiPart<Region>` and utilises the [] to filter data.
+
+Here are the information calculated:
+
+1. Monthly Breakdown of Newly Added Persons
+
+2. Number of Persons with Facebook, Twitter and Instagram accounts recorded in system
+
+Here is an implementation of 1.
+
+[Implementation]
+
+==== Design Considerations
+
+**Aspect:** Implementation of `StatisticsPanel` as a `UiPart`
+
+* **Alternative 1 (current choice):** Utilise the browser class to display the statistics
+** **Pros:** Developer does not have to manage the swapping UI parts.
+** **Cons:** Information has to be passed from the Java system into a format that can be rendered
+by the browser engine. It is tricker to test and more likely to break.
+
+**Aspect:** Displaying of key information in `StatisticsPanel`
+
+* **Alternative 1 (current choice):** A bar chart breakdown by month in the last 2 years of newly created users
+** **Pros:** Developer does not have to manage the swapping UI parts.
+** **Cons:** Information has to be passed from the Java system into a format that can be rendered
+by the browser engine. It is tricker to test and more likely to break.
+
+* **Alternative 2:** A pie chart breakdown by year in the last 5 years of newly created users
+** **Pros:** User will be able to tell quickly the portion of Persons added in the year as compared to the past years.
+** **Cons:** A breakdown by year might not allow the user to answer a more important question easily: how has the number
+of people added changed in a more manageable timeframe (such as a month)?
+
 === Searching by Regex
 Searching contacts using regex is implemented with the `FindRegexCommand` class. It is very similar to the normal find command, which is `FindCommand`; the main difference is that, instead of a predicate which is an instance of `NameContainsKeywordPredicate`, the newly created predicate `NameMatchesRegexPredicate` is used.
 
@@ -405,36 +447,17 @@ Searching by tag is implemented by the `FindTagCommand` class. This command allo
 
 The `FindTagCommand` class is implemented by calling `TagContainsKeywordsPredicate` as opposed to `NameContainsKeywordsPredicate`. This class tells us if a certain `person` object has any tag that matches the desired keyword. Implementing it this way allows us to extend functionality that was already implemented with a similar structure. In the future, implementing other search functions could build on these current search options.
 
-Since this search function involves iterating searching through all tags of all `person` objects in the addressbook, it could take up to O(pt) time, where p is the number of `person` objects in the addressbook, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of `person` objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of `person` objects that have the tag, say `delete`, `add` or `edit`. This would then offset some of the time required for the search onto these other commands.
+Since this search function involves iterating searching through all tags of all `person` objects in the address book, it could take up to O(pt) time, where p is the number of `person` objects in the address book, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of `person` objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of `person` objects that have the tag, say `delete`, `add` or `edit`. This would then offset some of the time required for the search onto these other commands.
 
 However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the `FingTagCommand` function. Instead, we simply allowed the `FindTagCommand` to search through all possibilities each time it is called.
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See link:#configuration[Configuration])
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-=== Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
-
-=== Add/Remove Tags mechanism (Since v1.2)
+=== Add/Remove Tags Command (Since v1.2)
 
 The `EditCommand` currently allows the user to edit all the fields of a contact, including tags. However, the tags entered with this command will completely override all the tags existing in that contact.
 
 The `AddRemoveTagsCommand` was added to allow users to add or remove only certain tags without compromising the entire tags list of the contact.
 
-In the backend, `AddRemoveTagsCommand` actually uses the same mechanics as `EditCommand`, where the person is updated as a whole. What it means is the `Person` to be targeted is firstly duplicated, then the tags list is being changed to add/remove certain tags, and the new `Person` object is used to update in the addressbook.
+In the backend, `AddRemoveTagsCommand` actually uses the same mechanics as `EditCommand`, where the person is updated as a whole. What it means is the `Person` to be targeted is firstly duplicated, then the tags list is being changed to add/remove certain tags, and the new `Person` object is used to update in the address book.
 
 [source,java]
 ----
@@ -474,7 +497,7 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 
 * **Alternative 2:** Update the Set<Tag> directly by exposing it with a getter and setter
 ** **Pros:** Isolate to only touch on tags
-** **Cons:** Breaks the idea that each person in addressbook is read-only.
+** **Cons:** Breaks the idea that each person in address book is read-only.
 
 **Aspect:** Commands to add and remove tags.
 
@@ -485,6 +508,64 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 * **Alternative 2:** Have separate command for adding and removing tags.
 ** **Pros:** Easier to implement because each command will only handle 1 thing.
 ** **Cons:** Boilerplate codes.
+
+=== Social Media Page Command (Since v1.4)
+
+Since v1.3, users can add social media account details to their contacts. They are mainly Facebook, Twitter, and Instagram.
+Users can use the command `socialmedia TYPE INDEX` to load the contact's social media page to the browser panel.
+
+A new event `ChangeBrowserPanelUrlEvent` is created for the purpose when the browser panel URL needs to be changed. Previously, the URL was completely handled within the BrowserPanel UI and not exposed to the other components.
+With this event, other components will be able to call it and change the url of the browser. In the case of `SocialMediaCommand`, the URL will be changed to Facebook, Twitter, or Instagram according to the TYPE that the user indicated in the command.
+
+
+Subsequently, the `BrowserPanel` UI will handle the event and change the URL accordingly.
+
+[source, java]
+----
+@Subscribe
+    private void handleChangeBrowserPanelUrlEvent(ChangeBrowserPanelUrlEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPage(event.url);
+    }
+----
+
+To call the event, simply invoke the `EventsCenter` and post that event like such:
+[source, java]
+----
+EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(url));
+----
+
+==== Design considerations
+*Aspect:* Commands to show different social media pages
+
+* **Alternative 1 (current choice):** 1 unified command `SocialMediaCommand` that parse arguments to determine which social media page to show.
+** **Pros:** Cleaner implementation and easier for additional social medias to be added.
+** **Cons:** Have to parse the argument and match which social media and URL to use.
+
+* **Alternative 2:** Have separate command to show Facebook, Twitter, and Instagram.
+** **Pros:** Easier to implement because each command will only handle 1 thing.
+** **Cons:** Repeated codes for each social media.
+
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See link:#configuration[Configuration])
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
 
 == Documentation
 
@@ -630,7 +711,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |have a 'quickhelp' command available |view a condensed list of essential instructions
 
-|`* * *` |user |be able to store incomplete addressbook entries |add people to the addressbook even if I do not have all their contact details
+|`* * *` |user |be able to store incomplete address book entries |add people to the address book even if I do not have all their contact details
 
 |`* * *` |user |store multiple email addresses or phone numbers for a single person |access all a contact's details in a single query
 
@@ -662,7 +743,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |see my contacts' upcoming birthdays |so that I know if it is their birthday
 
-|`* *` |user |be able to import addressbook data from an external source |avoid having to key in each individual entry separately
+|`* *` |user |be able to import address book data from an external source |avoid having to key in each individual entry separately
 
 |`* *` |user |upload a picture for each of my contact |identify them easier
 
@@ -780,7 +861,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-* 5a. The addressbook is full
+* 5a. The address book is full
 +
 
 ** 5a1. AddressBook shows an error message.
@@ -825,7 +906,7 @@ Use case resumes at step 2.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be initialised and ready for user input within 1 second
 .  Should require at most 100MB of memory in RAM
-.  Should still allow for addressbook viewing even without an internet connection
+.  Should still allow for address book viewing even without an internet connection
 
 [appendix]
 == Glossary

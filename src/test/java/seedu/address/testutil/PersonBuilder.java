@@ -124,6 +124,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author kenpaxtonlim
     /**
      * Sets the {@code SocialMedia} of the {@code Person} that we are building.
      */
@@ -133,6 +134,16 @@ public class PersonBuilder {
         } catch (IllegalValueException e) {
             throw new IllegalArgumentException("usernames is expected to be unique.");
         }
+        return this;
+    }
+    //@@author
+
+    /**
+     * Sets the {@code SocialMedia} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCreatedAt(Date createdAt) {
+        this.person.setCreatedAt(createdAt);
+
         return this;
     }
 

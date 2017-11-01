@@ -1,20 +1,13 @@
 package seedu.address.ui;
 
-import java.time.Instant;
-import java.time.Month;
-import java.time.Year;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
-
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -26,14 +19,13 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
+import seedu.address.commons.events.ui.RefreshStatisticsPanelIfOpenEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.commons.events.ui.ToggleStatisticsPanelEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,6 +35,7 @@ public class MainWindow extends UiPart<Region> {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String STATISTICS_STYLE = "view/Statistics.css";
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
 
@@ -57,6 +50,8 @@ public class MainWindow extends UiPart<Region> {
     private StatisticsPanel statisticsPanel;
     private Config config;
     private UserPrefs prefs;
+
+    private Boolean statisticsPanelOpen;
 
     @FXML
     private StackPane browserOrStatisticsPlaceholder;
@@ -79,6 +74,9 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private MenuBar menuBar;
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
 
@@ -94,6 +92,7 @@ public class MainWindow extends UiPart<Region> {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         Scene scene = new Scene(getRoot());
+        scene.getStylesheets().add(STATISTICS_STYLE);
         primaryStage.setScene(scene);
 
         setAccelerators();
@@ -150,33 +149,32 @@ public class MainWindow extends UiPart<Region> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        ObservableList<ReadOnlyPerson> newlyAddedInFilteredList;
-        newlyAddedInFilteredList = logic.getFilteredPersonList()
-                .filtered(t-> {
-                    Date givenDate = t.getCreatedAt();
-                    ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
-                    ZonedDateTime ref = Instant.now().atZone(ZoneId.of("UTC"));
-                    return Month.from(given) == Month.from(ref) && Year.from(given).equals(Year.from(ref));
-                });
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath(),
-                logic.getFilteredPersonList().size(), newlyAddedInFilteredList.size());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFilteredPersonList().size());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    void switchToStatisticsPanel() {
+    /**
+     * Instantiates and adds the statistics panel to the UI
+     */
+    private void switchToStatisticsPanel() {
         statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        statisticsPanelOpen = true;
     }
 
-    void switchToBrowserPanel() {
+    //@@author 500poundbear
+    /**
+     * Instantiates and adds the browser panel to the UI
+     */
+    private void switchToBrowserPanel() {
         browserPanel = new BrowserPanel();
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
+        statisticsPanelOpen = false;
     }
 
     void hide() {
@@ -241,10 +239,6 @@ public class MainWindow extends UiPart<Region> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
     }
@@ -255,25 +249,26 @@ public class MainWindow extends UiPart<Region> {
         handleHelp();
     }
 
+    //@@author 500poundbear
     @Subscribe
     private void handleToggleBrowserPanelEvent(ToggleBrowserPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToBrowserPanel();
     }
 
+    //@@author 500poundbear
     @Subscribe
     private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToStatisticsPanel();
     }
 
+    //@@author 500poundbear
     @Subscribe
-    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
+    private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (event.isReset) {
-            personListPanel.resetFontSize();
-        } else {
-            personListPanel.changeFontSize(event.sizeChange);
+        if (statisticsPanelOpen) {
+            switchToStatisticsPanel();
         }
     }
 }
