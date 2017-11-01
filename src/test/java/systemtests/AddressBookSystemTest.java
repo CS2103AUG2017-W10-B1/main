@@ -126,10 +126,29 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
+        System.out.println("===");
+        System.out.println(expectedCommandInput);
+        System.out.println(getCommandBox().getInput());
         assertEquals(expectedCommandInput, getCommandBox().getInput());
+
+        System.out.println("===");
+        System.out.println(expectedResultMessage);
+        System.out.println(getResultDisplay().getText());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
+
+        System.out.println("===");
+        System.out.println(expectedModel);
+        System.out.println(getModel());
         assertEquals(expectedModel, getModel());
+
+        System.out.println("===");
+        System.out.println(expectedModel.getAddressBook());
+        System.out.println(testApp.readStorageAddressBook());
         assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+
+        System.out.println("===");
+        System.out.println(getPersonListPanel());
+        System.out.println(expectedModel.getFilteredPersonList());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
