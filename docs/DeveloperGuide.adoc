@@ -397,12 +397,16 @@ The `MainWindow` class controls the UI
 interface to swap out the `BrowserPanel` for the `StatisticsPanel` class. When other commands require the `BrowserPanel`,
 `MainWindow` will do the corresponding swap in the UI.
 
-The `StatisticsPanel` extends the `UiPart<Region>` and utilises the [] to filter data.
+The `StatisticsPanel` extends the `UiPart<Region>` and utilises the `Statistics` class to collect data.
 
 image::StatisticsPanelSequenceDiagram.png[width="800"]
+_Figure 4.3.1 : Triggering the ToggleStatisticsPanelEvent to display statistics_
 
 When a `ToggleStatisticsPanelEvent` event is posted, the `MainWindow` instance will initialise a new
 `StatisticsPanel` which will then initialise the `Statistics` class for information to be calculated.
+
+Similarly, when a `ToggleBrowserPanelEvent` is posted, the `MainWindow` instance will initialise a new
+`BrowserPanel`.
 
 Here are the information calculated:
 
