@@ -410,9 +410,9 @@ Here are the information calculated:
 
 2. Number of Persons with Facebook, Twitter and Instagram accounts recorded in system
 
-Here is an implementation snippet of 1 from the Statistics class. The `getNewPersonsAddByMonth()` function
+Here is an implementation snippet of 1. from the Statistics class. The `getNewPersonsAddByMonth()` function
 extracts all the creation dates of each Person instance stored, and parses it accordingly into
-an `ArrayList<Integer>` data structure that will be displayed by the `BarChart` class. 
+an `ArrayList<Integer>` data structure that will be displayed by the `BarChart` class.
 
 [source,java]
 ----
@@ -441,7 +441,12 @@ public ArrayList<Integer> getNewPersonsAddByMonth(int displayYears) {
 
 **Aspect:** Implementation of `StatisticsPanel` as a `UiPart`
 
-* **Alternative 1 (current choice):** Utilise the browser class to display the statistics
+* **Alternative 1 (current choice):** Create an new UI part that will be
+** **Pros:** Developer can utilise the charting library provided by JavaFX to render charts easily.
+** **Cons:** Developer has to ensure that the BrowserPanel and the StatisticsPanel is
+shown appropriately (based on the command that is given).
+
+* **Alternative 2:** Utilise the browser class to display the statistics
 ** **Pros:** Developer does not have to manage the swapping UI parts.
 ** **Cons:** Information has to be passed from the Java system into a format that can be rendered
 by the browser engine. It is tricker to test and more likely to break.
