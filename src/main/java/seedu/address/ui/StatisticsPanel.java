@@ -10,7 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.Statistics;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -46,6 +50,12 @@ public class    StatisticsPanel extends UiPart<Region> {
     private PieChart twChart;
     @FXML
     private PieChart igChart;
+    @FXML
+    private TableView tableView;
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> firstName;
+    @FXML
+    private TableColumn<ReadOnlyPerson, String> accesses;
 
     //@@author 500poundbear
     public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
@@ -65,7 +75,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         initialiseStatisticsPanel(list);
     }
 
-    //@@author 500poundbear
     /**
      * Sets up the fxml objects with data
      */
@@ -83,7 +92,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         igChart.setData(formatInstagramData());
     }
 
-    //@@author 500poundbear
     private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(
             ObservableList<ReadOnlyPerson> list) {
 
@@ -124,7 +132,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         return answer;
     }
 
-    //@@author 500poundbear
     /**
      * Formats the number of users with Facebook recorded
      */
@@ -142,7 +149,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         return FXCollections.observableArrayList(data);
     }
 
-    //@@author 500poundbear
     /**
      * Formats the number of users with Twitter recorded
      */
@@ -160,7 +166,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         return FXCollections.observableArrayList(data);
     }
 
-    //@@author 500poundbear
     /**
      * Formats the number of users with Instagram recorded
      */
@@ -178,7 +183,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         return FXCollections.observableArrayList(data);
     }
 
-    //@@author 500poundbear
     /**
      * Fetches the current year
      */
@@ -186,7 +190,6 @@ public class    StatisticsPanel extends UiPart<Region> {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    //@@author 500poundbear
     /**
      * Fetches the current month
      */
