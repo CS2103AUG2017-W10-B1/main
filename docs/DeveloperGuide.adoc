@@ -488,6 +488,7 @@ Since this search function involves iterating searching through all tags of all 
 
 However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the `FingTagCommand` function. Instead, we simply allowed the `FindTagCommand` to search through all possibilities each time it is called.
 
+// tag::addremovetags[]
 === Add/Remove Tags Command (Since v1.2)
 
 The `EditCommand` currently allows the user to edit all the fields of a contact, including tags. However, the tags entered with this command will completely override all the tags existing in that contact.
@@ -545,7 +546,9 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 * **Alternative 2:** Have separate command for adding and removing tags.
 ** **Pros:** Easier to implement because each command will only handle 1 thing.
 ** **Cons:** Boilerplate codes.
+// end::addremovetags[]
 
+// tag::socialmedia[]
 === Social Media Page Command (Since v1.4)
 
 Since v1.3, users can add social media account details to their contacts. They are mainly Facebook, Twitter, and Instagram.
@@ -582,7 +585,7 @@ EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(url));
 * **Alternative 2:** Have separate command to show Facebook, Twitter, and Instagram.
 ** **Pros:** Easier to implement because each command will only handle 1 thing.
 ** **Cons:** Repeated codes for each social media.
-
+// end::socialmedia[]
 
 === Logging
 
