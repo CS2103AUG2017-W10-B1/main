@@ -150,7 +150,7 @@ _Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 
 image::SDforDeletePersonEventHandling.png[width="800"]
 _Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
@@ -167,7 +167,7 @@ _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `PeopleCount`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -367,6 +367,19 @@ image::UndoRedoActivityDiagram.png[width="200"]
 ** **Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::sort[]
+=== Sorted List (Since v1.1)
+
+When getting the person list from `ModelManager`, simply sort it first before returning the ObservableList. ObservableList has its own inbuilt sort that returns the list in natural ordering.
+
+[source, java]
+----
+public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    return FXCollections.unmodifiableObservableList(filteredPersons.sorted());
+}
+----
+// end::sort[]
+
 // tag::remark[]
 === Remark Command
 
@@ -492,6 +505,7 @@ Since this search function involves iterating searching through all tags of all 
 
 However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the `FingTagCommand` function. Instead, we simply allowed the `FindTagCommand` to search through all possibilities each time it is called.
 
+// tag::addremovetags[]
 === Add/Remove Tags Command (Since v1.2)
 
 The `EditCommand` currently allows the user to edit all the fields of a contact, including tags. However, the tags entered with this command will completely override all the tags existing in that contact.
@@ -549,7 +563,9 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 * **Alternative 2:** Have separate command for adding and removing tags.
 ** **Pros:** Easier to implement because each command will only handle 1 thing.
 ** **Cons:** Boilerplate codes.
+// end::addremovetags[]
 
+// tag::socialmedia[]
 === Social Media Page Command (Since v1.4)
 
 Since v1.3, users can add social media account details to their contacts. They are mainly Facebook, Twitter, and Instagram.
@@ -586,7 +602,14 @@ EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(url));
 * **Alternative 2:** Have separate command to show Facebook, Twitter, and Instagram.
 ** **Pros:** Easier to implement because each command will only handle 1 thing.
 ** **Cons:** Repeated codes for each social media.
+// end::socialmedia[]
 
+// tag::quickhelp[]
+=== Quickhelp Command (Since v1.5)
+
+This command leverages on the `CommandResult` message to display the list of valid command words.
+
+// end::quickhelp[]
 
 === Logging
 
