@@ -338,7 +338,7 @@
 #commandTextField {
     -fx-background-color: transparent -fx-input-border-color transparent -fx-input-border-color;
     -fx-background-insets: 0;
-    -fx-border-color: -fx-input-border-color -fx-input-border-color white -fx-input-border-color;
+    -fx-border-color: -fx-input-border-color;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
