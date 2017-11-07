@@ -28,7 +28,19 @@ public class HistoryCommand extends Command {
         }
 
         Collections.reverse(previousCommands);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, getHistoryText(previousCommands)));
+    }
+
+    private String getHistoryText(List<String> previousCommands) {
+        StringBuilder historyText = new StringBuilder();
+
+        int idx = 1;
+        for (String command : previousCommands) {
+            historyText.append(String.format("(%1$s) %2$s\n", idx, command));
+            idx++;
+        }
+
+        return historyText.toString();
     }
 
     @Override
