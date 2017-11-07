@@ -6,6 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FontSizeOutOfBoundsException;
 import seedu.address.model.Model;
 
+import java.awt.*;
+
 /**
  * Changes the font size.
  */
@@ -39,24 +41,31 @@ public class SizeCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         if (isReset) {
-            model.resetFontSize();
-            return new CommandResult(MESSAGE_RESET_FONT_SUCCESS);
+            return executeSizeResetCommand();
         } else {
             try {
-                int newChange = model.updateFontSize(sizeChange);
-
-                if (sizeChange >= 0) {
-                    return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "increased",
-                                                           sizeChange, newChange));
-                } else {
-                    return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "decreased",
-                                                           -1 * sizeChange, newChange));
-                }
+                return executeSizeChangeCommand();
             } catch (FontSizeOutOfBoundsException e) {
                 throw new CommandException(String.format(MESSAGE_FAILURE, e.previousFontSize, e.newFontSize));
             }
         }
+    }
 
+    private CommandResult executeSizeResetCommand() {
+        model.resetFontSize();
+        return new CommandResult(MESSAGE_RESET_FONT_SUCCESS);
+    }
+
+    private CommandResult executeSizeChangeCommand() throws FontSizeOutOfBoundsException {
+        int newChange = model.updateFontSize(sizeChange);
+
+        if (sizeChange >= 0) {
+            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "increased",
+                    sizeChange, newChange));
+        } else {
+            return new CommandResult(String.format(MESSAGE_CHANGE_FONT_SUCCESS, "decreased",
+                    -1 * sizeChange, newChange));
+        }
     }
 
     @Override
