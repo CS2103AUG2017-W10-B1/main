@@ -19,8 +19,8 @@ import seedu.address.model.person.SocialMedia;
  */
 public class Statistics {
 
-    private static Integer NUMBER_OF_PERSONS_IN_TOP_LIST = 10;
-    private static Integer NUMBER_OF_PERSONS_IN_BOTTOM_LIST = 10;
+    private static final Integer NUMBER_OF_PERSONS_IN_TOP_LIST = 10;
+    private static final Integer NUMBER_OF_PERSONS_IN_BOTTOM_LIST = 10;
 
     private ObservableList<ReadOnlyPerson> personList;
 
@@ -156,10 +156,9 @@ public class Statistics {
      * @return
      */
     private static Comparator<ReadOnlyPerson> sortByGetAccessCount() {
-        return new Comparator<ReadOnlyPerson>(){
+        return new Comparator<ReadOnlyPerson>() {
             @Override
-            public int compare(ReadOnlyPerson s1, ReadOnlyPerson s2)
-            {
+            public int compare(ReadOnlyPerson s1, ReadOnlyPerson s2) {
                 return s1.getAccessCount().numAccess() - s2.getAccessCount().numAccess();
             }
         };
