@@ -10,9 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.Statistics;
@@ -53,12 +50,6 @@ public class    StatisticsPanel extends UiPart<Region> {
     private PieChart twChart;
     @FXML
     private PieChart igChart;
-    @FXML
-    private TableView tableView;
-    @FXML
-    private TableColumn<ReadOnlyPerson, String> firstName;
-    @FXML
-    private TableColumn<ReadOnlyPerson, String> accesses;
 
     //@@author 500poundbear
     public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
