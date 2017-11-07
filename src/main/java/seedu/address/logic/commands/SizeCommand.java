@@ -6,8 +6,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FontSizeOutOfBoundsException;
 import seedu.address.model.Model;
 
-import java.awt.*;
-
 /**
  * Changes the font size.
  */
@@ -51,11 +49,19 @@ public class SizeCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command that resets the font size.
+     * @return the command result produced.
+     */
     private CommandResult executeSizeResetCommand() {
         model.resetFontSize();
         return new CommandResult(MESSAGE_RESET_FONT_SUCCESS);
     }
 
+    /**
+     * Executes the command that changes the font size by the given size change.
+     * @return the command result produced.
+     */
     private CommandResult executeSizeChangeCommand() throws FontSizeOutOfBoundsException {
         int newChange = model.updateFontSize(sizeChange);
 
