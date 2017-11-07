@@ -8,7 +8,7 @@ Personal Information Manager Program (PIMP) is a command line interface (CLI) ad
 
 *Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/kenpaxtonlim.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/test/kenpaxtonlim.md[Test code]]
 
-=== Enhancement Added: Undo/Redo
+=== Enhancement Added: Quickhelp
 
 ==== External behavior
 
@@ -17,9 +17,87 @@ Personal Information Manager Program (PIMP) is a command line interface (CLI) ad
 
 include::../UserGuide.adoc[tag=quickhelp]
 
+#End of Extract#
+
+---
+
+==== Justification
+
+For new users, it can be quite difficult to remember all the commands. Typing in the `HelpCommand` will bring up the help window which may be quite a hassle to do it all the time. The `QuickhelpCommand` allows the user to quickly view all the valid command words that can be used, saving time.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=quickhelp]
+
+#End of Extract#
+
+---
+
+=== Enhancement Added: Add/Remove Tags
+
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
 include::../UserGuide.adoc[tag=addremovetags]
 
+#End of Extract#
+
+---
+
+==== Justification
+
+For existing `EditCommand`, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing a few tags simplier, this command is added to add or remove tags from the existing set without completely replacing it.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=addremovetags]
+
+#End of Extract#
+
+---
+
+=== Enhancement Added: Social Media
+
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
+
 include::../UserGuide.adoc[tag=socialmedia]
+
+#End of Extract#
+
+---
+
+==== Justification
+
+As the target user is a socialite, he/she will be very involved in social media. As such, having access to the social media pages directly from PIMP will be ideal.
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
+
+include::../DeveloperGuide.adoc[tag=socialmedia]
+
+#End of Extract#
+
+---
+
+=== Enhancement Added: Sort
+
+==== External behavior
+
+---
+#Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=sort]
 
@@ -29,22 +107,14 @@ include::../UserGuide.adoc[tag=sort]
 
 ==== Justification
 
-*1) Quickhelp:* For new users, it can be quite difficult to remember all the commands. Typing in the `HelpCommand` will bring up the help window which may be quite a hassle to do it all the time. The `QuickhelpCommand` allows the user to quickly view all the valid command words that can be used, saving time.
-
-*2) Add/Remove Tags:* For existing `EditCommand`, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing a few tags simplier, this command is added to add or remove tags from the existing set without completely replacing it.
-
-*3) Socialmedia:* As the target user is a socialite, he/she will be very involved in social media. As such, having access to the social media pages directly from PIMP will be ideal.
-
-*4) Sort:* Just like any contact list app, the list should be sorted so that it is easier for the user to view. With natural ordering, the list also looks neater.
+Just like any contact list app, the list should be sorted so that it is easier for the user to view. With natural ordering, the list also looks neater.
 
 ==== Implementation
 
 ---
 #Start of Extract [from: Developer Guide]#
 
-include::../DeveloperGuide.adoc[tag=addremovetags]
-
-include::../DeveloperGuide.adoc[tag=socialmedia]
+include::../DeveloperGuide.adoc[tag=sort]
 
 #End of Extract#
 
@@ -52,4 +122,4 @@ include::../DeveloperGuide.adoc[tag=socialmedia]
 
 === Other contributions
 
-WIP
+NIL
