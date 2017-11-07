@@ -62,10 +62,11 @@
 </li>
 <li><a href="#other-features">4.3. Other Features</a>
 <ul class="sectlevel3">
-<li><a href="#viewing-total-number-of-persons-stored">4.3.1. Viewing total number of persons stored</a></li>
-<li><a href="#viewing-newly-added-persons-since-v1-2">4.3.2. Viewing newly added persons (Since v1.2)</a></li>
-<li><a href="#viewing-access-counts-since-v1-3">4.3.3. Viewing access counts (Since v1.3)</a></li>
-<li><a href="#saving-the-data">4.3.4. Saving the data</a></li>
+<li><a href="#auto-sorting-of-list-since-v1-1">4.3.1. Auto sorting of list (Since v1.1)</a></li>
+<li><a href="#viewing-total-number-of-persons-stored">4.3.2. Viewing total number of persons stored</a></li>
+<li><a href="#viewing-newly-added-persons-since-v1-2">4.3.3. Viewing newly added persons (Since v1.2)</a></li>
+<li><a href="#viewing-access-counts-since-v1-3">4.3.4. Viewing access counts (Since v1.3)</a></li>
+<li><a href="#saving-the-data">4.3.5. Saving the data</a></li>
 </ul>
 </li>
 </ul>
@@ -647,7 +648,7 @@ Alias: <code>ex</code></p>
 <h4 id="adding-removing-tag-s-to-existing-contact-code-tags-code-since-v1-2"><a class="link" href="#adding-removing-tag-s-to-existing-contact-code-tags-code-since-v1-2">4.2.1. Adding/Removing tag/s to existing contact : <code>tags</code> (Since v1.2)</a></h4>
 <div class="paragraph">
 <p>Add one or more tags to an existing person in the address book.<br>
-Format: <code>tags TYPE INDEX TAG [TAG]&#8230;&#8203;</code><br>
+Format: <code>tags TYPE INDEX TAG [MORE TAGS]&#8230;&#8203;</code><br>
 Alias: <code>t</code></p>
 </div>
 <div class="sidebarblock">
@@ -1093,14 +1094,20 @@ Stores all contacts into <code>~/contacts.json</code> in JSON format.</p>
 <p>These are features that do not have commands but can be helpful to the user.</p>
 </div>
 <div class="sect3">
-<h4 id="viewing-total-number-of-persons-stored"><a class="link" href="#viewing-total-number-of-persons-stored">4.3.1. Viewing total number of persons stored</a></h4>
+<h4 id="auto-sorting-of-list-since-v1-1"><a class="link" href="#auto-sorting-of-list-since-v1-1">4.3.1. Auto sorting of list (Since v1.1)</a></h4>
+<div class="paragraph">
+<p>The contact list will automatically be sorted in A-Z order. It will refresh and re-sort accordingly when add and edit commands are executed.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-total-number-of-persons-stored"><a class="link" href="#viewing-total-number-of-persons-stored">4.3.2. Viewing total number of persons stored</a></h4>
 <div class="paragraph">
 <p>The column titled "Total: " at the bottom of the screen contains a numerical value
 representing the total number of persons in the last person listing.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="viewing-newly-added-persons-since-v1-2"><a class="link" href="#viewing-newly-added-persons-since-v1-2">4.3.2. Viewing newly added persons (Since v1.2)</a></h4>
+<h4 id="viewing-newly-added-persons-since-v1-2"><a class="link" href="#viewing-newly-added-persons-since-v1-2">4.3.3. Viewing newly added persons (Since v1.2)</a></h4>
 <div class="paragraph">
 <p>The column titled "New: " at the bottom of the screen contains a numerical value
 representing the total number of newly added persons in the last person listing.
@@ -1108,13 +1115,13 @@ A newly added person is defined as a person that was added in the current month.
 </div>
 </div>
 <div class="sect3">
-<h4 id="viewing-access-counts-since-v1-3"><a class="link" href="#viewing-access-counts-since-v1-3">4.3.3. Viewing access counts (Since v1.3)</a></h4>
+<h4 id="viewing-access-counts-since-v1-3"><a class="link" href="#viewing-access-counts-since-v1-3">4.3.4. Viewing access counts (Since v1.3)</a></h4>
 <div class="paragraph">
 <p>At the left side of the screen where the address book entries are displayed, we can see an "Accesses: #number" row, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag functions will increase this counter. This can be toggled on and off using the <code>accessdisplay</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="saving-the-data"><a class="link" href="#saving-the-data">4.3.4. Saving the data</a></h4>
+<h4 id="saving-the-data"><a class="link" href="#saving-the-data">4.3.5. Saving the data</a></h4>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -1181,11 +1188,11 @@ e.g. <code>delete 3</code></p>
 <p><strong>Exit</strong> : <code>exit</code></p>
 </li>
 <li>
-<p><strong>Add Tags</strong> : <code>tags add INDEX TAG [TAG]&#8230;&#8203;</code><br>
+<p><strong>Add Tags</strong> : <code>tags add INDEX TAG [MORE TAGS]&#8230;&#8203;</code><br>
 e.g. <code>addtags 1 friends classmate</code></p>
 </li>
 <li>
-<p><strong>Remove Tags</strong> : <code>tags remove INDEX TAG [TAG]&#8230;&#8203;</code><br>
+<p><strong>Remove Tags</strong> : <code>tags remove INDEX TAG [MORE TAGS]&#8230;&#8203;</code><br>
 e.g. <code>removetags 2 neighbour</code></p>
 </li>
 <li>
@@ -1193,8 +1200,8 @@ e.g. <code>removetags 2 neighbour</code></p>
 e.g.<code>remark 4 r/new remark</code></p>
 </li>
 <li>
-<p><strong>Social Media</strong> : <code>socialmedia INDEX TYPE</code><br>
-e.g. <code>socialmedia 1 facebook</code></p>
+<p><strong>Social Media</strong> : <code>socialmedia TYPE INDEX</code><br>
+e.g. <code>socialmedia facebook 1</code></p>
 </li>
 <li>
 <p><strong>Birthday</strong> : <code>birthday</code></p>
@@ -1229,7 +1236,7 @@ e.g. <code>export JSON ~/contacts.json</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 16:46:13 +00:00
+Last updated 2017-11-07 17:05:33 +00:00
 </div>
 </div>
 </body>

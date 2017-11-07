@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Ken Lim Tien Tze - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Ken Lim Tien Tze - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-personal-information-management-program-pimp"><a class="link" href="#project-personal-information-management-program-pimp">Project: Personal Information Management Program (PIMP)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands. It is written in Java.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/kenpaxtonlim.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/test/kenpaxtonlim.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-quickhelp"><a class="link" href="#enhancement-added-quickhelp">Enhancement Added: Quickhelp</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-quick-help-code-quickhelp-code-since-v1-5"><a class="link" href="#viewing-quick-help-code-quickhelp-code-since-v1-5">Viewing quick help : <code>quickhelp</code> (Since v1.5)</a></h4>
+<div class="paragraph">
+<p>List all the available command words of the address book.<br>
+Format: <code>quickhelp</code><br>
+Alias: <code>qh</code></p>
+</div>
+<div class="paragraph">
+<p>This command takes no arguments.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>For new users, it can be quite difficult to remember all the commands. Typing in the <code>HelpCommand</code> will bring up the help window which may be quite a hassle to do it all the time. The <code>QuickhelpCommand</code> allows the user to quickly view all the valid command words that can be used, saving time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quickhelp-command-since-v1-5"><a class="link" href="#quickhelp-command-since-v1-5">Quickhelp Command (Since v1.5)</a></h3>
+<div class="paragraph">
+<p>This command leverages on the <code>CommandResult</code> message to display the list of valid command words.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-add-remove-tags"><a class="link" href="#enhancement-added-add-remove-tags">Enhancement Added: Add/Remove Tags</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-removing-tag-s-to-existing-contact-code-tags-code-since-v1-2"><a class="link" href="#adding-removing-tag-s-to-existing-contact-code-tags-code-since-v1-2">Adding/Removing tag/s to existing contact : <code>tags</code> (Since v1.2)</a></h4>
+<div class="paragraph">
+<p>Add one or more tags to an existing person in the address book.<br>
+Format: <code>tags TYPE INDEX TAG [MORE TAGS]&#8230;&#8203;</code><br>
+Alias: <code>t</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The TYPE can be either "add" or "remove".</p>
+</li>
+<li>
+<p>Add tag/s to the person at the specified <code>INDEX</code>. The index refers to the index number shown in the last person listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least 1 tag must be added</p>
+</li>
+<li>
+<p>For adding, the command will ignore tags that already exist in that contact.</p>
+</li>
+<li>
+<p>For removing, the command will ignore tags that do not exist in that contact.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tags add 1 friends</code><br>
+Add a tag 'friends' to the 1st person.</p>
+</li>
+<li>
+<p><code>tags remove 2 classmate CS2103</code><br>
+Remove tags "classmate" and "CS2103" from the 2nd person.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alias example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>t add 1 friends</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>For existing <code>EditCommand</code>, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing a few tags simplier, this command is added to add or remove tags from the existing set without completely replacing it.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-remove-tags-command-since-v1-2"><a class="link" href="#add-remove-tags-command-since-v1-2">Add/Remove Tags Command (Since v1.2)</a></h3>
+<div class="paragraph">
+<p>The <code>EditCommand</code> currently allows the user to edit all the fields of a contact, including tags. However, the tags entered with this command will completely override all the tags existing in that contact.</p>
+</div>
+<div class="paragraph">
+<p>The <code>AddRemoveTagsCommand</code> was added to allow users to add or remove only certain tags without compromising the entire tags list of the contact.</p>
+</div>
+<div class="paragraph">
+<p>In the backend, <code>AddRemoveTagsCommand</code> actually uses the same mechanics as <code>EditCommand</code>, where the person is updated as a whole. What it means is the <code>Person</code> to be targeted is firstly duplicated, then the tags list is being changed to add/remove certain tags, and the new <code>Person</code> object is used to update in the address book.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson;
+
+        <span class="keyword">if</span> (isAdd) {
+            editedPerson = addTagsToPerson(personToEdit, tags);
+        } <span class="keyword">else</span> {
+            editedPerson = removeTagsFromPerson(personToEdit, tags);
+        }
+
+
+        <span class="keyword">try</span> {
+            model.updatePerson(personToEdit, editedPerson);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For <code>AddRemoveTagsParser</code>, the first whitespace in the argument is removed, then being split with the regex " " to remove all whitespaces. The split array now has the individual arguments. The first argument is the TYPE, which can be either "add" or "remove". The second argument is the INDEX, and the third onwards are the tags to be added or removed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> ARGUMENT_START_INDEX = <span class="integer">1</span>;
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> TYPE_ARGUMENT_INDEX = <span class="integer">0</span>;
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> INDEX_ARGUMENT_INDEX = <span class="integer">1</span>;
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="type">int</span> TAG_ARGUMENT_INDEX = <span class="integer">2</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After parsing, the TYPE, INDEX, and set of tags is passed to the <code>AddRemoveTagsCommand</code> constructor. Using the <code>Set&lt;Tag&gt;</code> that the user entered, we can easily use <code>addAll()</code> or <code>removeAll()</code> to create the <code>Person</code> object with the tags we want.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Adding and removing of tag from existing person.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Update the whole person like in <code>EditCommand</code>, but just change the tags only.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Easy to implement as code already exist.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Have to touch on other details (e.g. phone, address, etc.) apart from tags.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Update the Set&lt;Tag&gt; directly by exposing it with a getter and setter</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Isolate to only touch on tags</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Breaks the idea that each person in address book is read-only.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Commands to add and remove tags.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> 1 unified command <code>AddRemoveTagsCommand</code> that parse arguments to determine it is add or remove.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Cleaner implementation and easier for user to use.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Have to parse the argument and determine if it is an add or remove.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Have separate command for adding and removing tags.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Easier to implement because each command will only handle 1 thing.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Boilerplate codes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-social-media"><a class="link" href="#enhancement-added-social-media">Enhancement Added: Social Media</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="accessing-a-person-s-social-media-code-socialmedia-code-since-v1-4"><a class="link" href="#accessing-a-person-s-social-media-code-socialmedia-code-since-v1-4">Accessing a person&#8217;s social media : <code>socialmedia</code> (Since v1.4)</a></h4>
+<div class="paragraph">
+<p>Access a person&#8217;s social media profile on the browser.<br>
+Format: <code>socialmedia TYPE INDEX</code><br>
+Alias: <code>sm</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Loads the social media page of the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+<li>
+<p>TYPE can be either of the following: 'facebook', 'twitter', 'instagram'</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>socialmedia facebook 1</code><br>
+Loads the Facebook account of the 1st person in the address book.</p>
+</li>
+<li>
+<p><code>find Tony</code><br>
+<code>socialmedia instagram 2</code><br>
+Loads the Instagram account of the 2nd person returned by the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>As the target user is a socialite, he/she will be very involved in social media. As such, having access to the social media pages directly from PIMP will be ideal.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="social-media-page-command-since-v1-4"><a class="link" href="#social-media-page-command-since-v1-4">Social Media Page Command (Since v1.4)</a></h3>
+<div class="paragraph">
+<p>Since v1.3, users can add social media account details to their contacts. They are mainly Facebook, Twitter, and Instagram.
+Users can use the command <code>socialmedia TYPE INDEX</code> to load the contact&#8217;s social media page to the browser panel.</p>
+</div>
+<div class="paragraph">
+<p>A new event <code>ChangeBrowserPanelUrlEvent</code> is created for the purpose when the browser panel URL needs to be changed. Previously, the URL was completely handled within the BrowserPanel UI and not exposed to the other components.
+With this event, other components will be able to call it and change the url of the browser. In the case of <code>SocialMediaCommand</code>, the URL will be changed to Facebook, Twitter, or Instagram according to the TYPE that the user indicated in the command.</p>
+</div>
+<div class="paragraph">
+<p>Subsequently, the <code>BrowserPanel</code> UI will handle the event and change the URL accordingly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Subscribe</span>
+    <span class="directive">private</span> <span class="type">void</span> handleChangeBrowserPanelUrlEvent(ChangeBrowserPanelUrlEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPage(event.url);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To call the event, simply invoke the <code>EventsCenter</code> and post that event like such:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">EventsCenter.getInstance().post(<span class="keyword">new</span> ChangeBrowserPanelUrlEvent(url));</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Commands to show different social media pages</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> 1 unified command <code>SocialMediaCommand</code> that parse arguments to determine which social media page to show.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Cleaner implementation and easier for additional social medias to be added.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Have to parse the argument and match which social media and URL to use.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Have separate command to show Facebook, Twitter, and Instagram.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Easier to implement because each command will only handle 1 thing.</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Repeated codes for each social media.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-sort"><a class="link" href="#enhancement-added-sort">Enhancement Added: Sort</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-4"><a class="link" href="#external-behavior-4">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="auto-sorting-of-list-since-v1-1"><a class="link" href="#auto-sorting-of-list-since-v1-1">Auto sorting of list (Since v1.1)</a></h4>
+<div class="paragraph">
+<p>The contact list will automatically be sorted in A-Z order. It will refresh and re-sort accordingly when add and edit commands are executed.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<div class="paragraph">
+<p>Just like any contact list app, the list should be sorted so that it is easier for the user to view. With natural ordering, the list also looks neater.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-4"><a class="link" href="#implementation-4">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorted-list-since-v1-1"><a class="link" href="#sorted-list-since-v1-1">Sorted List (Since v1.1)</a></h3>
+<div class="paragraph">
+<p>When getting the person list from <code>ModelManager</code>, simply sort it first before returning the ObservableList. ObservableList has its own inbuilt sort that returns the list in natural ordering.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> ObservableList&lt;ReadOnlyPerson&gt; getFilteredPersonList() {
+    <span class="keyword">return</span> FXCollections.unmodifiableObservableList(filteredPersons.sorted());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="paragraph">
+<p>NIL</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-07 17:05:33 +00:00
+</div>
+</div>
+</body>
+</html>
