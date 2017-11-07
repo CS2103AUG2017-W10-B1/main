@@ -17,12 +17,12 @@
               prefHeight="400.0" prefWidth="600.0"
               minWidth="800.0">
         <columnConstraints>
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
-            <ColumnConstraints minWidth="10.0" percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
+            <ColumnConstraints percentWidth="16.66" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints vgrow="SOMETIMES" />
@@ -55,10 +55,10 @@
                       GridPane.columnSpan="2"
             />
             <PieChart id="igChart"
-                fx:id="igChart"
-                GridPane.rowIndex="1"
-                GridPane.columnIndex="4"
-                GridPane.columnSpan="2"
+                    fx:id="igChart"
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="4"
+                    GridPane.columnSpan="2"
             />
         </children>
     </GridPane>
