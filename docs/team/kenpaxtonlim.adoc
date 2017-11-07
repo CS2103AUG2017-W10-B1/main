@@ -31,7 +31,11 @@ include::../UserGuide.adoc[tag=sort]
 
 *1) Quickhelp:* For new users, it can be quite difficult to remember all the commands. Typing in the `HelpCommand` will bring up the help window which may be quite a hassle to do it all the time. The `QuickhelpCommand` allows the user to quickly view all the valid command words that can be used, saving time.
 
-*2) Add/Remove Tags:* 
+*2) Add/Remove Tags:* For existing `EditCommand`, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing a few tags simplier, this command is added to add or remove tags from the existing set without completely replacing it.
+
+*3) Socialmedia:* As the target user is a socialite, he/she will be very involved in social media. As such, having access to the social media pages directly from PIMP will be ideal.
+
+*4) Sort:* Just like any contact list app, the list should be sorted so that it is easier for the user to view. With natural ordering, the list also looks neater.
 
 ==== Implementation
 
