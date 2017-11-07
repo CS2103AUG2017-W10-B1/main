@@ -31,6 +31,7 @@ public class HistoryCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, getHistoryText(previousCommands)));
     }
 
+    // @@author donjar
     private String getHistoryText(List<String> previousCommands) {
         StringBuilder historyText = new StringBuilder();
 
@@ -42,6 +43,7 @@ public class HistoryCommand extends Command {
 
         return historyText.toString();
     }
+    // @@author
 
     @Override
     public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack) {
