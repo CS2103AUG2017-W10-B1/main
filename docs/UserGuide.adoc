@@ -85,13 +85,15 @@ Alias: `h`
 
 This command takes no arguments.
 
-==== Viewing quick help : `quickhelp` (Not implemented yet. Coming in v2.0)
+// tag::quickhelp[]
+==== Viewing quick help : `quickhelp` (Since v1.5)
 
-Opens a quick summary of using the address book. +
+List all the available command words of the address book. +
 Format: `quickhelp` +
 Alias: `qh`
 
 This command takes no arguments.
+// end::quickhelp[]
 
 ==== Adding a person: `add`
 
@@ -128,30 +130,19 @@ Alias Example:
 ==== Listing all persons : `list`
 
 Shows a list of persons in the address book. +
-Format: `list [m/MODE] [tag/TAG]`
+Format: `list`
 
-****
-* MODE can be either "recent", "frequent" or "tag". If MODE is set to "tag", the field [tag/TAG] must also be included.
-* If the [m/MODE] field is empty, a list of all persons is shown
-* Using MODE = "recent" will return a list of the 5 most recently accessed entries
-* Using MODE = "frequent" will return a list of the 5 most frequently accessed entries
-* Using MODE = "tag" will return a list of all person that are tagged with TAG
-****
+A list of all persons is shown.
 
 Examples:
 
 * `list` +
 Lists all persons.
 
-* `list m/recent` +
-Lists the 5 most recently accessed entries.
-
-* `list m/tag tag/work` +
-Returns a list of all persons tagged with "work"
 
 Alias example:
 
-* `l m/recent`
+* `l`
 
 ==== Locating persons by name: `find`
 
@@ -313,10 +304,11 @@ This command takes no arguments.
 
 These are advanced commands available in PIMP that might be useful for the user.
 
+// tag::addremovetags[]
 ==== Adding/Removing tag/s to existing contact : `tags` (Since v1.2)
 
 Add one or more tags to an existing person in the address book. +
-Format: `tags TYPE INDEX TAG [TAG]...` +
+Format: `tags TYPE INDEX TAG [MORE TAGS]...` +
 Alias: `t`
 
 ****
@@ -338,6 +330,7 @@ Remove tags "classmate" and "CS2103" from the 2nd person.
 Alias example:
 
 * `t add 1 friends`
+// end::addremovetags[]
 
 ==== Changing a person's remark : `remark` (Since v1.2)
 
@@ -366,6 +359,7 @@ Alias example:
 
 * `re 1 r/Owe money`
 
+// tag::socialmedia[]
 ==== Accessing a person's social media : `socialmedia` (Since v1.4)
 
 Access a person's social media profile on the browser. +
@@ -388,6 +382,7 @@ Loads the Facebook account of the 1st person in the address book.
 * `find Tony` +
 `socialmedia instagram 2` +
 Loads the Instagram account of the 2nd person returned by the `find` command.
+// end::socialmedia[]
 
 ==== Viewing contacts with birthday in current month : `birthday`
 View a list of persons with birthdays in the current month. +
@@ -515,11 +510,11 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `clear` +
 `undo 2` (reverses the last 2 commands) +
 `redo 2` (reapplies the last 2 commands)
-// end::undoredo[]
 
 Alias example:
 
 * `r 1`
+// end::undoredo[]
 
 ==== Viewing statistics : `statistics`
 
@@ -550,6 +545,12 @@ Stores all contacts into `~/contacts.json` in JSON format.
 === Other Features
 
 These are features that do not have commands but can be helpful to the user.
+
+// tag::sort[]
+==== Auto sorting of list (Since v1.1)
+
+The contact list will automatically be sorted in A-Z order. It will refresh and re-sort accordingly when add and edit commands are executed.
+// end::sort[]
 
 ==== Viewing total number of persons stored
 
@@ -597,14 +598,14 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `delete 3`
 * *Clear* : `clear`
 * *Exit* : `exit`
-* *Add Tags* : `tags add INDEX TAG [TAG]...` +
+* *Add Tags* : `tags add INDEX TAG [MORE TAGS]...` +
 e.g. `addtags 1 friends classmate`
-* *Remove Tags* : `tags remove INDEX TAG [TAG]...` +
+* *Remove Tags* : `tags remove INDEX TAG [MORE TAGS]...` +
 e.g. `removetags 2 neighbour`
 * *Remark* : `remark INDEX r/REMARK` +
 e.g.`remark 4 r/new remark`
-* *Social Media* : `socialmedia INDEX TYPE` +
-e.g. `socialmedia 1 facebook`
+* *Social Media* : `socialmedia TYPE INDEX` +
+e.g. `socialmedia facebook 1`
 * *Birthday* : `birthday`
 * *Font size* : `size AMOUNT` +
 * *Toggle access display* : `accessdisplay TYPE` +
