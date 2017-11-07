@@ -1,4 +1,4 @@
-= Personal Information Management Application (PIMP) - Developer Guide
+= Personal Information Management Program (PIMP) - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -150,7 +150,7 @@ _Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 
 image::SDforDeletePersonEventHandling.png[width="800"]
 _Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
@@ -167,7 +167,7 @@ _Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `PeopleCount`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -397,7 +397,16 @@ The `MainWindow` class controls the UI
 interface to swap out the `BrowserPanel` for the `StatisticsPanel` class. When other commands require the `BrowserPanel`,
 `MainWindow` will do the corresponding swap in the UI.
 
-The `StatisticsPanel` extends the `UiPart<Region>` and utilises the [] to filter data.
+The `StatisticsPanel` extends the `UiPart<Region>` and utilises the `Statistics` class to collect data.
+
+image::StatisticsPanelSequenceDiagram.png[width="800"]
+_Figure 4.3.1 : Triggering the ToggleStatisticsPanelEvent to display statistics_
+
+When a `ToggleStatisticsPanelEvent` event is posted, the `MainWindow` instance will initialise a new
+`StatisticsPanel` which will then initialise the `Statistics` class for information to be calculated.
+
+Similarly, when a `ToggleBrowserPanelEvent` is posted, the `MainWindow` instance will initialise a new
+`BrowserPanel`.
 
 Here are the information calculated:
 
@@ -405,15 +414,43 @@ Here are the information calculated:
 
 2. Number of Persons with Facebook, Twitter and Instagram accounts recorded in system
 
-Here is an implementation of 1.
+Here is an implementation snippet of 1. from the Statistics class. The `getNewPersonsAddByMonth()` function
+extracts all the creation dates of each Person instance stored, and parses it accordingly into
+an `ArrayList<Integer>` data structure that will be displayed by the `BarChart` class.
 
-[Implementation]
+[source,java]
+----
+public ArrayList<Integer> getNewPersonsAddByMonth(int displayYears) {
+
+        ArrayList<Integer> countByMonth = new ArrayList<>(Collections.nCopies(displayYears * 12 + 1, 0));
+
+        personList.forEach((p) -> {
+            Date givenDate = p.getCreatedAt();
+            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of("UTC"));
+
+            int personAddedYear = Integer.parseInt(Year.from(given).toString());
+            int personAddedMonth = Month.from(given).getValue();
+
+            int indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
+            if (indOffset >= 0 && indOffset <= displayYears * 12) {
+                countByMonth.set(indOffset, countByMonth.get(indOffset) + 1);
+            }
+        });
+
+        return countByMonth;
+    }
+----
 
 ==== Design Considerations
 
 **Aspect:** Implementation of `StatisticsPanel` as a `UiPart`
 
-* **Alternative 1 (current choice):** Utilise the browser class to display the statistics
+* **Alternative 1 (current choice):** Create an new UI part that will be
+** **Pros:** Developer can utilise the charting library provided by JavaFX to render charts easily.
+** **Cons:** Developer has to ensure that the BrowserPanel and the StatisticsPanel is
+shown appropriately (based on the command that is given).
+
+* **Alternative 2:** Utilise the browser class to display the statistics
 ** **Pros:** Developer does not have to manage the swapping UI parts.
 ** **Cons:** Information has to be passed from the Java system into a format that can be rendered
 by the browser engine. It is tricker to test and more likely to break.
