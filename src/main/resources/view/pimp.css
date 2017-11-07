@@ -180,6 +180,7 @@
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: -fx-status-bar-text-color;
+    -fx-font-size: 20pt;
 }
 
 .status-bar-with-border {
