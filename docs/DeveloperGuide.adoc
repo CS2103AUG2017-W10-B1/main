@@ -467,6 +467,7 @@ by the browser engine. It is tricker to test and more likely to break.
 ** **Cons:** A breakdown by year might not allow the user to answer a more important question easily: how has the number
 of people added changed in a more manageable timeframe (such as a month)?
 
+// tag::findregex[]
 === Searching by Regex
 Searching contacts using regex is implemented with the `FindRegexCommand` class. It is very similar to the normal find command, which is `FindCommand`; the main difference is that, instead of a predicate which is an instance of `NameContainsKeywordPredicate`, the newly created predicate `NameMatchesRegexPredicate` is used.
 
@@ -477,6 +478,8 @@ We felt that this makes more sense; for example, if someone wants to find the co
 Also, in the `FindRegexCommandParser` which parses the command passed in, we originally decided to not trim the string passed. However, this meant that the space separating the command keyword and the arguments are also included in the regex. This is probably not the user wanted; for example, the command `findregex John` will not match `John` since the regex formed is `␣John` (here ␣ is a space).
 
 We also originally thought of only trimming the first space. We eventually decided to trim every whitespace though, since we believe that any extra whitespace would be unintentional. For example, it does not make much sense for users to search with a regex that starts with two spaces, say `␣␣John`, as it is very rare for contacts to have two consecutive spaces in their name. Those cases are very likely to be a typo instead.
+
+// end::findregex[]
 
 === Searching by Tag (Since v1.2)
 
