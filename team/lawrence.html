@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Lawrence Li - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Lawrence Li - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-personal-information-management-program-pimp"><a class="link" href="#project-personal-information-management-program-pimp">Project: Personal Information Management Program (PIMP)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PIMP (Personal Information Manager Program) is a command line interface (CLI) address book that allows users to maintain their contacts. This program allows users to store various properties of their contacts, such as their home addresses, email addresses, phone numbers, or even custom tags. It also allows users to view the social media profiles of their address book entries. Since PIMP is targeted at young socialites, it includes many functionalities suitable for such an audience, such as birthday alerts. The program has four main components, namely the <code>User Interface (UI)</code>, <code>Logic</code>, <code>Model</code> and <code>Storage</code> components. Addressbook data is stored locally in an .xml file.</p>
+</div>
+<div class="paragraph">
+<p>PIMP v1.5 is available on any platform running Java 8.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md">Test code</a>] {give links to collated code files}</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-findtag"><a class="link" href="#enhancement-added-findtag">Enhancement Added: FindTag</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-persons-by-tags-code-findtag-code-since-v1-2"><a class="link" href="#locating-persons-by-tags-code-findtag-code-since-v1-2">Locating persons by tags: <code>findtag</code> (Since v1.2)</a></h4>
+<div class="paragraph">
+<p>Finds persons who has has a tag matching any of the search tags.<br>
+Format: <code>findtag TAG</code><br>
+Alias: <code>ft</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findtag friends family</code><br>
+Returns all person having tags <code>friends</code> or <code>family</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alias example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ft friends</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>This command allows the user to search through the tags of their contacts. It is particularly useful if the user has tagged a group of his/her addressbook entries with a specific tag, say "friend", and would like the addressbook to list only those entries.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="searching-by-tag-since-v1-2"><a class="link" href="#searching-by-tag-since-v1-2">Searching by Tag (Since v1.2)</a></h3>
+<div class="paragraph">
+<p>Searching by tag is implemented by the <code>FindTagCommand</code> class. This command allows the user to search through the list of all contacts and output all that are tagged with a certain tag.</p>
+</div>
+<div class="paragraph">
+<p>The <code>FindTagCommand</code> class is implemented by calling <code>TagContainsKeywordsPredicate</code> as opposed to <code>NameContainsKeywordsPredicate</code>. This class tells us if a certain <code>person</code> object has any tag that matches the desired keyword. Implementing it this way allows us to extend functionality that was already implemented with a similar structure. In the future, implementing other search functions could build on these current search options.</p>
+</div>
+<div class="paragraph">
+<p>Since this search function involves iterating searching through all tags of all <code>person</code> objects in the address book, it could take up to O(pt) time, where p is the number of <code>person</code> objects in the address book, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of <code>person</code> objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of <code>person</code> objects that have the tag, say <code>delete</code>, <code>add</code> or <code>edit</code>. This would then offset some of the time required for the search onto these other commands.</p>
+</div>
+<div class="paragraph">
+<p>However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the <code>FingTagCommand</code> function. Instead, we simply allowed the <code>FindTagCommand</code> to search through all possibilities each time it is called.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-accesscount"><a class="link" href="#enhancement-added-accesscount">Enhancement Added: AccessCount</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="viewing-access-counts-since-v1-3"><a class="link" href="#viewing-access-counts-since-v1-3">Viewing access counts (Since v1.3)</a></h4>
+<div class="paragraph">
+<p>At the left side of the screen where the address book entries are displayed, we can see a heart icon, with a number beside it, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag commands will increase this counter. This can be toggled on and off using the <code>accessdisplay</code> command.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>As PIMP is designed for the socialite in mind, we decided to implement features that a socialite would want. One such feature would be the ability to find out how frequently he/she has accessed a certain entry, so that the socialite can learn more about their social circles. It would allow the socialite to find out who he/she looks up to and frequently accesses, and who he/she has been neglecting.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="accesscount-since-v1-3"><a class="link" href="#accesscount-since-v1-3">AccessCount (Since v1.3)</a></h3>
+<div class="paragraph">
+<p>The number of accesses to each entry is kept track of. Here, each access is defined to be any command that edits an entry, be it <code>edit</code>, <code>addtags</code>/<code>removetags</code> or <code>remark</code>. Clicks on the side panel, or selections through the <code>select</code> command are also included.</p>
+</div>
+<div class="paragraph">
+<p>AccessCount is implemented as an additional property of the <code>person</code> class. It is updated whenever an <code>edit</code>, <code>addtags</code>/<code>removetags</code> or <code>remark</code> directly as part of the execution of those commands. In the case of selections, it is implemented with the code block below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">private</span> <span class="type">void</span> updateAccessCount(PersonCard oldValue,PersonCard newValue) {
+        <span class="keyword">if</span> (oldValue == <span class="predefined-constant">null</span> || oldValue.person.getName() != newValue.person.getName()) {
+            newValue.person.incrementAccess();
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is a need for such an unusual condition since edit commands themselves will also change the selected person card.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h3>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of <code>AccessCount</code></p>
+</div>
+<div class="paragraph">
+<p>Originally, the access counts were implemented as part of the <code>PersonPanelSelectionChangedEvent</code> event. However, the way this event is raised is rather buggy, and there are frequently many copies of this event being raised, leading to numerous bugs in the access count being incremented too much.</p>
+</div>
+<div class="paragraph">
+<p>Success was found when the access count was implemented separately for editing commands as well as for selection commands, while taking careful note of situations where both may happen.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-accessdisplay"><a class="link" href="#enhancement-added-accessdisplay">Enhancement Added: AccessDisplay</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4"><a class="link" href="#toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4">Toggling the display of the access counts : <code>accessdisplay</code> (Since v1.4)</a></h4>
+<div class="paragraph">
+<p>Toggles the display option for the access count numbers.<br>
+Format: <code>accessdisplay TYPE</code><br>
+Alias: <code>ad</code>
+TYPE can be either 'on' or 'off'</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>accessdisplay off</code>
+The description cards on the left plane no longer display access counts.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>This feature allows the socialites to hide the access display counter as an option. One possible reason a user might want to hide the counter would be to avoid embarassment if other people found out one entry has been accessed significantly more than others.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="accessdisplay-since-v1-4"><a class="link" href="#accessdisplay-since-v1-4">AccessDisplay (Since v1.4)</a></h3>
+<div class="paragraph">
+<p>Users may not want the number of accesses to each entry to be displayed at all time, since it might be embarassing if it is seen that they have frequently accessed a particular entry. Such users may use the <code>accessdisplay off</code> command to hide the number of accesses.</p>
+</div>
+<div class="paragraph">
+<p>Access display is implemented with two personcard javafx files, <code>PersonCardList.fxml</code> and <code>PersonCardListNoAccess.fxml</code>. Both cards are loaded when PIMP is started, and constantly updated in the background. When the user desires to switch from one to the other, this allows for a smooth transition, without any load times.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-add-command-code-sortaccess-code"><a class="link" href="#enhancement-proposed-add-command-code-sortaccess-code">Enhancement Proposed: Add command <code>SortAccess</code></a></h3>
+<div class="paragraph">
+<p>While it is useful for a socialite to be able to see the access counts of each individual entry, it is possible that a socialite would have too many PIMP contacts, so that finding the most frequently, or least frequently accessed entries would prove cumbersome. Adding a sort by access command would resolve this issue.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the GUI to always open to the maximum screen size (Pull request <a href="https://github.com">#68</a>)</p>
+</li>
+<li>
+<p>Updated the access count to display as an icon with a heart and a number (Pull request <a href="https://github.com">#144</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-08 01:23:06 +00:00
+</div>
+</div>
+</body>
+</html>
