@@ -404,7 +404,7 @@ column are undoable.
 // end::remark[]
 
 
-// tag::[access]
+// tag::access[]
 === AccessCount (Since v1.3)
 
 The number of accesses to each entry is kept track of. Here, each access is defined to be any command that edits an entry, be it `edit`, `addtags`/`removetags` or `remark`. Clicks on the side panel, or selections through the `select` command are also included.
@@ -430,16 +430,16 @@ Originally, the access counts were implemented as part of the `PersonPanelSelect
 
 Success was found when the access count was implemented separately for editing commands as well as for selection commands, while taking careful note of situations where both may happen.
 
-// end:[access]
+// end::access[]
 
-// tag::[accessdisplay]
+// tag::accessdisplay[]
 === AccessDisplay (Since v1.4)
 
 Users may not want the number of accesses to each entry to be displayed at all time, since it might be embarassing if it is seen that they have frequently accessed a particular entry. Such users may use the `accessdisplay off` command to hide the number of accesses.
 
 Access display is implemented with two personcard javafx files, `PersonCardList.fxml` and `PersonCardListNoAccess.fxml`. Both cards are loaded when PIMP is started, and constantly updated in the background. When the user desires to switch from one to the other, this allows for a smooth transition, without any load times.
 
-// end:[accessdisplay]
+// end::accessdisplay[]
 
 // tag::statistics[]
 === Statistics Command
@@ -650,6 +650,8 @@ EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(url));
 === Quickhelp Command (Since v1.5)
 
 This command leverages on the `CommandResult` message to display the list of valid command words.
+
+// end::quickhelp[]
 
 // tag::size[]
 === Changing Font Size
