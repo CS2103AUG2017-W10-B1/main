@@ -69,7 +69,7 @@ public class PersonListPanel extends UiPart<Region> {
      * @param oldValue Previous value for the PersonCard object
      * @param newValue New value for the PersonCard object that has changed.
      */
-    private void updateAccessCount(PersonCard oldValue,PersonCard newValue) {
+    private void updateAccessCount(PersonCard oldValue, PersonCard newValue) {
         if (oldValue == null || oldValue.person.getName() != newValue.person.getName()) {
             newValue.person.incrementAccess();
         }
