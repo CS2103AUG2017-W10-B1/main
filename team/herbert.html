@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Herbert Ilhan Tanujaya - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Herbert Ilhan Tanujaya - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-personal-information-management-program-pimp"><a class="link" href="#project-personal-information-management-program-pimp">Project: Personal Information Management Program (PIMP)</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands.</p>
+</div>
+<div class="paragraph">
+<p>+
++PIMP v1.5 is available on any platform running Java 8.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/donjar.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/donjar.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-findregex"><a class="link" href="#enhancement-added-findregex">Enhancement Added: Findregex</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="locating-persons-by-name-code-findregex-code-since-v1-2"><a class="link" href="#locating-persons-by-name-code-findregex-code-since-v1-2">Locating persons by name: <code>findregex</code> (Since v1.2)</a></h4>
+<div class="paragraph">
+<p>Finds persons whose names match the regex given. Note that only the name is searched. <br>
+Format: <code>findregex REGEX</code><br>
+Alias: <code>fr</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findregex ^Joh?n$</code><br>
+Returns <code>Jon</code> and <code>John</code>, but not <code>John Doe</code>.</p>
+</li>
+<li>
+<p><code>findregex Joh?n</code><br>
+Returns <code>Jon</code> and <code>John</code>, as well as <code>John Doe</code> and <code>Jane John</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alias example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fr Do?</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>This <code>findregex</code> command is an advanced feature useful for users who want to search in a more powerful manner.
+You can use this command to find people matching "Johnny" or "Johny", for example.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="searching-by-regex"><a class="link" href="#searching-by-regex">Searching by Regex</a></h3>
+<div class="paragraph">
+<p>Searching contacts using regex is implemented with the <code>FindRegexCommand</code> class. It is very similar to the normal find command, which is <code>FindCommand</code>; the main difference is that, instead of a predicate which is an instance of <code>NameContainsKeywordPredicate</code>, the newly created predicate <code>NameMatchesRegexPredicate</code> is used.</p>
+</div>
+<div class="paragraph">
+<p>This <code>NameMatchesRegexPredicate</code>, which is a subclass of <code>Predicate</code>, is constructed by passing a string <code>regex</code>, which is going to be compiled into a <code>Pattern</code>. The <code>test</code> method uses the <code>Pattern</code> object formed by testing it with the person&#8217;s full name. Here, the testing is done with the <code>find</code> method, and not <code>matches</code> method. <code>find</code> is preferred as <code>find</code> just needs to match a substring of the string passed.</p>
+</div>
+<div class="paragraph">
+<p>We felt that this makes more sense; for example, if someone wants to find the contact with name "John" or "Jon", passing <code>Joh?n</code> will be matched with <code>John Doe</code> and <code>Jon Doe</code>, since the <code>find</code> method is used. If the <code>matches</code> method is used instead, it will only exactly match <code>John</code> or <code>Jon</code>, which is less useful (searching for only part of the full name allows users to still find someone if the user only remembers a part of the full name; even if the user remembers the full name, only matching a substring allows the user to type a shorter regex).</p>
+</div>
+<div class="paragraph">
+<p>Also, in the <code>FindRegexCommandParser</code> which parses the command passed in, we originally decided to not trim the string passed. However, this meant that the space separating the command keyword and the arguments are also included in the regex. This is probably not the user wanted; for example, the command <code>findregex John</code> will not match <code>John</code> since the regex formed is <code>␣John</code> (here ␣ is a space).</p>
+</div>
+<div class="paragraph">
+<p>We also originally thought of only trimming the first space. We eventually decided to trim every whitespace though, since we believe that any extra whitespace would be unintentional. For example, it does not make much sense for users to search with a regex that starts with two spaces, say <code>␣␣John</code>, as it is very rare for contacts to have two consecutive spaces in their name. Those cases are very likely to be a typo instead.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-add-command-code-size-code"><a class="link" href="#enhancement-added-add-command-code-size-code">Enhancement Added: Add command <code>size</code></a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="increasing-decreasing-font-size-code-size-code-since-v1-3"><a class="link" href="#increasing-decreasing-font-size-code-size-code-since-v1-3">Increasing/decreasing font size : <code>size</code> (Since v1.3)</a></h4>
+<div class="paragraph">
+<p>Increases the font size by the number given, in pts.<br>
+Format: <code>size [AMOUNT]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>AMOUNT</code> is not given, it resets the font size to the default.</p>
+</li>
+<li>
+<p>If <code>AMOUNT</code> is positive, it will increase the font size by the given amount.</p>
+</li>
+<li>
+<p>If <code>AMOUNT</code> is negative, it will decrease the font size instead.</p>
+</li>
+<li>
+<p>The end font size will be between 8pt and 20pt.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>size 2</code><br>
+Increases the font size by 2 pts.</p>
+</li>
+<li>
+<p><code>size -3</code><br>
+Decreases the font size by 3 pts.</p>
+</li>
+<li>
+<p><code>size</code><br>
+Resets the font size back to the default.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>This command is useful for users to set the font size according to their preference. Some users might appreciate a
+bigger font size and we believe that usability is important.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="changing-font-size"><a class="link" href="#changing-font-size">Changing Font Size</a></h3>
+<div class="paragraph">
+<p>The size of the font size change is stored in the model. When there is a change in the font size, the model posts the
+<code>FontSizeChangeRequestEvent</code> event, which is listened by some UI components. These UI components will update its font
+sizes accordingly. It will also set the <code>fontSizeChange</code> static variable in these UI classes, so that new instances
+of the UI component can have its font size updated accordingly.</p>
+</div>
+<div class="paragraph">
+<p>The upper bound and the lower bound of the font size changes is set in the model. Hence, when the font size change
+gets out of bounds, it can be caught in the model level and a <code>FontSizeOutOfBoundsException</code> is thrown.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Commands to change font size</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Font size change is stored in the model as well as UI</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Cleaner implementation, no extra coupling between UI and Logic is introduced</p>
+</li>
+<li>
+<p><strong>Cons:</strong> This implementation will only allow one model to exist at one time, since if more models exist, there
+might be conflicting font size changes</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Font size change is stored in the UI</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Model is not involved, less coupling</p>
+</li>
+<li>
+<p><strong>Cons:</strong> Tighter coupling between logic and UI, since now logic needs to listen for events from UI (if font change
+is out of bounds)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3:</strong> Font size change is stored in the model</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pros:</strong> Font size change is not duplicated across components</p>
+</li>
+<li>
+<p><strong>Cons:</strong> UI needs to query model every time UI instantiates a new object</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-undo-redo-with-arguments"><a class="link" href="#enhancement-added-undo-redo-with-arguments">Enhancement Added: Undo/redo with arguments</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-3"><a class="link" href="#external-behavior-3">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p>Originally, undo/redo is a command that takes no arguments. With this enhancement, the user can
+now type <code>undo 2</code>, for example, to undo 2 commands. Same thing as redo - <code>redo 3</code>, for example, redoes
+3 commands.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>This command is useful for users who want to undo many commands at once. For example, if you added many people
+at once and you realized that you are adding from the wrong group of people, you can use this feature to undo many
+commands at once.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p>This feature is implemented with a <code>for</code> loop, executing the command many times.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the UI, such as the layout and the color scheme. Also refactored the CSS colors into variables.
+(Pull requests #111, #140)</p>
+</li>
+<li>
+<p>Made releases and set up Travis, Appveyor, and Coveralls.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-08 00:11:32 +00:00
+</div>
+</div>
+</body>
+</html>
