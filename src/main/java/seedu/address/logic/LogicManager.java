@@ -60,8 +60,10 @@ public class LogicManager extends ComponentManager implements Logic {
         return new ListElementPointer(history.getHistory());
     }
 
+    // @@author donjar
     @Override
     public int getFontSizeChange() {
         return model.getFontSizeChange();
     }
+    // @@author
 }
