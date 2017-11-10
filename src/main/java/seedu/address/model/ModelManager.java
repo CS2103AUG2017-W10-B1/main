@@ -113,6 +113,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author donjar
     @Override
+    public int getFontSizeChange() {
+        return fontSizeChange;
+    }
+
+    @Override
     public void resetFontSize() {
         fontSizeChange = 0;
         indicateFontSizeChanged();
