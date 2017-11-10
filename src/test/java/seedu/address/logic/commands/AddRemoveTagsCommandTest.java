@@ -93,8 +93,8 @@ public class AddRemoveTagsCommandTest {
                 new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
 
-        assertCommandFailure(removeTagsCommand, model
-                , AddRemoveTagsCommand.MESSAGE_TAG_DONT_EXIST + " husband");
+        assertCommandFailure(removeTagsCommand, model,
+                AddRemoveTagsCommand.MESSAGE_TAG_DONT_EXIST + " husband");
     }
 
     @Test
