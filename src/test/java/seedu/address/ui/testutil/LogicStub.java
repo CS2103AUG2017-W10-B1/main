@@ -10,6 +10,9 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 import static org.junit.Assert.fail;
 
+/**
+ * This class gives a stub of Logic for use in UI components that depend on Logic.
+ */
 public class LogicStub implements Logic {
 
     // @@author donjar
@@ -53,7 +56,6 @@ public class LogicStub implements Logic {
 
     @Override
     public int getFontSizeChange() {
-        fail("This method should not be called.");
         return 0;
     }
 }
