@@ -123,8 +123,7 @@ public class ParserUtil {
         String defaultValue;
         if (isAdding) {
             defaultValue = "";
-        }
-        else {
+        } else {
             defaultValue = null;
         }
         String fb = facebook.isPresent() ? facebook.get() : defaultValue;
