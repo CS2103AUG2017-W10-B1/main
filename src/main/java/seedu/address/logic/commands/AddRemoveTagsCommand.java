@@ -130,8 +130,8 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         Set<Tag> personTags = personToEdit.getTags();
         boolean doesTagsExist = true;
         ArrayList<Tag> dontExist = new ArrayList<>();
-        for(Tag t: tags) {
-            if(!personTags.contains(t)) {
+        for (Tag t: tags) {
+            if (!personTags.contains(t)) {
                 doesTagsExist = false;
                 dontExist.add(t);
             }
@@ -139,7 +139,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
 
         if (!doesTagsExist) {
             String message = MESSAGE_TAG_DONT_EXIST;
-            for(Tag t: dontExist) {
+            for (Tag t: dontExist) {
                 message += " " + t.tagName;
             }
             throw new CommandException(message);
