@@ -12,7 +12,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
+import seedu.address.commons.events.ui.FontSizeRefreshRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -120,7 +120,7 @@ public class PersonCard extends UiPart<Region> {
 
     // @@author donjar
     @Subscribe
-    private void handleFontSizeChangeEvent(FontSizeChangeRequestEvent event) {
+    private void handleFontSizeChangeEvent(FontSizeRefreshRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         refreshFontSizes();
     }
