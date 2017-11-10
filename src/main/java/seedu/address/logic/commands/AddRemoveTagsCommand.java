@@ -36,7 +36,7 @@ public class AddRemoveTagsCommand extends UndoableCommand {
     public static final String MESSAGE_ADD_TAGS_SUCCESS = "Added Tag/s to Person: %1$s";
     public static final String MESSAGE_REMOVE_TAGS_SUCCESS = "Removed Tag/s to Person: %1$s";
     public static final String MESSAGE_NO_TAG = "One or more tags must be entered.";
-    public static final String MESSAGE_TAG_DONT_EXIST = "The following tag/s to be removed do not exist in person:";
+    public static final String MESSAGE_TAG_DONT_EXIST = "The following tag/s to be removed do not exist in person: ";
 
     private final boolean isAdd;
     private final Index index;
@@ -128,21 +128,11 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         assert personToEdit != null;
 
         Set<Tag> personTags = personToEdit.getTags();
-        boolean doesTagsExist = true;
-        ArrayList<Tag> dontExist = new ArrayList<>();
-        for (Tag t: tags) {
-            if (!personTags.contains(t)) {
-                doesTagsExist = false;
-                dontExist.add(t);
-            }
-        }
 
-        if (!doesTagsExist) {
-            String message = MESSAGE_TAG_DONT_EXIST;
-            for (Tag t: dontExist) {
-                message += " " + t.tagName;
-            }
-            throw new CommandException(message);
+        String[] dontExist = getTagsNamesThatDontExist(tags, personTags);
+
+        if (dontExist.length > 0) {
+            throw new CommandException(makeTagDontExistMessage(dontExist));
         }
 
         HashSet<Tag> newTags = new HashSet<>(personTags);
@@ -153,6 +143,28 @@ public class AddRemoveTagsCommand extends UndoableCommand {
         return new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), newTags, personToEdit.getCreatedAt(),
                 personToEdit.getSocialMedia(), accessCount);
+    }
+
+    /**
+     * From a given set of {@code tags}, extract those that do not exist in {@code personTags}
+     */
+    public static String[] getTagsNamesThatDontExist(Set<Tag> tags, Set<Tag> personTags) {
+        ArrayList<String> list = new ArrayList<>();
+        for (Tag t: tags) {
+            if (!personTags.contains(t)) {
+                list.add(t.tagName);
+            }
+        }
+        String[] arr = new String[list.size()];
+        arr = list.toArray(arr);
+        return arr;
+    }
+
+    /**
+     * Make the error message when there are tags that don't exist
+     */
+    public static String makeTagDontExistMessage(String... tags) {
+        return MESSAGE_TAG_DONT_EXIST + String.join(" ", tags);
     }
 
     @Override

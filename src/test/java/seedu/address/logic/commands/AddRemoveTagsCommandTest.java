@@ -94,7 +94,7 @@ public class AddRemoveTagsCommandTest {
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandFailure(removeTagsCommand, model,
-                AddRemoveTagsCommand.MESSAGE_TAG_DONT_EXIST + " husband");
+                AddRemoveTagsCommand.makeTagDontExistMessage("husband"));
     }
 
     @Test
