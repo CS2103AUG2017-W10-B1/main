@@ -26,32 +26,21 @@ public class SocialMedia {
     }
 
     /**
-     * Validates given usernames.
-     *
-     * @throws IllegalValueException if either of given username string is invalid.
+     * Set usernames based on input.
      */
-    public SocialMedia(String facebook, String twitter, String instagram) throws IllegalValueException {
-        if (facebook == null) {
-            facebook = "";
-        }
-
-        if (twitter == null) {
-            twitter = "";
-        }
-
-        if (instagram == null) {
-            instagram = "";
-        }
-
+    public SocialMedia(String facebook, String twitter, String instagram) {
         this.facebook = facebook;
         this.twitter = twitter;
         this.instagram = instagram;
     }
 
+    /**
+     * Replace old usernames if new usernames is valid (not null).
+     */
     public SocialMedia(SocialMedia oldData, SocialMedia newData) {
-        facebook = newData.facebook.equals("") ? oldData.facebook : newData.facebook;
-        twitter = newData.twitter.equals("") ? oldData.twitter : newData.twitter;
-        instagram = newData.instagram.equals("") ? oldData.instagram : newData.instagram;
+        facebook = newData.facebook == null ? oldData.facebook : newData.facebook;
+        twitter = newData.twitter == null ? oldData.twitter : newData.twitter;
+        instagram = newData.instagram == null ? oldData.instagram : newData.instagram;
     }
 
     /**
