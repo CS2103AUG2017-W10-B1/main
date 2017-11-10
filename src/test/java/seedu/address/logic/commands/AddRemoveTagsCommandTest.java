@@ -78,6 +78,25 @@ public class AddRemoveTagsCommandTest {
     }
 
     @Test
+    public void execute_removeTags_failure() throws Exception {
+        Person editedPerson = new PersonBuilder(
+                model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).withTags().build();
+
+        ArrayList<String> tagsList = new ArrayList<>();
+        tagsList.add("friends");
+        tagsList.add("husband");
+
+        AddRemoveTagsCommand removeTagsCommand = prepareCommandRemove(INDEX_FIRST_PERSON,
+                ParserUtil.parseTags(tagsList));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
+
+        assertCommandFailure(removeTagsCommand, model, AddRemoveTagsCommand.MESSAGE_TAG_DONT_EXIST);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         ArrayList<String> tagsList = new ArrayList<>();
