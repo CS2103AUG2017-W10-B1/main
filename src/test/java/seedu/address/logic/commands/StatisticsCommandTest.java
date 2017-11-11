@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.StatisticsCommand.MESSAGE_SUCCESS;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.address.commons.events.ui.ToggleStatisticsPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.ui.testutil.EventsCollectorRule;
