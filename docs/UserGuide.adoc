@@ -131,6 +131,7 @@ Alias Example:
 
 Shows a list of all persons in PIMP. +
 Format: `list`
+Alias: `l`
 
 This command takes no arguments.
 
@@ -590,16 +591,16 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Help*: `help`
-* *Quick Help*: `quickhelp`
+* *Open Help*: `help`
+* *Open Quick Help*: `quickhelp`
 * *Add*: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [fb/FACEBOOK] [tw/TWITTER] [ig/INSTAGRAM] [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *List*: `list`
 * *Find*: `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *Find Regex*: `findregex REGEX` +
+* *Find by Regex*: `findregex REGEX` +
 e.g. `findregex Joh?n`
-* *Find Tag*: `findtag tag` +
+* *Find by Tag*: `findtag tag` +
 e.g. `findtag friends`
 * *Select*: `select INDEX` +
 e.g.`select 2`
@@ -610,20 +611,17 @@ e.g. `delete 3`
 * *Clear*: `clear`
 * *Exit*: `exit`
 * *Add Tags*: `tags add INDEX TAG [MORE TAGS]...` +
-e.g. `addtags 1 friends classmate`
+e.g. `tags add 1 friends classmate`
 * *Remove Tags*: `tags remove INDEX TAG [MORE TAGS]...` +
-e.g. `removetags 2 neighbour`
+e.g. `tags remove 2 neighbour`
 * *Remark*: `remark INDEX r/REMARK` +
 e.g.`remark 4 r/new remark`
-* *Social Media*: `socialmedia TYPE INDEX` +
+* *Access social media*: `socialmedia TYPE INDEX` +
 e.g. `socialmedia facebook 1`
-* *Birthday*: `birthday`
-* *Font size*: `size AMOUNT` +
+* *Change font size*: `size AMOUNT` +
 * *Toggle access display*: `accessdisplay TYPE` +
 e.g. `size 3`
 * *History*: `history`
 * *Undo*: `undo [AMOUNT]`
 * *Redo*: `redo [AMOUNT]`
 * *Statistics*: `statistics`
-* *Export*: `export FORMAT LOCATION` +
-e.g. `export JSON ~/contacts.json`

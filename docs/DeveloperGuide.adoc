@@ -114,8 +114,8 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
-* At app launch: initializing the components in the correct sequence, and connecting them up with each other.
-* At shut down: shutting down the components and invoking cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup method where necessary.
 
 link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
@@ -221,7 +221,7 @@ _Figure 2.5.1: Structure of the Storage Component_
 
 *API*: link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component
 
 * can save `UserPref` objects in JSON format and read it back.
 * can save the Address Book data in XML format and read it back.
