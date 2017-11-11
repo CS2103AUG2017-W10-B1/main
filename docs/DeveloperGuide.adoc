@@ -105,7 +105,7 @@ When you are ready to start coding,
 === Architecture
 
 image::Architecture.png[width="600"]
-_Figure 2.1.1 : Architecture Diagram_
+_Figure 2.1.1: Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -119,15 +119,15 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 
 link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `EventsCenter`: This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter`: Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
-* link:#ui-component[*`UI`*] : The UI of the App.
-* link:#logic-component[*`Logic`*] : The command executor.
-* link:#model-component[*`Model`*] : Holds the data of the App in-memory.
-* link:#storage-component[*`Storage`*] : Reads data from, and writes data to, the hard disk.
+* link:#ui-component[*`UI`*]: The UI of the App.
+* link:#logic-component[*`Logic`*]: The command executor.
+* link:#model-component[*`Model`*]: Holds the data of the App in-memory.
+* link:#storage-component[*`Storage`*]: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -137,7 +137,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 image::LogicClassDiagram.png[width="800"]
-_Figure 2.1.2 : Class Diagram of the Logic Component_
+_Figure 2.1.2: Class Diagram of the Logic Component_
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -145,7 +145,7 @@ _Figure 2.1.2 : Class Diagram of the Logic Component_
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 image::SDforDeletePerson.png[width="800"]
-_Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
+_Figure 2.1.3a: Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -153,7 +153,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk.
 
 image::SDforDeletePersonEventHandling.png[width="800"]
-_Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
+_Figure 2.1.3b: Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -163,9 +163,9 @@ The sections below give more details of each component.
 === UI component
 
 image::UiClassDiagram.png[width="800"]
-_Figure 2.2.1 : Structure of the UI Component_
+_Figure 2.2.1: Structure of the UI Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `PeopleCount`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -180,12 +180,12 @@ The `UI` component,
 === Logic component
 
 image::LogicClassDiagram.png[width="800"]
-_Figure 2.3.1 : Structure of the Logic Component_
+_Figure 2.3.1: Structure of the Logic Component_
 
 image::LogicCommandClassDiagram.png[width="800"]
-_Figure 2.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
+_Figure 2.3.2: Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
 
-*API* :
+*API*:
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
@@ -196,14 +196,14 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 image::DeletePersonSdForLogic.png[width="800"]
-_Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
+_Figure 2.3.1: Interactions Inside the Logic Component for the `delete 1` Command_
 
 === Model component
 
 image::ModelClassDiagram.png[width="800"]
-_Figure 2.4.1 : Structure of the Model Component_
+_Figure 2.4.1: Structure of the Model Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -215,9 +215,9 @@ The `Model`,
 === Storage component
 
 image::StorageClassDiagram.png[width="800"]
-_Figure 2.5.1 : Structure of the Storage Component_
+_Figure 2.5.1: Structure of the Storage Component_
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -454,7 +454,7 @@ interface to swap out the `BrowserPanel` for the `StatisticsPanel` class. When o
 The `StatisticsPanel` extends the `UiPart<Region>` and utilises the `Statistics` class to collect data.
 
 image::StatisticsPanelSequenceDiagram.png[width="800"]
-_Figure 4.3.1 : Triggering the ToggleStatisticsPanelEvent to display statistics_
+_Figure 4.3.1: Triggering the ToggleStatisticsPanelEvent to display statistics_
 
 When a `ToggleStatisticsPanelEvent` event is posted, the `MainWindow` instance will initialise a new
 `StatisticsPanel` which will then initialise the `Statistics` class for information to be calculated.
@@ -692,10 +692,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE`: Critical problem detected which may possibly cause the termination of the application
+* `WARNING`: Can continue, but with caution
+* `INFO`: Information showing the noteworthy actions by the App
+* `FINE`: Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 === Configuration
 
@@ -730,7 +730,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 image::chrome_save_as_pdf.png[width="300"]
-_Figure 5.6.1 : Saving documentation as PDF files in Chrome_
+_Figure 5.6.1: Saving documentation as PDF files in Chrome_
 
 == Testing
 
