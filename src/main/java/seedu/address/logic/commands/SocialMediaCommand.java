@@ -57,35 +57,35 @@ public class SocialMediaCommand extends Command {
         personToEdit.incrementAccess();
 
         switch(type) {
-            case TYPE_FACEBOOK:
-                if (personToEdit.getSocialMedia().facebook.equals("")) {
-                    throw new CommandException(MESSAGE_NO_FACEBOOK);
-                } else {
-                    EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                    EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                            URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
-                }
-                break;
-            case TYPE_TWITTER:
-                if (personToEdit.getSocialMedia().twitter.equals("")) {
-                    throw new CommandException(MESSAGE_NO_TWITTER);
-                } else {
-                    EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                    EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                            URL_TWITTER + personToEdit.getSocialMedia().twitter));
-                }
-                break;
-            case TYPE_INSTAGRAM:
-                if (personToEdit.getSocialMedia().instagram.equals("")) {
-                    throw new CommandException(MESSAGE_NO_INSTAGRAM);
-                } else {
-                    EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                    EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                            URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
-                }
-                break;
-            default:
-                throw new CommandException(MESSAGE_INVALID_TYPE);
+        case TYPE_FACEBOOK:
+            if (personToEdit.getSocialMedia().facebook.equals("")) {
+                throw new CommandException(MESSAGE_NO_FACEBOOK);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
+            }
+            break;
+        case TYPE_TWITTER:
+            if (personToEdit.getSocialMedia().twitter.equals("")) {
+                throw new CommandException(MESSAGE_NO_TWITTER);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_TWITTER + personToEdit.getSocialMedia().twitter));
+            }
+            break;
+        case TYPE_INSTAGRAM:
+            if (personToEdit.getSocialMedia().instagram.equals("")) {
+                throw new CommandException(MESSAGE_NO_INSTAGRAM);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
+            }
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_TYPE);
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
