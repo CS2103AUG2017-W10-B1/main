@@ -22,11 +22,11 @@ PIMP (Personal Information Manager Program) is a command line interface (CLI) ad
 
 === Purpose of Developer Guide
 
-This developer guide aims to give an overview to any developer who wishes to modify this addressbook to include more features, or to better suit their own needs. This developer guide will help any aspiring developer set up a suitable Java environment to develop this program in, as well as understand the different components of the addressbook and how they interact with each other. The functions available to the user will also be included, and various implementation details will be described. Various test cases have been made available to other developers, and a brief overview of the usage of these tests will also be included.
+This developer guide aims to give an overview to any developer who wishes to modify PIMP to include more features, or to better suit their own needs. This developer guide will help any aspiring developer set up a suitable Java environment to develop this program in, as well as understand the different components of PIMP and how they interact with each other. The functions available to the user will also be included, and various implementation details will be described. Various test cases have been made available to other developers, and a brief overview of the usage of these tests will also be included.
 
 A few documentation guidelines will also be described, so that any improvements made can be documented in a consistent style for the convenience of future developers.
 
-Various user profiles, user stories and use cases have also been included, so that future developers can gain some insight as to the design decisions made during the development process. Potential improvements that can be made to the address book can also be found in this section.
+Various user profiles, user stories and use cases have also been included, so that future developers can gain some insight as to the design decisions made during the development process.
 
 == Setting up
 
@@ -235,13 +235,13 @@ This section describes some noteworthy details on how certain features are imple
 // tag::undoredo[]
 === Undo/Redo mechanism
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
+The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of PIMP (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
 `UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
 
 image::LogicCommandClassDiagram.png[width="800"]
 
-As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of the address book before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
+As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of PIMP before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
 
 Commands that are not undoable are implemented this way:
 [source,java]
@@ -276,7 +276,7 @@ public class DeleteCommand extends UndoableCommand {
 
 Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
 
-The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in the address book. The current state of the address book is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
+The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in PIMP. The current state of PIMP is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
 
 image::UndoRedoStartingStackDiagram.png[width="800"]
 
@@ -289,7 +289,7 @@ If a command fails its execution, it will not be pushed to the `UndoRedoStack` a
 
 The user now decides that adding the person was a mistake, and decides to undo that action using `undo 1`.
 
-We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore the address book to the state before the `add` command executed.
+We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore PIMP to the state before the `add` command executed.
 
 image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
 
@@ -300,7 +300,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
+The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores PIMP to the state after the command is executed).
 
 [NOTE]
 If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
@@ -333,7 +333,7 @@ image::UndoRedoActivityDiagram.png[width="200"]
 
 **Aspect:** How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire PIMP.
 ** **Pros:** Easy to implement.
 ** **Cons:** May have performance issues in terms of memory usage.
 
@@ -345,13 +345,13 @@ image::UndoRedoActivityDiagram.png[width="200"]
 
 **Aspect:** Type of commands that can be undone/redone
 
-* **Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`).
+* **Alternative 1 (current choice):** Only include commands that modifies PIMP (`add`, `clear`, `edit`).
 ** **Pros:** We only revert changes that are hard to change back (the view can easily be re-modified as no data are lost).
 ** **Cons:** User might think that undo also applies when the list is modified (undoing filtering for example), only to realize that it does not do that, after executing `undo`.
 
 * **Alternative 2:** Include all commands.
 ** **Pros:** Might be more intuitive for the user.
-** **Cons:** User have no way of skipping such commands if he or she just want to reset the state of the address book and not the view.
+** **Cons:** User have no way of skipping such commands if he or she just want to reset the state of PIMP and not the view.
 ** **Additional Info:** See our discussion  https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].
 
 ---
@@ -542,7 +542,7 @@ Searching by tag is implemented by the `FindTagCommand` class. This command allo
 
 The `FindTagCommand` class is implemented by calling `TagContainsKeywordsPredicate` as opposed to `NameContainsKeywordsPredicate`. This class tells us if a certain `person` object has any tag that matches the desired keyword. Implementing it this way allows us to extend functionality that was already implemented with a similar structure. In the future, implementing other search functions could build on these current search options.
 
-Since this search function involves iterating searching through all tags of all `person` objects in the address book, it could take up to O(pt) time, where p is the number of `person` objects in the address book, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of `person` objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of `person` objects that have the tag, say `delete`, `add` or `edit`. This would then offset some of the time required for the search onto these other commands.
+Since this search function involves iterating searching through all tags of all `person` objects in PIMP, it could take up to O(pt) time, where p is the number of `person` objects in PIMP, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of `person` objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of `person` objects that have the tag, say `delete`, `add` or `edit`. This would then offset some of the time required for the search onto these other commands.
 
 However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the `FingTagCommand` function. Instead, we simply allowed the `FindTagCommand` to search through all possibilities each time it is called.
 
@@ -554,7 +554,7 @@ The `EditCommand` currently allows the user to edit all the fields of a contact,
 
 The `AddRemoveTagsCommand` was added to allow users to add or remove only certain tags without compromising the entire tags list of the contact.
 
-In the backend, `AddRemoveTagsCommand` actually uses the same mechanics as `EditCommand`, where the person is updated as a whole. What it means is the `Person` to be targeted is firstly duplicated, then the tags list is being changed to add/remove certain tags, and the new `Person` object is used to update in the address book.
+In the backend, `AddRemoveTagsCommand` actually uses the same mechanics as `EditCommand`, where the person is updated as a whole. What it means is the `Person` to be targeted is firstly duplicated, then the tags list is being changed to add/remove certain tags, and the new `Person` object is used to update in PIMP.
 
 [source,java]
 ----
@@ -594,7 +594,7 @@ After parsing, the TYPE, INDEX, and set of tags is passed to the `AddRemoveTagsC
 
 * **Alternative 2:** Update the Set<Tag> directly by exposing it with a getter and setter
 ** **Pros:** Isolate to only touch on tags
-** **Cons:** Breaks the idea that each person in address book is read-only.
+** **Cons:** Breaks the idea that each person in PIMP is read-only.
 
 **Aspect:** Commands to add and remove tags.
 
@@ -802,7 +802,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, PIMP depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -905,9 +905,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PIMP shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  PIMP deletes the person
 +
 Use case ends.
 
@@ -921,7 +921,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
@@ -930,9 +930,9 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PIMP shows a list of persons
 3.  User requests to add a remark to a specific person in the list
-4.  AddressBook adds the remark to the specific person
+4.  PIMP adds the remark to the specific person
 +
 Use case ends.
 
@@ -946,7 +946,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
@@ -955,9 +955,9 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PIMP shows a list of persons
 3.  User requests to view the remarks of a specific person in the list
-4.  AddressBook displays remarks of the specific person
+4.  PIMP displays remarks of the specific person
 +
 Use case ends.
 
@@ -970,7 +970,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 
-** 3a1. AddressBook shows an error message.
+** 3a1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
@@ -979,11 +979,11 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to import data from an external source
-2.  AddressBook prompts for the location of the data file
+2.  PIMP prompts for the location of the data file
 3.  User enters data file location
-4.  AddressBook displays all contacts made available from data file
+4.  PIMP displays all contacts made available from data file
 5.  User chooses which contacts to import
-6.  AddressBook displays an updated list of persons
+6.  PIMP displays an updated list of persons
 +
 Use case ends.
 
@@ -992,14 +992,14 @@ Use case ends.
 * 3a. The given data file is of the wrong file type
 +
 
-** 3a1. AddressBook shows an error message.
+** 3a1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
-* 5a. The address book is full
+* 5a. The PIMP is full
 +
 
-** 5a1. AddressBook shows an error message.
+** 5a1. PIMP shows an error message.
 +
 Use case ends.
 
@@ -1008,9 +1008,9 @@ Use case ends.
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PIMP shows a list of persons
 3.  User requests to add/remove tags to/from a specific person in the list
-4.  AddressBook adds/removes the tags to/from the specific person
+4.  PIMP adds/removes the tags to/from the specific person
 +
 Use case ends.
 
@@ -1023,13 +1023,13 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 
-** 3a1. AddressBook shows an error message.
+** 3a1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
 * 3b. No tags are given.
 +
-** 3b1. AddressBook shows an error message.
+** 3b1. PIMP shows an error message.
 +
 Use case resumes at step 2.
 
@@ -1041,7 +1041,7 @@ Use case resumes at step 2.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Should be initialised and ready for user input within 1 second
 .  Should require at most 100MB of memory in RAM
-.  Should still allow for address book viewing even without an internet connection
+.  Should still allow viewing PIMP even without an internet connection
 
 [appendix]
 == Glossary
