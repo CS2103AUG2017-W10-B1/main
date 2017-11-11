@@ -68,10 +68,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 * The alias stated below refers to the command shortcut you can use instead of typing the full command. e.g. `e 1 n/Ben` instead of `edit 1 n/Ben`
+====
 
 PIMP has numerous commands. The following section describes the basic commands.
-
-====
 
 === Basic Commands
 
@@ -83,7 +82,8 @@ Opens the help window, showing this user guide. +
 Format: `help` +
 Alias: `h`
 
-This command takes no arguments.
+This command takes no arguments, i.e. the command can be typed as it is (`help`) without any additional
+words to type.
 
 // tag::quickhelp[]
 ==== Viewing quick help: `quickhelp` (Since v1.5)
@@ -129,20 +129,10 @@ Alias Example:
 
 ==== Listing all persons: `list`
 
-Shows a list of persons in PIMP. +
+Shows a list of all persons in PIMP. +
 Format: `list`
 
-A list of all persons is shown.
-
-Examples:
-
-* `list` +
-Lists all persons.
-
-
-Alias example:
-
-* `l`
+This command takes no arguments.
 
 ==== Locating persons by name: `find`
 
@@ -151,11 +141,12 @@ Format: `find KEYWORD [MORE_KEYWORDS]` +
 Alias: `f`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive, e.g. `hans` will match `Hans`.
+* The order of the keywords does not matter, e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search),
+e.g. `Hans Bo` will return `Hans Gruber` and `Bo Yang`.
 ****
 
 Examples:
@@ -173,7 +164,16 @@ Alias example:
 // tag::findregex[]
 ==== Locating persons by name: `findregex` (Since v1.2)
 
-Finds persons whose names match the regex given. Note that only the name is searched.  +
+Finds persons whose names match the regex given. Note that only the name is searched.
+
+A _regex_ (regular expression) is a powerful way to search text. The user can supply
+a series of characters that can be used to match the given text. For example, with the
+question mark (`?`), the letter before the question mark may either exist or not exist.
+Hence, `Joh?n` will match both `John` (with the `h` before the question mark), as well
+as `Jon` (without the `h`).
+
+More information about regex can be found at http://www.vogella.com/tutorials/JavaRegularExpressions/article.html.
+
 Format: `findregex REGEX` +
 Alias: `fr`
 
@@ -206,6 +206,7 @@ Alias example:
 
 * `ft friends`
 // end::findtag[]
+
 ==== Selecting a person: `select`
 
 Selects the person identified by the index number used in the last person listing. +
@@ -389,14 +390,14 @@ Loads the Facebook account of the 1st person in PIMP.
 Loads the Instagram account of the 2nd person returned by the `find` command.
 // end::socialmedia[]
 
-==== Viewing contacts with birthday in current month: `birthday`
+==== Viewing contacts with birthday in current month: `birthday` (Not implemented yet. Coming in v2.0)
 View a list of persons with birthdays in the current month. +
 Format: `birthday` +
 Alias: `bd`
 
 This command takes no arguments.
-
 // tag::size[]
+
 ==== Increasing/decreasing font size: `size` (Since v1.3)
 
 Increases the font size by the number given, in pts. +
@@ -426,12 +427,12 @@ Resets the font size back to the default.
 ==== Toggling the display of the access counts: `accessdisplay` (Since v1.4)
 Toggles the display option for the access count numbers. +
 Format: `accessdisplay TYPE` +
-Alias: `ad`
+Alias: `ad` +
 TYPE can be either 'on' or 'off'
 
 Examples:
 
-* `accessdisplay off`
+* `accessdisplay off` +
 The description cards on the left plane no longer display access counts.
 
 // end::accessdisplay[]
@@ -443,10 +444,10 @@ Alias: `h`
 
 This command takes no arguments.
 
-[NOTE]
-=====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-=====
+****
+* Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+* The list of commands are numbered from the most recent to least recent.
+****
 
 // tag::undoredo[]
 ==== Undoing previous command: `undo`
@@ -537,6 +538,8 @@ Displays four charts based on information calculated in PIMP. The information di
 
 Format: `statistics` +
 Alias: `st`
+
+This command takes no arguments.
 // end::statistics[]
 
 ==== Exporting all entries: `export` (Not implemented yet. Coming in v2.0)
@@ -566,7 +569,7 @@ The contact list will automatically be sorted in A-Z order. It will refresh and 
 
 ==== Viewing total number of persons stored
 
-The column titled "Total: " at the top left of the screen contains a numerical value
+The column with the people icon at the top left of the screen contains a numerical value
 representing the total number of persons in the last person listing.
 
 // tag::access[]
@@ -577,7 +580,7 @@ At the left side of the screen where entries of PIMP are displayed, we can see a
 
 ==== Saving the data
 
-Data for PIMP are saved in the hard disk automatically after any command that changes the data. +
+Data for PIMP are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 == FAQ
