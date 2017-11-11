@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.person.Remark;
-
 public class RemarkTest {
 
     //@@author 500poundbear
