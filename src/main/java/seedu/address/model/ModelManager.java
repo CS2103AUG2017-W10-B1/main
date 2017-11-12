@@ -6,11 +6,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookAccessChangedEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.FontSizeRefreshRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -79,7 +81,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
-
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
@@ -143,7 +144,15 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateFontSizeChanged() {
         raise(new FontSizeRefreshRequestEvent());
     }
-    // @@author
+    // @@author Zzmobie
+    @Subscribe
+    public void handleAddressBookAccessChangedEvent(AddressBookAccessChangedEvent event)
+            throws PersonNotFoundException, DuplicatePersonException {
+        logger.info("Updating person in addressbook");
+        ReadOnlyPerson editedPerson = event.personToEdit;
+        editedPerson.incrementAccess();
+        updatePerson(event.personToEdit, editedPerson);
+    }
 
     @Override
     public boolean equals(Object obj) {
