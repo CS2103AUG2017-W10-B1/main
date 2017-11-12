@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookAccessChangedEvent;
 import seedu.address.commons.events.ui.ChangeBrowserPanelUrlEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -60,7 +61,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().facebook.equals("")) {
                 throw new CommandException(MESSAGE_NO_FACEBOOK);
             } else {
-                //EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
@@ -70,7 +71,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().twitter.equals("")) {
                 throw new CommandException(MESSAGE_NO_TWITTER);
             } else {
-                //EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_TWITTER + personToEdit.getSocialMedia().twitter));
@@ -80,7 +81,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().instagram.equals("")) {
                 throw new CommandException(MESSAGE_NO_INSTAGRAM);
             } else {
-                //EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
