@@ -7,13 +7,13 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 === Introduction
 
-Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands. It is written in Java.
+Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands. The software is written in Java.
 
 *Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/kenpaxtonlim.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/test/kenpaxtonlim.md[Test code]]
 
 === Purpose
 
-The purpose of this Project Portfolio is to showcase the features that I have implemented in PIMP. Each enhancement/feature will have the follow sections: External behavior, Justification, Implementation. It
+The purpose of this Project Portfolio is to showcase the features that I have implemented in PIMP. Each enhancement/feature will have the follow sections: External behavior, Justification, Implementation.
 
 === Enhancement Added: Quickhelp
 
@@ -29,7 +29,7 @@ include::../UserGuide.adoc[tag=quickhelp]
 
 ==== Justification
 
-For new users, it can be quite difficult to remember all the commands. Typing in the `HelpCommand` will bring up the help window which may be quite a hassle to do it all the time. The `QuickhelpCommand` allows the user to quickly view all the valid command words that can be used, saving time.
+For new users, it can be quite difficult to remember all the commands. Typing in the `HelpCommand` will bring up the help window which may be quite a hassle to do it all the time. The `QuickhelpCommand` allows the user to quickly view all the valid command words that can be used, hence saving time.
 
 ---
 
@@ -57,7 +57,7 @@ include::../UserGuide.adoc[tag=addremovetags]
 
 ==== Justification
 
-For existing `EditCommand`, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing a few tags simplier, this command is added to add or remove tags from the existing set without completely replacing it.
+For the existing `EditCommand`, editing tags replaces the entire set of tags with the ones keyed in by user. To makes adding or removing one or few tags simpler, this command is added to add or remove tags from the existing set without completely replacing it.
 
 ---
 
