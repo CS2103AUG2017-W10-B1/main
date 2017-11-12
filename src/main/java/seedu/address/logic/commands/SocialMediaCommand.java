@@ -6,6 +6,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeBrowserPanelUrlEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -21,7 +22,7 @@ public class SocialMediaCommand extends Command {
             + ": Shows the social media of the person identified by the index number used in the last person listing.\n"
             + "Parameters: TYPE (either \"facebook\", \"twitter\", or\"instagram\")"
             + "INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + "facebook 1";
+            + "Example: " + COMMAND_WORD + " facebook 1";
 
     public static final String TYPE_FACEBOOK = "facebook";
     public static final String TYPE_TWITTER = "twitter";
@@ -60,6 +61,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().facebook.equals("")) {
                 throw new CommandException(MESSAGE_NO_FACEBOOK);
             } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
             }
@@ -68,6 +70,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().twitter.equals("")) {
                 throw new CommandException(MESSAGE_NO_TWITTER);
             } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_TWITTER + personToEdit.getSocialMedia().twitter));
             }
@@ -76,6 +79,7 @@ public class SocialMediaCommand extends Command {
             if (personToEdit.getSocialMedia().instagram.equals("")) {
                 throw new CommandException(MESSAGE_NO_INSTAGRAM);
             } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
             }
