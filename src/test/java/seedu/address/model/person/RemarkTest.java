@@ -1,15 +1,13 @@
-package seedu.address.model;
+package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.person.Remark;
-
+//@@author 500poundbear
 public class RemarkTest {
 
-    //@@author 500poundbear
     @Test
     public void equals() {
         Remark remark = new Remark("Hello");
