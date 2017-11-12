@@ -149,7 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void handleAddressBookAccessChangedEvent(AddressBookAccessChangedEvent event)
             throws PersonNotFoundException, DuplicatePersonException {
-        logger.info("Updating person in addressbook");
+        logger.info("Updating person in addressbook" + event.personToEdit.toString());
         ReadOnlyPerson editedPerson = event.personToEdit;
         editedPerson.incrementAccess();
         updatePerson(event.personToEdit, editedPerson);

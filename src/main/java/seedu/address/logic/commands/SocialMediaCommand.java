@@ -55,7 +55,6 @@ public class SocialMediaCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         ReadOnlyPerson personToEdit = lastShownList.get(targetIndex.getZeroBased());
-        EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
 
         switch(type) {
         case TYPE_FACEBOOK:
@@ -63,6 +62,7 @@ public class SocialMediaCommand extends Command {
                 throw new CommandException(MESSAGE_NO_FACEBOOK);
             } else {
                 EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
             }
@@ -72,6 +72,7 @@ public class SocialMediaCommand extends Command {
                 throw new CommandException(MESSAGE_NO_TWITTER);
             } else {
                 EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_TWITTER + personToEdit.getSocialMedia().twitter));
             }
@@ -81,6 +82,7 @@ public class SocialMediaCommand extends Command {
                 throw new CommandException(MESSAGE_NO_INSTAGRAM);
             } else {
                 EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
                 EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
                         URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
             }
