@@ -40,8 +40,20 @@
 <div class="sect3">
 <h4 id="locating-persons-by-name-code-findregex-code-since-v1-2"><a class="link" href="#locating-persons-by-name-code-findregex-code-since-v1-2">Locating persons by name: <code>findregex</code> (Since v1.2)</a></h4>
 <div class="paragraph">
-<p>Finds persons whose names match the regex given. Note that only the name is searched. <br>
-Format: <code>findregex REGEX</code><br>
+<p>Finds persons whose names match the regex given. Note that only the name is searched.</p>
+</div>
+<div class="paragraph">
+<p>A <em>regex</em> (regular expression) is a powerful way to search text. The user can supply
+a series of characters that can be used to match the given text. For example, with the
+question mark (<code>?</code>), the letter before the question mark may either exist or not exist.
+Hence, <code>Joh?n</code> will match both <code>John</code> (with the <code>h</code> before the question mark), as well
+as <code>Jon</code> (without the <code>h</code>).</p>
+</div>
+<div class="paragraph">
+<p>More information about regex can be found at <a href="http://www.vogella.com/tutorials/JavaRegularExpressions/article.html" class="bare">http://www.vogella.com/tutorials/JavaRegularExpressions/article.html</a>.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>findregex REGEX</code><br>
 Alias: <code>fr</code></p>
 </div>
 <div class="paragraph">
@@ -121,7 +133,7 @@ You can use this command to find people matching "Johnny" or "Johny", for exampl
 </div>
 </div>
 <div class="sect3">
-<h4 id="increasing-decreasing-font-size-code-size-code-since-v1-3"><a class="link" href="#increasing-decreasing-font-size-code-size-code-since-v1-3">Increasing/decreasing font size : <code>size</code> (Since v1.3)</a></h4>
+<h4 id="increasing-decreasing-font-size-code-size-code-since-v1-3"><a class="link" href="#increasing-decreasing-font-size-code-size-code-since-v1-3">Increasing/decreasing font size: <code>size</code> (Since v1.3)</a></h4>
 <div class="paragraph">
 <p>Increases the font size by the number given, in pts.<br>
 Format: <code>size [AMOUNT]</code></p>
@@ -188,59 +200,64 @@ bigger font size and we believe that usability is important.</p>
 <div class="sect2">
 <h3 id="changing-font-size"><a class="link" href="#changing-font-size">Changing Font Size</a></h3>
 <div class="paragraph">
-<p>The size of the font size change is stored in the model. When there is a change in the font size, the model posts the
-<code>FontSizeChangeRequestEvent</code> event, which is listened by some UI components. These UI components will update its font
-sizes accordingly. It will also set the <code>fontSizeChange</code> static variable in these UI classes, so that new instances
-of the UI component can have its font size updated accordingly.</p>
+<p>The size of the font size change is stored in the model. This is exposed by the
+logic component, so that user interface components can query this data. Additionally,
+when there are changes in the font size, the <code>FontSizeRefreshRequestEvent</code> will be
+posted. Some UI components listen to this event, so that existing components can
+refresh its font size to the new font size.</p>
 </div>
 <div class="paragraph">
-<p>The upper bound and the lower bound of the font size changes is set in the model. Hence, when the font size change
-gets out of bounds, it can be caught in the model level and a <code>FontSizeOutOfBoundsException</code> is thrown.</p>
+<p>There is an upper and lower bound of the font size, which is set in the model.
+Hence, when the font size change gets out of bounds, the error can be caught
+in the model and a <code>FontSizeOutOfBoundsException</code> is thrown, without the font
+size change being propagated to the user interface.</p>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
 <div class="paragraph">
-<p><strong>Aspect:</strong> Commands to change font size</p>
+<p><strong>Aspect:</strong> Where to store the font size change</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Font size change is stored in the model as well as UI</p>
+<p><strong>Alternative 1 (current choice):</strong> Font size change is stored in the model</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Pros:</strong> Cleaner implementation, no extra coupling between UI and Logic is introduced</p>
+<p><strong>Pros:</strong> There is a single source of truth for font size change. It is not
+duplicated across components</p>
 </li>
 <li>
-<p><strong>Cons:</strong> This implementation will only allow one model to exist at one time, since if more models exist, there
-might be conflicting font size changes</p>
+<p><strong>Cons:</strong> UI needs to query model (through logic) for the font size every
+time the user interface instantiates a new object</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Font size change is stored in the UI</p>
+<p><strong>Alternative 2:</strong> Font size change is stored in the model as well as UI</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Pros:</strong> Model is not involved, less coupling</p>
+<p><strong>Pros:</strong> No extra coupling between components</p>
 </li>
 <li>
-<p><strong>Cons:</strong> Tighter coupling between logic and UI, since now logic needs to listen for events from UI (if font change
-is out of bounds)</p>
+<p><strong>Cons:</strong> There are more than one sources of truth, which may confuse the
+developer</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 3:</strong> Font size change is stored in the model</p>
+<p><strong>Alternative 3:</strong> Font size change is stored in the UI</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Pros:</strong> Font size change is not duplicated across components</p>
+<p><strong>Pros:</strong> When the font size changes, the model is not involved at all</p>
 </li>
 <li>
-<p><strong>Cons:</strong> UI needs to query model every time UI instantiates a new object</p>
+<p><strong>Cons:</strong> The logic component will now depend on UI, since the logic component
+needs to listen for events from UI (if the font change is out of bounds, for example)</p>
 </li>
 </ul>
 </div>
@@ -301,7 +318,7 @@ commands at once.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-11 23:37:04 +00:00
+Last updated 2017-11-12 04:57:45 +00:00
 </div>
 </div>
 </body>

@@ -34,7 +34,7 @@
 </div>
 </div>
 <div class="sect3">
-<h4 id="viewing-statistics-code-statistics-code-since-v1-3"><a class="link" href="#viewing-statistics-code-statistics-code-since-v1-3">Viewing statistics : <code>statistics</code> (Since v1.3)</a></h4>
+<h4 id="viewing-statistics-code-statistics-code-since-v1-3"><a class="link" href="#viewing-statistics-code-statistics-code-since-v1-3">Viewing statistics: <code>statistics</code> (Since v1.3)</a></h4>
 <div class="paragraph">
 <p>Displays four charts based on information calculated in PIMP. The information displayed includes<br>
 1. Number of contacts added in the past 2 years, broken down by month in a bar chart.<br>
@@ -44,11 +44,14 @@
 <p>Format: <code>statistics</code><br>
 Alias: <code>st</code></p>
 </div>
+<div class="paragraph">
+<p>This command takes no arguments.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="changing-a-person-s-remark-code-remark-code-since-v1-2"><a class="link" href="#changing-a-person-s-remark-code-remark-code-since-v1-2">Changing a person&#8217;s remark : <code>remark</code> (Since v1.2)</a></h4>
+<h4 id="changing-a-person-s-remark-code-remark-code-since-v1-2"><a class="link" href="#changing-a-person-s-remark-code-remark-code-since-v1-2">Changing a person&#8217;s remark: <code>remark</code> (Since v1.2)</a></h4>
 <div class="paragraph">
-<p>Changes the remark of an existing person in the address book.<br>
+<p>Changes the remark of an existing person in PIMP.<br>
 Format: <code>remark INDEX r/[Remark]</code><br>
 Alias: <code>re</code></p>
 </div>
@@ -80,7 +83,7 @@ Alias: <code>re</code></p>
 <li>
 <p><code>list</code><br>
 <code>remark 1 r/Loves beer</code><br>
-Changes the remark of the 1st person in the address book to "Loves beer".</p>
+Changes the remark of the 1st person in PIMP to "Loves beer".</p>
 </li>
 <li>
 <p><code>find Tony</code><br>
@@ -138,7 +141,7 @@ interface to swap out the <code>BrowserPanel</code> for the <code>StatisticsPane
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 4.3.1 : Triggering the ToggleStatisticsPanelEvent to display statistics</em></p>
+<p><em>Figure 4.3.1: Triggering the ToggleStatisticsPanelEvent to display statistics</em></p>
 </div>
 <div class="paragraph">
 <p>When a <code>ToggleStatisticsPanelEvent</code> event is posted, the <code>MainWindow</code> instance will initialise a new
@@ -170,23 +173,23 @@ an <code>ArrayList&lt;Integer&gt;</code> data structure that will be displayed b
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="predefined-type">ArrayList</span>&lt;<span class="predefined-type">Integer</span>&gt; getNewPersonsAddByMonth(<span class="type">int</span> displayYears) {
 
-        <span class="predefined-type">ArrayList</span>&lt;<span class="predefined-type">Integer</span>&gt; countByMonth = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;(<span class="predefined-type">Collections</span>.nCopies(displayYears * <span class="integer">12</span> + <span class="integer">1</span>, <span class="integer">0</span>));
+    <span class="predefined-type">ArrayList</span>&lt;<span class="predefined-type">Integer</span>&gt; countByMonth = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;(<span class="predefined-type">Collections</span>.nCopies(displayYears * <span class="integer">12</span> + <span class="integer">1</span>, <span class="integer">0</span>));
 
-        personList.forEach((p) -&gt; {
-            <span class="predefined-type">Date</span> givenDate = p.getCreatedAt();
-            ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">UTC</span><span class="delimiter">&quot;</span></span>));
+    personList.forEach((p) -&gt; {
+        <span class="predefined-type">Date</span> givenDate = p.getCreatedAt();
+        ZonedDateTime given = givenDate.toInstant().atZone(ZoneId.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">UTC</span><span class="delimiter">&quot;</span></span>));
 
-            <span class="type">int</span> personAddedYear = <span class="predefined-type">Integer</span>.parseInt(Year.from(given).toString());
-            <span class="type">int</span> personAddedMonth = Month.from(given).getValue();
+        <span class="type">int</span> personAddedYear = <span class="predefined-type">Integer</span>.parseInt(Year.from(given).toString());
+        <span class="type">int</span> personAddedMonth = Month.from(given).getValue();
 
-            <span class="type">int</span> indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
-            <span class="keyword">if</span> (indOffset &gt;= <span class="integer">0</span> &amp;&amp; indOffset &lt;= displayYears * <span class="integer">12</span>) {
-                countByMonth.set(indOffset, countByMonth.get(indOffset) + <span class="integer">1</span>);
-            }
-        });
+        <span class="type">int</span> indOffset = calculateCountByMonthOffset(personAddedMonth, personAddedYear);
+        <span class="keyword">if</span> (indOffset &gt;= <span class="integer">0</span> &amp;&amp; indOffset &lt;= displayYears * <span class="integer">12</span>) {
+            countByMonth.set(indOffset, countByMonth.get(indOffset) + <span class="integer">1</span>);
+        }
+    });
 
-        <span class="keyword">return</span> countByMonth;
-    }</code></pre>
+    <span class="keyword">return</span> countByMonth;
+}</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -336,7 +339,7 @@ column are undoable.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-11 23:37:04 +00:00
+Last updated 2017-11-12 04:57:45 +00:00
 </div>
 </div>
 </body>

@@ -92,7 +92,7 @@ Returns all person having tags <code>friends</code> or <code>family</code>.</p>
 <p>The <code>FindTagCommand</code> class is implemented by calling <code>TagContainsKeywordsPredicate</code> as opposed to <code>NameContainsKeywordsPredicate</code>. This class tells us if a certain <code>person</code> object has any tag that matches the desired keyword. Implementing it this way allows us to extend functionality that was already implemented with a similar structure. In the future, implementing other search functions could build on these current search options.</p>
 </div>
 <div class="paragraph">
-<p>Since this search function involves iterating searching through all tags of all <code>person</code> objects in the address book, it could take up to O(pt) time, where p is the number of <code>person</code> objects in the address book, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of <code>person</code> objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of <code>person</code> objects that have the tag, say <code>delete</code>, <code>add</code> or <code>edit</code>. This would then offset some of the time required for the search onto these other commands.</p>
+<p>Since this search function involves iterating searching through all tags of all <code>person</code> objects in PIMP, it could take up to O(pt) time, where p is the number of <code>person</code> objects in PIMP, and t is the number of tags per person. To ensure that this will not take up too much time, an alternative implementation considered was to maintain a list of all tags, and maintain a list of <code>person</code> objects for each tag that is updated whenever a suitable command is inputted. These commands would be any command that could affect the list of <code>person</code> objects that have the tag, say <code>delete</code>, <code>add</code> or <code>edit</code>. This would then offset some of the time required for the search onto these other commands.</p>
 </div>
 <div class="paragraph">
 <p>However, since these other commands are more commonly used, we decided not to slow down these commands for the performance of the <code>FingTagCommand</code> function. Instead, we simply allowed the <code>FindTagCommand</code> to search through all possibilities each time it is called.</p>
@@ -114,7 +114,7 @@ Returns all person having tags <code>friends</code> or <code>family</code>.</p>
 <div class="sect3">
 <h4 id="viewing-access-counts-since-v1-3"><a class="link" href="#viewing-access-counts-since-v1-3">Viewing access counts (Since v1.3)</a></h4>
 <div class="paragraph">
-<p>At the left side of the screen where the address book entries are displayed, we can see a heart icon, with a number beside it, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag commands will increase this counter. This can be toggled on and off using the <code>accessdisplay</code> command.</p>
+<p>At the left side of the screen where entries of PIMP are displayed, we can see a heart icon, with a number beside it, which describes the number of times this entry has been accessed. Clicking on this entry, or modifying it using any of the edit, add/remove tag commands will increase this counter. This can be toggled on and off using the <code>accessdisplay</code> command.</p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -145,11 +145,11 @@ Returns all person having tags <code>friends</code> or <code>family</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">    <span class="directive">private</span> <span class="type">void</span> updateAccessCount(PersonCard oldValue,PersonCard newValue) {
-        <span class="keyword">if</span> (oldValue == <span class="predefined-constant">null</span> || oldValue.person.getName() != newValue.person.getName()) {
-            newValue.person.incrementAccess();
-        }
-    }</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="type">void</span> updateAccessCount(PersonCard oldValue,PersonCard newValue) {
+    <span class="keyword">if</span> (oldValue == <span class="predefined-constant">null</span> || oldValue.person.getName() != newValue.person.getName()) {
+        newValue.person.incrementAccess();
+    }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -182,11 +182,11 @@ Returns all person having tags <code>friends</code> or <code>family</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4"><a class="link" href="#toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4">Toggling the display of the access counts : <code>accessdisplay</code> (Since v1.4)</a></h4>
+<h4 id="toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4"><a class="link" href="#toggling-the-display-of-the-access-counts-code-accessdisplay-code-since-v1-4">Toggling the display of the access counts: <code>accessdisplay</code> (Since v1.4)</a></h4>
 <div class="paragraph">
 <p>Toggles the display option for the access count numbers.<br>
 Format: <code>accessdisplay TYPE</code><br>
-Alias: <code>ad</code>
+Alias: <code>ad</code><br>
 TYPE can be either 'on' or 'off'</p>
 </div>
 <div class="paragraph">
@@ -195,7 +195,7 @@ TYPE can be either 'on' or 'off'</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>accessdisplay off</code>
+<p><code>accessdisplay off</code><br>
 The description cards on the left plane no longer display access counts.</p>
 </li>
 </ul>
@@ -225,7 +225,7 @@ The description cards on the left plane no longer display access counts.</p>
 <p>Users may not want the number of accesses to each entry to be displayed at all time, since it might be embarassing if it is seen that they have frequently accessed a particular entry. Such users may use the <code>accessdisplay off</code> command to hide the number of accesses.</p>
 </div>
 <div class="paragraph">
-<p>Access display is implemented with two personcard javafx files, <code>PersonCardList.fxml</code> and <code>PersonCardListNoAccess.fxml</code>. Both cards are loaded when PIMP is started, and constantly updated in the background. When the user desires to switch from one to the other, this allows for a smooth transition, without any load times.</p>
+<p>Access display is implemented with two <code>PersonCard</code> JavaFX files, <code>PersonCardList.fxml</code> and <code>PersonCardListNoAccess.fxml</code>. Both cards are loaded when PIMP is started, and constantly updated in the background. When the user desires to switch from one to the other, this allows for a smooth transition, without any load times.</p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -256,7 +256,7 @@ The description cards on the left plane no longer display access counts.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-11 23:37:04 +00:00
+Last updated 2017-11-12 04:57:45 +00:00
 </div>
 </div>
 </body>
