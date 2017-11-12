@@ -3,6 +3,7 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
+//@@author Zzmobie
 /** Indicates that an entry of AddressBook in the model has changed*/
 public class AddressBookAccessChangedEvent extends BaseEvent {
 

@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateFontSizeChanged() {
         raise(new FontSizeRefreshRequestEvent());
     }
-    // @@author Zzmobie
+    //@@author Zzmobie
     @Subscribe
     public void handleAddressBookAccessChangedEvent(AddressBookAccessChangedEvent event)
             throws PersonNotFoundException, DuplicatePersonException {
@@ -153,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
         editedPerson.incrementAccess();
         updatePerson(event.personToEdit, editedPerson);
     }
-
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

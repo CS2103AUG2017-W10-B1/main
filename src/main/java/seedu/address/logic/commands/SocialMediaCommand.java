@@ -5,6 +5,7 @@ import java.util.List;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.model.AddressBookAccessChangedEvent;
 import seedu.address.commons.events.ui.ChangeBrowserPanelUrlEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -54,7 +55,7 @@ public class SocialMediaCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
         ReadOnlyPerson personToEdit = lastShownList.get(targetIndex.getZeroBased());
-        personToEdit.incrementAccess();
+        EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
 
         switch(type) {
         case TYPE_FACEBOOK:
