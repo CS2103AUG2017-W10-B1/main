@@ -173,9 +173,9 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component
 
-* executes user commands using the `Logic` component.
-* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* responds to events raised from various parts of the App and updates the UI accordingly.
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
 
 === Logic component
 
@@ -207,12 +207,12 @@ _Figure 2.4.1: Structure of the Model Component_
 
 The `Model` component
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<ReadOnlyPerson>` that can be 'observed'
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Address Book data.
+* Exposes an unmodifiable `ObservableList<ReadOnlyPerson>` that can be 'observed'
 e.g. the UI can be bound to this list through Logic so that the UI automatically updates
 when the data in the list change.
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
 === Storage component
 
@@ -223,8 +223,8 @@ _Figure 2.5.1: Structure of the Storage Component_
 
 The `Storage` component
 
-* can save `UserPref` objects in JSON format and read it back.
-* can save the Address Book data in XML format and read it back.
+* Can save `UserPref` objects in JSON format and read it back.
+* Can save the Address Book data in XML format and read it back.
 
 === Common classes
 
