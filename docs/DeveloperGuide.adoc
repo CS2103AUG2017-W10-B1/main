@@ -383,7 +383,7 @@ public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
 // end::sort[]
 
 // tag::remark[]
-=== Remark Command
+=== Remark Command (Since v1.1)
 
 The `remark` command allows the user to edit the remark field of a contact. The field is initially empty when a new
 `Person` is instantiated.
@@ -444,7 +444,7 @@ Access display is implemented with two `PersonCard` JavaFX files, `PersonCardLis
 // end::accessdisplay[]
 
 // tag::statistics[]
-=== Statistics Command
+=== Statistics Command (Since v1.3)
 
 The `statistics` command allows the user to view information about the system. The `statistics` command does not take
 any additional parameters.
