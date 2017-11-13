@@ -51,7 +51,7 @@ include::../UserGuide.adoc[tag=remark]
 
 ==== Justification
 
-The remark allows the user to attach miscellaneous information about a contact.
+The remark allows the user to attach miscellaneous information about a contact. This functionality helps users to recall details of their contacts' life.
 
 ==== Implementation
 
