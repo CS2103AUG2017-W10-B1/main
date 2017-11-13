@@ -20,37 +20,77 @@ This document explains the steps needed to perform manual testing for PIMP.
 
 == Remarks
 
-Command: `list`
-Command: `remark 2 r/loves apples`
-Result: A new remark now appears below the entry `Apple Tay` that says `loves apples`.
+Command:
+- `list`
+- `remark 2 r/loves apples`
 
-Command: `remark 2 r/`
-Result: The remark for the user `Apple Tay` that said `loves apples` is now removed.
+Result:
+- A new remark now appears below the entry `Apple Tay` that says `loves apples`.
+- The result box shows `Added remark to Person: Apple Tay Phone: 91504948 Email: applytay@example.com Address: 41 Hindhehe Drive, #12-12 FB: appletay TW: appletay IG: appletay Remark: loves apples Tags: [friends]`
+
+Command:
+- `remark 2 r/`
+
+Result:
+- The remark for the user `Apple Tay` that said `loves apples` is now removed.
+- The result box shows `Removed remark from Person: Apple Tay Phone: 91504948 Email: applytay@example.com Address: 41 Hindhehe Drive, #12-12 FB: appletay TW: appletay IG: appletay Remark:  Tags: [friends]`
 
 == Find Contact
 
 === Normal find
 
-Command: `find john`
-Result: 6 results appear in the left panel, all of whom have first name `John`. This search is case insensitive.
+Command:
+- `find john`
+
+Result:
+- 6 results appear in the left panel, all of whom have first name `John`. This search is case insensitive.
+- Result box displays message `6 persons listed!`
 
 === Find by Regex
 
-Command: `findregex john`
-Result: No results appear, since the findregex search is case sensitive.
-Command: `findregex John`
-Result: 6 results appear in the left panel as before.
-Command: `findregex Joh?nny
-Result: 3 results appear in the left panel, `Johnny`, `Johnnyy` and `Jonny`. findregex searches by substring, so all entries with `Jonny` or `Johnny` as a substring are displayed.
+Command:
+- `findregex john`
+
+Result:
+- No results appear, since the findregex search is case sensitive.
+- Result box displays message `0 persons listed!`
+
+Command:
+- `findregex John`
+
+Result:
+- 6 results appear in the left panel as before.
+- Result box displays message `6 persons listed!`
+
+Command:
+- `findregex Joh?nny
+
+Result:
+- 3 results appear in the left panel, `Johnny`, `Johnnyy` and `Jonny`. findregex searches by substring, so all entries with `Jonny` or `Johnny` as a substring are displayed.
+- Result box displays message `3 persons listed!`
 
 === Find by Tags
 
-Command: `findtag owesmoney`
-Result: 13 results appear in the left panel, all of whom have the tag `owesMoney`. This search is case insensitive.
-Command: `findtag friend`
-Result: No results appear since the findtag command searches with exact case insensitive matches.
-Command: `findtag colleagues neighbours`
-Result: 4 results appear in the left panel, all of whom have either the tag `colleagues` or `neighbours`.
+Command:
+- `findtag owesmoney`
+
+Result:
+- 13 results appear in the left panel, all of whom have the tag `owesMoney`. This search is case insensitive.
+- Result box displays message `13 persons listed!`
+
+Command:
+- `findtag friend`
+
+Result:
+- No results appear since the findtag command searches with exact case insensitive matches.
+- Result box displays message `0 persons listed!`
+
+Command:
+- `findtag colleagues neighbours`
+
+Result:
+- 4 results appear in the left panel, all of whom have either the tag `colleagues` or `neighbours`.
+- Result box displays message `4 persons listed!`
 
 == Tags Manipulation
 
