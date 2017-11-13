@@ -6,7 +6,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: Personal Information Manager Program (PIMP)
 Personal Information Management Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands. The software is written in Java.
 
-*Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/dereknam.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/test/dereknam.md[Test code]]
+*Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/500poundbear.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/test/500poundbear.md[Test code]]
 
 === Purpose
 
