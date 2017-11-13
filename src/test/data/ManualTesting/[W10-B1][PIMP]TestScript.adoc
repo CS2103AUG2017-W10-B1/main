@@ -14,9 +14,39 @@ This document explains the steps needed to perform manual testing for PIMP.
 
 === Add contact
 
+Command:
+
+- `add n/Aero Tan p/99990000 a/Aero Plane Road e/aero@gmail.com fb/aerotan t/friend`
+
+Result:
+
+- Aero is inserted into the contact list and is shown on the left pane as index 2. The rest of the contacts apart from "Aaron Doe" is pushed down (i.e. Apple Tay is now at index 3).
+- The counter at the top left changes to 24.
+- The result box shows "New person added: Aero Tan Phone: 99990000 Email: aero@gmail.com Address: Aero Plane Road FB: aerotan  Remark:  Tags: [friend]"
+
 === Edit contact
 
+Command:
+
+- `edit 2 ig/aero p/88880000`
+
+Result:
+
+- Aero Tan (index 2 of the left pane) has the phone number changed to "88880000" and a new field "IG: aero".
+- The heart (access count) in Aero's box is now 1.
+- The result box shows "Edited Person: Aero Tan Phone: 88880000 Email: aero@gmail.com Address: Aero Plane Road FB: aerotan IG: aero Remark:  Tags: [friend]".
+
 === Delete contact
+
+Command:
+
+- `delete 2`
+
+Result:
+
+- Aero Tan (index 2 of the left pane) is deleted, and all the contacts below are pushed up (i.e. Apple Tay is now at index 2).
+- The counter at the top left changes to 23.
+- The result box shows "Deleted Person: Aero Tan Phone: 88880000 Email: aero@gmail.com Address: Aero Plane Road FB: aerotan IG: aero Remark:  Tags: [friend]".
 
 == Remarks
 
@@ -93,6 +123,27 @@ Result:
 - Result box displays message `4 persons listed!`
 
 == Tags Manipulation
+
+Command:
+
+- `tag add 1 clubber`
+
+Result:
+
+- Aaron Doe (index 1 of the left pane) has a new tag called "clubber".
+- The heart (access count) in Aaron's box is now 2.
+- The result box shows "Added Tag/s to Person: Aaron Doe Phone: 98765432 Email: johnd@example.com Address: 31, Clementi Ave 5, #02-25 FB: aarondoe TW: aarondoe IG: aarondoe Remark:  Tags: [owesMoney][clubber][friends]"
+
+Command:
+
+- `tag remove 1 clubber`
+
+Result:
+
+- Aaron Doe (index 1 of the left pane) has tag "clubber" removed.
+- The heart (access count) in Aaron's box is now 3.
+- The result box shows "Removed Tag/s to Person: Aaron Doe Phone: 98765432 Email: johnd@example.com Address: 31, Clementi Ave 5, #02-25 FB: aarondoe TW: aarondoe IG: aarondoe Remark:  Tags: [owesMoney][friends]"
+
 
 == History
 
