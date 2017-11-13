@@ -541,7 +541,7 @@ These are features that do not have commands but can be helpful to the user.
 The contact list will automatically be sorted in A-Z order. It will refresh and re-sort accordingly when add and edit commands are executed.
 // end::sort[]
 
-==== Viewing total number of persons stored
+==== Viewing total number of persons stored (Since v1.2)
 
 The column with the people icon at the top left of the screen contains a numerical value
 representing the total number of persons in the last person listing.
