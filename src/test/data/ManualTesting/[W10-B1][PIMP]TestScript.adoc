@@ -14,8 +14,6 @@ This document explains the steps needed to perform manual testing for PIMP.
 - Rename the `[W10-B1][PIMP]SampleData.xml` file to `addressbook.xml`.
 - Run the `pimp-v1.5.jar` file.
 
-== The User Interface
-
 == Basic PIMP Commands
 
 === Add contact
@@ -110,7 +108,7 @@ Result:
 
 Command:
 
-- `findregex Joh?nny
+- `findregex Joh?nny`
 
 Result:
 
@@ -175,6 +173,7 @@ Command:
 - `history`
 
 Result:
+
 - The history being displayed in the result box, for example:
 
 ```
@@ -183,6 +182,8 @@ Entered commands (from most recent to earliest):
 (2) clear
 (3) edit 2 n/Jane Doe
 ```
+
+== Clear
 
 Command:
 
@@ -193,7 +194,9 @@ Result:
 - the contacts list at the left pane is empty.
 - status bar shows "0" which reflects that there are now zero contacts in the
 address book.
-- the result box shows "Address book has been cleared!".
+- the result box shows "Address book has been cleared!"
+
+== Undo and Redo
 
 Command:
 
