@@ -5,12 +5,12 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 == Project: Personal Information Management Program (PIMP)
 Personal Information Manager Program (PIMP) is a command line interface (CLI) address book that allows you to store your contacts. You can use PIMP to add friends, add specific tags to them, add their social media accounts (such as Facebook, Twitter, Instagram), or add remarks. You can search through the list of your contacts by typing specific names. For more advanced user, you can use regex to find your friends. Most of the functionality works by typing in single line commands.
-+
-+PIMP v1.5 is available on any platform running Java 8.
+
+PIMP v1.5 is available on any platform running Java 8.
 
 *Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/donjar.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/donjar.md[Test code]]
 
-=== Enhancement Added: Findregex
+=== Enhancement Added: Find by Regex
 
 ==== External behavior
 
@@ -26,7 +26,7 @@ include::../UserGuide.adoc[tag=findregex]
 ==== Justification
 
 This `findregex` command is an advanced feature useful for users who want to search in a more powerful manner.
-You can use this command to find people matching "Johnny" or "Johny", for example.
+The user can use this command to find people matching "Johnny" or "Johny", for example.
 
 ==== Implementation
 
@@ -39,7 +39,7 @@ include::../DeveloperGuide.adoc[tag=findregex]
 
 ---
 
-=== Enhancement Added: Add command `size`
+=== Enhancement Added: Change Font Size
 
 ==== External behavior
 
@@ -54,8 +54,10 @@ include::../UserGuide.adoc[tag=size]
 
 ==== Justification
 
-This command is useful for users to set the font size according to their preference. Some users might appreciate a
-bigger font size and we believe that usability is important.
+This command is useful for users to set the font size according to their
+preference. Some users might appreciate a bigger font size and we
+believe that it is important for users to be able to view things conveniently,
+as usability is crucial.
 
 ==== Implementation
 
@@ -68,22 +70,23 @@ include::../DeveloperGuide.adoc[tag=size]
 
 ---
 
-=== Enhancement Added: Undo/redo with arguments
+=== Enhancement Added: Undo/redo Multiple Times
 
 ==== External behavior
 
 ---
-Originally, undo/redo is a command that takes no arguments. With this enhancement, the user can
-now type `undo 2`, for example, to undo 2 commands. Same thing as redo - `redo 3`, for example, redoes
-3 commands.
+Originally, undo/redo is a command that takes no arguments. With this enhancement,
+the user can now type `undo 2`, for example, to undo 2 commands. Same thing as
+redo - `redo 3`, for example, redoes 3 commands.
 
 ---
 
 ==== Justification
 
-This command is useful for users who want to undo many commands at once. For example, if you added many people
-at once and you realized that you are adding from the wrong group of people, you can use this feature to undo many
-commands at once.
+This command is useful for users who want to undo many commands at once.
+For example, if the user added many people at once and the user realized that
+he/she is adding from the wrong group of people, the user can use this feature to
+undo many commands at once.
 
 ==== Implementation
 
@@ -91,8 +94,20 @@ commands at once.
 This feature is implemented with a `for` loop, executing the command many times.
 
 ---
+
+=== Enhancement Proposed: Hear Text (for v2.0)
+As I mentioned earlier in the "font size change" section, usability is important.
+Some users may have impaired sight, and it is important to cater for them as well
+by using a "screen reader" to say out loud the text displayed in the screen.
+
+---
 === Other contributions
 
-- Updated the UI, such as the layout and the color scheme. Also refactored the CSS colors into variables.
-(Pull requests #111, #140)
-- Made releases and set up Travis, Appveyor, and Coveralls.
+- I updated the user interface, such as the layout and the color scheme. I also
+refactored the CSS colors into variables. The relevant pull requests (code
+changes) can be found at https://github.com/CS2103AUG2017-W10-B1/main/pull/111,
+https://github.com/CS2103AUG2017-W10-B1/main/pull/140,
+https://github.com/CS2103AUG2017-W10-B1/main/pull/155, and
+https://github.com/CS2103AUG2017-W10-B1/main/pull/177.
+- I handled dev ops such as making releases and setting up tools like Travis,
+Appveyor, and Coveralls.
