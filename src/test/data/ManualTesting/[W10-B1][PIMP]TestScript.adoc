@@ -20,20 +20,44 @@ This document explains the steps needed to perform manual testing for PIMP.
 
 == Remarks
 
+Command: `list`
+Command: `remark 2 r/loves apples`
+Result: A new remark now appears below the entry `Apple Tay` that says `loves apples`.
+
+Command: `remark 2 r/`
+Result: The remark for the user `Apple Tay` that said `loves apples` is now removed.
+
 == Find Contact
 
 === Normal find
 
+Command: `find john`
+Result: 6 results appear in the left panel, all of whom have first name `John`. This search is case insensitive.
+
 === Find by Regex
 
+Command: `findregex john`
+Result: No results appear, since the findregex search is case sensitive.
+Command: `findregex John`
+Result: 6 results appear in the left panel as before.
+Command: `findregex Joh?nny
+Result: 3 results appear in the left panel, `Johnny`, `Johnnyy` and `Jonny`. findregex searches by substring, so all entries with `Jonny` or `Johnny` as a substring are displayed.
+
 === Find by Tags
+
+Command: `findtag owesmoney`
+Result: 13 results appear in the left panel, all of whom have the tag `owesMoney`. This search is case insensitive.
+Command: `findtag friend`
+Result: No results appear since the findtag command searches with exact case insensitive matches.
+Command: `findtag colleagues neighbours`
+Result: 4 results appear in the left panel, all of whom have either the tag `colleagues` or `neighbours`.
 
 == Tags Manipulation
 
 == History
 
 Command: `history` +
-Result: the history being displayed in the result box, for example:
+Result: The history being displayed in the result box, for example:
 ```
 Entered commands (from most recent to earliest):
 (1) undo
