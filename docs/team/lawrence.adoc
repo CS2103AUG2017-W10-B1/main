@@ -8,7 +8,7 @@ PIMP (Personal Information Manager Program) is a command line interface (CLI) ad
 
 PIMP v1.5 is available on any platform running Java 8.
 
-*Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md[Test code]] {give links to collated code files}
+*Code contributed*: [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md[Functional code]] [https://github.com/CS2103AUG2017-W10-B1/main/blob/master/collated/main/Zzmobie.md[Test code]]
 
 === Enhancement Added: FindTag
 
@@ -102,3 +102,7 @@ While it is useful for a socialite to be able to see the access counts of each i
 
 * Updated the GUI to always open to the maximum screen size (Pull request https://github.com[#68])
 * Updated the access count to display as an icon with a heart and a number (Pull request https://github.com[#144])
+* Help identify bugs in other projects: +
+https://github.com/CS2103AUG2017-F11-B1/main/issues/77 +
+https://github.com/CS2103AUG2017-F11-B1/main/issues/74 +
+https://github.com/CS2103AUG2017-F11-B1/main/issues/76
