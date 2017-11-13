@@ -1,20 +1,248 @@
 # kenpaxtonlim
-###### /java/seedu/address/commons/events/ui/ChangeBrowserPanelUrlEvent.java
+###### /java/seedu/address/ui/BrowserPanel.java
+``` java
+    @Subscribe
+    private void handleChangeBrowserPanelUrlEvent(ChangeBrowserPanelUrlEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPage(event.url);
+    }
+```
+###### /java/seedu/address/model/person/Person.java
+``` java
+    @Override
+    public ObjectProperty<SocialMedia> socialMediaProperty() {
+        return socialMedia;
+    }
+
+    @Override
+    public SocialMedia getSocialMedia() {
+        return socialMedia.get();
+    }
+
+    public void setSocialMedia(SocialMedia socialMedia) {
+        this.socialMedia.set(requireNonNull(socialMedia));
+    }
+```
+###### /java/seedu/address/model/person/SocialMedia.java
 ``` java
 /**
- * Indicates a request to change the url on the browser panel.
+ * Represents a Person's social media usernames in the address book.
  */
-public class ChangeBrowserPanelUrlEvent extends BaseEvent {
+public class SocialMedia {
 
-    public final String url;
+    public static final String MESSAGE_USERNAME_CONSTRAINTS =
+            "Social media username should be alphanumeric without spaces";
+    public static final String USERNAME_VALIDATION_REGEX = "[^\\s]+|[\\s*]";
 
-    public ChangeBrowserPanelUrlEvent(String url) {
-        this.url = url;
+    public final String facebook;
+    public final String twitter;
+    public final String instagram;
+
+    /**
+     * All usernames are empty.
+     */
+    public SocialMedia() {
+        facebook = "";
+        twitter = "";
+        instagram = "";
+    }
+
+    /**
+     * Set usernames based on input.
+     */
+    public SocialMedia(String facebook, String twitter, String instagram) {
+        this.facebook = facebook;
+        this.twitter = twitter;
+        this.instagram = instagram;
+    }
+
+    /**
+     * Replace old usernames if new usernames is valid (not null).
+     */
+    public SocialMedia(SocialMedia oldData, SocialMedia newData) {
+        facebook = newData.facebook == null ? oldData.facebook : newData.facebook;
+        twitter = newData.twitter == null ? oldData.twitter : newData.twitter;
+        instagram = newData.instagram == null ? oldData.instagram : newData.instagram;
+    }
+
+    /**
+     * Returns true if a given string is a valid person name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(USERNAME_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        String toString = "";
+
+        if (!facebook.equals("")) {
+            toString += "FB: " + facebook + " ";
+        }
+        if (!twitter.equals("")) {
+            toString += "TW: " + twitter + " ";
+        }
+        if (!instagram.equals("")) {
+            toString += "IG: " + instagram;
+        }
+        if (toString.equals("")) {
+            toString = "-No Social Media Accounts-";
+        }
+        return toString;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SocialMedia // instanceof handles nulls
+                && this.facebook.equals(((SocialMedia) other).facebook)
+                && this.twitter.equals(((SocialMedia) other).twitter)
+                && this.instagram.equals(((SocialMedia) other).instagram)); // state check
+    }
+}
+```
+###### /java/seedu/address/logic/commands/SocialMediaCommand.java
+``` java
+/**
+ * Display social media page of the person identified using it's last displayed index from the address book.
+ */
+public class SocialMediaCommand extends Command {
+
+    public static final String COMMAND_WORD = "socialmedia";
+    public static final String COMMAND_ALIAS = "sm";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows the social media of the person identified by the index number used in the last person listing.\n"
+            + "Parameters: TYPE (either \"facebook\", \"twitter\", or\"instagram\")"
+            + "INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " facebook 1";
+
+    public static final String TYPE_FACEBOOK = "facebook";
+    public static final String TYPE_TWITTER = "twitter";
+    public static final String TYPE_INSTAGRAM = "instagram";
+
+    public static final String URL_FACEBOOK = "https://www.facebook.com/";
+    public static final String URL_TWITTER = "https://twitter.com/";
+    public static final String URL_INSTAGRAM = "https://www.instagram.com/";
+
+    public static final String MESSAGE_SUCCESS = "Social media shown!";
+    public static final String MESSAGE_NO_FACEBOOK = "This person has no facebook.";
+    public static final String MESSAGE_NO_TWITTER = "This person has no twitter.";
+    public static final String MESSAGE_NO_INSTAGRAM = "This person has no instagram.";
+    public static final String MESSAGE_INVALID_TYPE = "No such social media type.";
+
+    private final Index targetIndex;
+    private final String type;
+
+    public SocialMediaCommand(Index targetIndex, String type) {
+        this.targetIndex = targetIndex;
+        this.type = type;
+    }
+
+    @Override
+    public CommandResult execute() throws CommandException {
+        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        ReadOnlyPerson personToEdit = lastShownList.get(targetIndex.getZeroBased());
+
+        switch(type) {
+        case TYPE_FACEBOOK:
+            if (personToEdit.getSocialMedia().facebook.equals("")) {
+                throw new CommandException(MESSAGE_NO_FACEBOOK);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
+            }
+            break;
+        case TYPE_TWITTER:
+            if (personToEdit.getSocialMedia().twitter.equals("")) {
+                throw new CommandException(MESSAGE_NO_TWITTER);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_TWITTER + personToEdit.getSocialMedia().twitter));
+            }
+            break;
+        case TYPE_INSTAGRAM:
+            if (personToEdit.getSocialMedia().instagram.equals("")) {
+                throw new CommandException(MESSAGE_NO_INSTAGRAM);
+            } else {
+                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
+                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
+                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
+                        URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
+            }
+            break;
+        default:
+            throw new CommandException(MESSAGE_INVALID_TYPE);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof SocialMediaCommand)) {
+            return false;
+        }
+
+        SocialMediaCommand e = (SocialMediaCommand) other;
+        return targetIndex.equals(e.targetIndex) && type.equals(e.type);
+    }
+}
+```
+###### /java/seedu/address/logic/commands/QuickHelpCommand.java
+``` java
+/**
+ * Show a list of valid command words.
+ */
+public class QuickHelpCommand extends Command {
+
+    public static final String COMMAND_WORD = "quickhelp";
+    public static final String COMMAND_ALIAS = "qh";
+
+    public static final String MESSAGE = "Valid Command Words:\n"
+            + SelectCommand.COMMAND_WORD + " "
+            + ListCommand.COMMAND_WORD + " "
+            + AddCommand.COMMAND_WORD + " "
+            + DeleteCommand.COMMAND_WORD + " "
+            + EditCommand.COMMAND_WORD + " "
+            + ClearCommand.COMMAND_WORD + " "
+            + RemarkCommand.COMMAND_WORD + " "
+            + AddRemoveTagsCommand.COMMAND_WORD + " "
+            + FindCommand.COMMAND_WORD + " "
+            + FindRegexCommand.COMMAND_WORD + " "
+            + FindTagCommand.COMMAND_WORD + " "
+            + SocialMediaCommand.COMMAND_WORD + " "
+            + StatisticsCommand.COMMAND_WORD + " "
+            + SizeCommand.COMMAND_WORD + " "
+            + ToggleAccessDisplayCommand.COMMAND_WORD + " "
+            + UndoCommand.COMMAND_WORD + " "
+            + RedoCommand.COMMAND_WORD + " "
+            + HistoryCommand.COMMAND_WORD + " "
+            + HelpCommand.COMMAND_WORD + " "
+            + ExitCommand.COMMAND_WORD;
+
+    @Override
+    public CommandResult execute() throws CommandException {
+        return new CommandResult(MESSAGE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuickHelpCommand); // instanceof handles nulls
     }
 }
 ```
@@ -184,151 +412,6 @@ public class AddRemoveTagsCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/QuickHelpCommand.java
-``` java
-/**
- * Show a list of valid command words.
- */
-public class QuickHelpCommand extends Command {
-
-    public static final String COMMAND_WORD = "quickhelp";
-    public static final String COMMAND_ALIAS = "qh";
-
-    public static final String MESSAGE = "Valid Command Words:\n"
-            + SelectCommand.COMMAND_WORD + " "
-            + ListCommand.COMMAND_WORD + " "
-            + AddCommand.COMMAND_WORD + " "
-            + DeleteCommand.COMMAND_WORD + " "
-            + EditCommand.COMMAND_WORD + " "
-            + ClearCommand.COMMAND_WORD + " "
-            + RemarkCommand.COMMAND_WORD + " "
-            + AddRemoveTagsCommand.COMMAND_WORD + " "
-            + FindCommand.COMMAND_WORD + " "
-            + FindRegexCommand.COMMAND_WORD + " "
-            + FindTagCommand.COMMAND_WORD + " "
-            + SocialMediaCommand.COMMAND_WORD + " "
-            + StatisticsCommand.COMMAND_WORD + " "
-            + SizeCommand.COMMAND_WORD + " "
-            + ToggleAccessDisplayCommand.COMMAND_WORD + " "
-            + UndoCommand.COMMAND_WORD + " "
-            + RedoCommand.COMMAND_WORD + " "
-            + HistoryCommand.COMMAND_WORD + " "
-            + HelpCommand.COMMAND_WORD + " "
-            + ExitCommand.COMMAND_WORD;
-
-    @Override
-    public CommandResult execute() throws CommandException {
-        return new CommandResult(MESSAGE);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof QuickHelpCommand); // instanceof handles nulls
-    }
-}
-```
-###### /java/seedu/address/logic/commands/SocialMediaCommand.java
-``` java
-/**
- * Display social media page of the person identified using it's last displayed index from the address book.
- */
-public class SocialMediaCommand extends Command {
-
-    public static final String COMMAND_WORD = "socialmedia";
-    public static final String COMMAND_ALIAS = "sm";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows the social media of the person identified by the index number used in the last person listing.\n"
-            + "Parameters: TYPE (either \"facebook\", \"twitter\", or\"instagram\")"
-            + "INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " facebook 1";
-
-    public static final String TYPE_FACEBOOK = "facebook";
-    public static final String TYPE_TWITTER = "twitter";
-    public static final String TYPE_INSTAGRAM = "instagram";
-
-    public static final String URL_FACEBOOK = "https://www.facebook.com/";
-    public static final String URL_TWITTER = "https://twitter.com/";
-    public static final String URL_INSTAGRAM = "https://www.instagram.com/";
-
-    public static final String MESSAGE_SUCCESS = "Social media shown!";
-    public static final String MESSAGE_NO_FACEBOOK = "This person has no facebook.";
-    public static final String MESSAGE_NO_TWITTER = "This person has no twitter.";
-    public static final String MESSAGE_NO_INSTAGRAM = "This person has no instagram.";
-    public static final String MESSAGE_INVALID_TYPE = "No such social media type.";
-
-    private final Index targetIndex;
-    private final String type;
-
-    public SocialMediaCommand(Index targetIndex, String type) {
-        this.targetIndex = targetIndex;
-        this.type = type;
-    }
-
-    @Override
-    public CommandResult execute() throws CommandException {
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-        ReadOnlyPerson personToEdit = lastShownList.get(targetIndex.getZeroBased());
-
-        switch(type) {
-        case TYPE_FACEBOOK:
-            if (personToEdit.getSocialMedia().facebook.equals("")) {
-                throw new CommandException(MESSAGE_NO_FACEBOOK);
-            } else {
-                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
-                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                        URL_FACEBOOK + personToEdit.getSocialMedia().facebook));
-            }
-            break;
-        case TYPE_TWITTER:
-            if (personToEdit.getSocialMedia().twitter.equals("")) {
-                throw new CommandException(MESSAGE_NO_TWITTER);
-            } else {
-                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
-                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                        URL_TWITTER + personToEdit.getSocialMedia().twitter));
-            }
-            break;
-        case TYPE_INSTAGRAM:
-            if (personToEdit.getSocialMedia().instagram.equals("")) {
-                throw new CommandException(MESSAGE_NO_INSTAGRAM);
-            } else {
-                EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
-                EventsCenter.getInstance().post(new AddressBookAccessChangedEvent(personToEdit));
-                EventsCenter.getInstance().post(new ChangeBrowserPanelUrlEvent(
-                        URL_INSTAGRAM + personToEdit.getSocialMedia().instagram));
-            }
-            break;
-        default:
-            throw new CommandException(MESSAGE_INVALID_TYPE);
-        }
-
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof SocialMediaCommand)) {
-            return false;
-        }
-
-        SocialMediaCommand e = (SocialMediaCommand) other;
-        return targetIndex.equals(e.targetIndex) && type.equals(e.type);
-    }
-}
-```
 ###### /java/seedu/address/logic/parser/AddRemoveTagsCommandParser.java
 ``` java
 /**
@@ -479,105 +562,22 @@ public class SocialMediaCommandParser implements Parser<SocialMediaCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/person/Person.java
-``` java
-    @Override
-    public ObjectProperty<SocialMedia> socialMediaProperty() {
-        return socialMedia;
-    }
-
-    @Override
-    public SocialMedia getSocialMedia() {
-        return socialMedia.get();
-    }
-
-    public void setSocialMedia(SocialMedia socialMedia) {
-        this.socialMedia.set(requireNonNull(socialMedia));
-    }
-```
-###### /java/seedu/address/model/person/SocialMedia.java
+###### /java/seedu/address/commons/events/ui/ChangeBrowserPanelUrlEvent.java
 ``` java
 /**
- * Represents a Person's social media usernames in the address book.
+ * Indicates a request to change the url on the browser panel.
  */
-public class SocialMedia {
+public class ChangeBrowserPanelUrlEvent extends BaseEvent {
 
-    public static final String MESSAGE_USERNAME_CONSTRAINTS =
-            "Social media username should be alphanumeric without spaces";
-    public static final String USERNAME_VALIDATION_REGEX = "[^\\s]+|[\\s*]";
+    public final String url;
 
-    public final String facebook;
-    public final String twitter;
-    public final String instagram;
-
-    /**
-     * All usernames are empty.
-     */
-    public SocialMedia() {
-        facebook = "";
-        twitter = "";
-        instagram = "";
-    }
-
-    /**
-     * Set usernames based on input.
-     */
-    public SocialMedia(String facebook, String twitter, String instagram) {
-        this.facebook = facebook;
-        this.twitter = twitter;
-        this.instagram = instagram;
-    }
-
-    /**
-     * Replace old usernames if new usernames is valid (not null).
-     */
-    public SocialMedia(SocialMedia oldData, SocialMedia newData) {
-        facebook = newData.facebook == null ? oldData.facebook : newData.facebook;
-        twitter = newData.twitter == null ? oldData.twitter : newData.twitter;
-        instagram = newData.instagram == null ? oldData.instagram : newData.instagram;
-    }
-
-    /**
-     * Returns true if a given string is a valid person name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(USERNAME_VALIDATION_REGEX);
+    public ChangeBrowserPanelUrlEvent(String url) {
+        this.url = url;
     }
 
     @Override
     public String toString() {
-        String toString = "";
-
-        if (!facebook.equals("")) {
-            toString += "FB: " + facebook + " ";
-        }
-        if (!twitter.equals("")) {
-            toString += "TW: " + twitter + " ";
-        }
-        if (!instagram.equals("")) {
-            toString += "IG: " + instagram;
-        }
-        if (toString.equals("")) {
-            toString = "-No Social Media Accounts-";
-        }
-        return toString;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SocialMedia // instanceof handles nulls
-                && this.facebook.equals(((SocialMedia) other).facebook)
-                && this.twitter.equals(((SocialMedia) other).twitter)
-                && this.instagram.equals(((SocialMedia) other).instagram)); // state check
+        return this.getClass().getSimpleName();
     }
 }
-```
-###### /java/seedu/address/ui/BrowserPanel.java
-``` java
-    @Subscribe
-    private void handleChangeBrowserPanelUrlEvent(ChangeBrowserPanelUrlEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPage(event.url);
-    }
 ```

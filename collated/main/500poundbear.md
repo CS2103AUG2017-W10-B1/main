@@ -1,37 +1,223 @@
 # 500poundbear
-###### /java/seedu/address/model/person/Remark.java
+###### /java/seedu/address/ui/PeopleCount.java
 ``` java
 /**
- * Represents a Person's remark in the address book.
+ * A ui for the people count that is displayed at the header of the application.
  */
-public class Remark {
+public class PeopleCount extends UiPart<Region> {
 
-    public static final String MESSAGE_REMARK_CONSTRAINTS =
-            "The remark of a person can take any value.";
+    private static final String FXML = "PeopleCount.fxml";
 
-    public final String value;
+    @FXML
+    private StatusBar totalPersons;
 
-    public Remark(String remark) {
-        requireNonNull(remark);
-        this.value = remark;
+    public PeopleCount(int totalPersons) {
+        super(FXML);
+        setTotalPersons(totalPersons);
+        registerAsAnEventHandler(this);
     }
 
-    @Override
-    public String toString() {
-        return value;
+    private void setTotalPersons(int totalPersons) {
+        this.totalPersons.setText(Integer.toString(totalPersons));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this
-                || ((other instanceof Remark)
-                && this.value.equals(((Remark) other).value));
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+        setTotalPersons(abce.data.getPersonList().size());
+    }
+}
+```
+###### /java/seedu/address/ui/MainWindow.java
+``` java
+    /**
+     * Instantiates and adds the statistics panel to the UI
+     */
+    private void switchToStatisticsPanel() {
+        logger.info("Switched to statistics panel");
+
+        statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
+        browserOrStatisticsPlaceholder.getChildren().clear();
+        browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        statisticsPanelOpen = true;
     }
 
-    @Override
-    public int hashCode() {
-        return value.hashCode();
+
+    /**
+     * Instantiates and adds the browser panel to the UI
+     */
+    private void switchToBrowserPanel() {
+        logger.info("Switched to browser panel");
+
+        browserPanel = new BrowserPanel();
+        browserOrStatisticsPlaceholder.getChildren().clear();
+        browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
+        statisticsPanelOpen = false;
     }
+```
+###### /java/seedu/address/ui/MainWindow.java
+``` java
+    @Subscribe
+    private void handleToggleBrowserPanelEvent(ToggleBrowserPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchToBrowserPanel();
+    }
+
+    @Subscribe
+    private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        switchToStatisticsPanel();
+    }
+
+    @Subscribe
+    private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (statisticsPanelOpen) {
+            switchToStatisticsPanel();
+        }
+    }
+}
+```
+###### /java/seedu/address/ui/StatisticsPanel.java
+``` java
+    public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
+        super(FXML);
+
+        currentYear = this.getCurrentYear();
+        currentMonth = this.getCurrentMonth();
+
+        statistics = new Statistics(list, this.currentMonth, this.currentYear);
+
+        totalNumberOfPeople = statistics.getTotalNumberOfPeople();
+
+        hasNoFacebook = statistics.getHasNoFacebook();
+        hasNoTwitter = statistics.getHasNoTwitter();
+        hasNoInstagram = statistics.getHasNoInstagram();
+
+        initialiseStatisticsPanel(list);
+    }
+
+    /**
+     * Sets up the fxml objects with data
+     */
+    private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
+
+        personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
+        personAddedChart.setData(getPersonAddedChartData(list));
+        personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
+
+        fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
+        fbChart.setData(formatFacebookData());
+        twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
+        twChart.setData(formatTwitterData());
+        igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
+        igChart.setData(formatInstagramData());
+    }
+
+    private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(
+            ObservableList<ReadOnlyPerson> list) {
+
+        ObservableList<XYChart.Series<String, Integer>> answer = FXCollections.observableArrayList();
+        XYChart.Series<String, Integer> aSeries = new XYChart.Series<String, Integer>();
+        aSeries.setName("Persons added");
+
+        int endYear = this.currentYear;
+        int startYear = endYear - PERSON_ADDED_DISPLAY_YEARS;
+
+        int startMonth;
+        int endMonth;
+        int monthCount = PERSON_ADDED_DISPLAY_YEARS * 12;
+
+        ArrayList<Integer> monthPersonsAdded = statistics.getNewPersonsAddByMonth(PERSON_ADDED_DISPLAY_YEARS);
+
+        for (int i = startYear; i <= endYear; i++) {
+
+            startMonth = 1;
+            endMonth = 12;
+
+            if (i == startYear) {
+                startMonth = this.currentMonth;
+            }
+
+            if (i == endYear) {
+                endMonth = this.currentMonth;
+            }
+
+            for (int m = startMonth; m <= endMonth; m++) {
+                String labelName = Month.of(m).name().substring(0, 3) + " " + Integer.toString(i);
+                aSeries.getData().add(new XYChart.Data(labelName, monthPersonsAdded.get(monthCount)));
+
+                monthCount--;
+            }
+        }
+        answer.addAll(aSeries);
+        return answer;
+    }
+
+    /**
+     * Formats the number of users with Facebook recorded
+     */
+    private ObservableList<PieChart.Data> formatFacebookData() {
+
+        ArrayList<PieChart.Data> data = new ArrayList<>();
+
+        int hasFacebook = this.totalNumberOfPeople - this.hasNoFacebook;
+
+        String onFacebookLabel = String.format(CHART_USING_LABEL, hasFacebook);
+        String notOnFacebookLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoFacebook);
+        data.add(new PieChart.Data(onFacebookLabel, hasFacebook));
+        data.add(new PieChart.Data(notOnFacebookLabel, this.hasNoFacebook));
+
+        return FXCollections.observableArrayList(data);
+    }
+
+    /**
+     * Formats the number of users with Twitter recorded
+     */
+    private ObservableList<PieChart.Data> formatTwitterData() {
+
+        ArrayList<PieChart.Data> data = new ArrayList<>();
+
+        int hasTwitter = this.totalNumberOfPeople - this.hasNoTwitter;
+
+        String onTwitterLabel = String.format(CHART_USING_LABEL, hasTwitter);
+        String notOnTwitterLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoTwitter);
+        data.add(new PieChart.Data(onTwitterLabel, hasTwitter));
+        data.add(new PieChart.Data(notOnTwitterLabel, this.hasNoTwitter));
+
+        return FXCollections.observableArrayList(data);
+    }
+
+    /**
+     * Formats the number of users with Instagram recorded
+     */
+    private ObservableList<PieChart.Data> formatInstagramData() {
+
+        ArrayList<PieChart.Data> data = new ArrayList<>();
+
+        int hasInstagram = this.totalNumberOfPeople - this.hasNoInstagram;
+
+        String onInstagramLabel = String.format(CHART_USING_LABEL, hasInstagram);
+        String notOnInstagramLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoInstagram);
+        data.add(new PieChart.Data(onInstagramLabel, hasInstagram));
+        data.add(new PieChart.Data(notOnInstagramLabel, this.hasNoInstagram));
+
+        return FXCollections.observableArrayList(data);
+    }
+
+    /**
+     * Fetches the current year
+     */
+    private Integer getCurrentYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    /**
+     * Fetches the current month
+     */
+    private Integer getCurrentMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
+    }
+
 }
 ```
 ###### /java/seedu/address/model/Statistics.java
@@ -197,224 +383,38 @@ public class Statistics {
     }
 }
 ```
-###### /java/seedu/address/ui/MainWindow.java
-``` java
-    /**
-     * Instantiates and adds the statistics panel to the UI
-     */
-    private void switchToStatisticsPanel() {
-        logger.info("Switched to statistics panel");
-
-        statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
-        browserOrStatisticsPlaceholder.getChildren().clear();
-        browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
-        statisticsPanelOpen = true;
-    }
-
-
-    /**
-     * Instantiates and adds the browser panel to the UI
-     */
-    private void switchToBrowserPanel() {
-        logger.info("Switched to browser panel");
-
-        browserPanel = new BrowserPanel();
-        browserOrStatisticsPlaceholder.getChildren().clear();
-        browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
-        statisticsPanelOpen = false;
-    }
-```
-###### /java/seedu/address/ui/MainWindow.java
-``` java
-    @Subscribe
-    private void handleToggleBrowserPanelEvent(ToggleBrowserPanelEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        switchToBrowserPanel();
-    }
-
-    @Subscribe
-    private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        switchToStatisticsPanel();
-    }
-
-    @Subscribe
-    private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if (statisticsPanelOpen) {
-            switchToStatisticsPanel();
-        }
-    }
-}
-```
-###### /java/seedu/address/ui/PeopleCount.java
+###### /java/seedu/address/model/person/Remark.java
 ``` java
 /**
- * A ui for the people count that is displayed at the header of the application.
+ * Represents a Person's remark in the address book.
  */
-public class PeopleCount extends UiPart<Region> {
+public class Remark {
 
-    private static final String FXML = "PeopleCount.fxml";
+    public static final String MESSAGE_REMARK_CONSTRAINTS =
+            "The remark of a person can take any value.";
 
-    @FXML
-    private StatusBar totalPersons;
+    public final String value;
 
-    public PeopleCount(int totalPersons) {
-        super(FXML);
-        setTotalPersons(totalPersons);
-        registerAsAnEventHandler(this);
+    public Remark(String remark) {
+        requireNonNull(remark);
+        this.value = remark;
     }
 
-    private void setTotalPersons(int totalPersons) {
-        this.totalPersons.setText(Integer.toString(totalPersons));
+    @Override
+    public String toString() {
+        return value;
     }
 
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        setTotalPersons(abce.data.getPersonList().size());
-    }
-}
-```
-###### /java/seedu/address/ui/StatisticsPanel.java
-``` java
-    public StatisticsPanel(ObservableList<ReadOnlyPerson> list) {
-        super(FXML);
-
-        currentYear = this.getCurrentYear();
-        currentMonth = this.getCurrentMonth();
-
-        statistics = new Statistics(list, this.currentMonth, this.currentYear);
-
-        totalNumberOfPeople = statistics.getTotalNumberOfPeople();
-
-        hasNoFacebook = statistics.getHasNoFacebook();
-        hasNoTwitter = statistics.getHasNoTwitter();
-        hasNoInstagram = statistics.getHasNoInstagram();
-
-        initialiseStatisticsPanel(list);
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || ((other instanceof Remark)
+                && this.value.equals(((Remark) other).value));
     }
 
-    /**
-     * Sets up the fxml objects with data
-     */
-    private void initialiseStatisticsPanel(ObservableList<ReadOnlyPerson> list) {
-
-        personAddedChart.setTitle(PERSON_ADDED_CHART_TITLE);
-        personAddedChart.setData(getPersonAddedChartData(list));
-        personAddedChart.setBarGap(PERSON_ADDED_CHART_BAR_GAP);
-
-        fbChart.setTitle(FACEBOOK_BREAKDOWN_CHART_TITLE);
-        fbChart.setData(formatFacebookData());
-        twChart.setTitle(TWITTER_BREAKDOWN_CHART_TITLE);
-        twChart.setData(formatTwitterData());
-        igChart.setTitle(INSTAGRAM_BREAKDOWN_CHART_TITLE);
-        igChart.setData(formatInstagramData());
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
-
-    private ObservableList<XYChart.Series<String, Integer>> getPersonAddedChartData(
-            ObservableList<ReadOnlyPerson> list) {
-
-        ObservableList<XYChart.Series<String, Integer>> answer = FXCollections.observableArrayList();
-        XYChart.Series<String, Integer> aSeries = new XYChart.Series<String, Integer>();
-        aSeries.setName("Persons added");
-
-        int endYear = this.currentYear;
-        int startYear = endYear - PERSON_ADDED_DISPLAY_YEARS;
-
-        int startMonth;
-        int endMonth;
-        int monthCount = PERSON_ADDED_DISPLAY_YEARS * 12;
-
-        ArrayList<Integer> monthPersonsAdded = statistics.getNewPersonsAddByMonth(PERSON_ADDED_DISPLAY_YEARS);
-
-        for (int i = startYear; i <= endYear; i++) {
-
-            startMonth = 1;
-            endMonth = 12;
-
-            if (i == startYear) {
-                startMonth = this.currentMonth;
-            }
-
-            if (i == endYear) {
-                endMonth = this.currentMonth;
-            }
-
-            for (int m = startMonth; m <= endMonth; m++) {
-                String labelName = Month.of(m).name().substring(0, 3) + " " + Integer.toString(i);
-                aSeries.getData().add(new XYChart.Data(labelName, monthPersonsAdded.get(monthCount)));
-
-                monthCount--;
-            }
-        }
-        answer.addAll(aSeries);
-        return answer;
-    }
-
-    /**
-     * Formats the number of users with Facebook recorded
-     */
-    private ObservableList<PieChart.Data> formatFacebookData() {
-
-        ArrayList<PieChart.Data> data = new ArrayList<>();
-
-        int hasFacebook = this.totalNumberOfPeople - this.hasNoFacebook;
-
-        String onFacebookLabel = String.format(CHART_USING_LABEL, hasFacebook);
-        String notOnFacebookLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoFacebook);
-        data.add(new PieChart.Data(onFacebookLabel, hasFacebook));
-        data.add(new PieChart.Data(notOnFacebookLabel, this.hasNoFacebook));
-
-        return FXCollections.observableArrayList(data);
-    }
-
-    /**
-     * Formats the number of users with Twitter recorded
-     */
-    private ObservableList<PieChart.Data> formatTwitterData() {
-
-        ArrayList<PieChart.Data> data = new ArrayList<>();
-
-        int hasTwitter = this.totalNumberOfPeople - this.hasNoTwitter;
-
-        String onTwitterLabel = String.format(CHART_USING_LABEL, hasTwitter);
-        String notOnTwitterLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoTwitter);
-        data.add(new PieChart.Data(onTwitterLabel, hasTwitter));
-        data.add(new PieChart.Data(notOnTwitterLabel, this.hasNoTwitter));
-
-        return FXCollections.observableArrayList(data);
-    }
-
-    /**
-     * Formats the number of users with Instagram recorded
-     */
-    private ObservableList<PieChart.Data> formatInstagramData() {
-
-        ArrayList<PieChart.Data> data = new ArrayList<>();
-
-        int hasInstagram = this.totalNumberOfPeople - this.hasNoInstagram;
-
-        String onInstagramLabel = String.format(CHART_USING_LABEL, hasInstagram);
-        String notOnInstagramLabel = String.format(CHART_NOT_USING_LABEL, this.hasNoInstagram);
-        data.add(new PieChart.Data(onInstagramLabel, hasInstagram));
-        data.add(new PieChart.Data(notOnInstagramLabel, this.hasNoInstagram));
-
-        return FXCollections.observableArrayList(data);
-    }
-
-    /**
-     * Fetches the current year
-     */
-    private Integer getCurrentYear() {
-        return Calendar.getInstance().get(Calendar.YEAR);
-    }
-
-    /**
-     * Fetches the current month
-     */
-    private Integer getCurrentMonth() {
-        return Calendar.getInstance().get(Calendar.MONTH) + 1;
-    }
-
 }
 ```
