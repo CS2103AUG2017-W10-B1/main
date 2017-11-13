@@ -176,14 +176,13 @@ Command:
 
 Result:
 - The history being displayed in the result box, for example:
+
 ```
 Entered commands (from most recent to earliest):
 (1) undo
 (2) clear
 (3) edit 2 n/Jane Doe
 ```
-
-== Clearing the Address Book
 
 Command:
 
@@ -195,8 +194,6 @@ Result:
 - status bar shows "0" which reflects that there are now zero contacts in the
 address book.
 - the result box shows "Address book has been cleared!".
-
-== Undo and Redo
 
 Command:
 
