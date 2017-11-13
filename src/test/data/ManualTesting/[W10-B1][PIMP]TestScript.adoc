@@ -143,30 +143,30 @@ Result:
 Command: `size 4` +
 Result:
 
-- the font size of the contacts list sidebar, the command box, and the result
+- The font size of the contacts list sidebar, the command box, and the result
 display is now increased by 4 points.
-- the result box shows "Font size increased by 4! Current change is 4."
+- The result box shows "Font size increased by 4! Current change is 4."
 
 Command: `size -3` +
 Result:
 
-- the font size of the contacts list sidebar, the command box, and the result
+- The font size of the contacts list sidebar, the command box, and the result
 display is now decreased by 3 points.
-- the result box shows "Font size decreased by 3! Current change is 1."
+- The result box shows "Font size decreased by 3! Current change is 1."
 
 Command: `size -10` +
 Result:
 
-- the command fails, and the font size remains unchanged.
-- the result box shows "New font size out of bounds! Current change is 1, the
+- The command fails, and the font size remains unchanged.
+- The result box shows "New font size out of bounds! Current change is 1, the
 command will change it into -9, which is outside [-5, 5]."
 
 Command: `size` +
 Result:
 
-- the font size of the contacts list sidebar, the command box, and the result
+- The font size of the contacts list sidebar, the command box, and the result
 display is reset.
-- the result box shows "Font size successfully reset!"
+- The result box shows "Font size successfully reset!"
 
 == Social Media
 
@@ -177,20 +177,79 @@ Command:
 
 Result:
 
-- the Instagram profile of the first contact (in this case, kimkardashian) is
+- The Instagram profile of the first contact (in this case, kimkardashian) is
 shown in the browser panel.
-- the result box shows "Social media shown!"
+- The result box shows "Social media shown!"
 
 == Accesses
 
+Command:
+
+- `list`
+- `select 1`
+
+Result:
+
+- The number of accesses corresponding to the person with index 1 is increased by 1.
+
 === Toggling the access display
+
+Command:
+
+- `accessdisplay off`
+
+Result:
+
+- The number of accesses and the heart icon for each Person is hidden.
+- The result box shows "Display toggled off."
+
+Command:
+
+- `accessdisplay on`
+
+Result:
+
+- The number of accesses and the heart icon for each Person is shown.
+- The result box shows "Display toggled on."
 
 == Statistics
 
+Command:
+
+- `statistics`
+
+Result:
+
+- The browser display is hidden
+- The result box shows "Listed statistics."
+
 == Help
 
-=== Opening the Help Window
+Command:
+
+- `help`
+
+Result:
+
+- A new window showing PIMP's user guide will be displayed.
+- The result box shows "Opened help window."
 
 === Quick Help
 
+Command:
+
+- `quickhelp`
+
+Result:
+
+- The result box shows valid command words that is accepted by PIMP.
+
 == Exit
+
+Command:
+
+- `exit`
+
+Result:
+
+- The PIMP application will quit.
