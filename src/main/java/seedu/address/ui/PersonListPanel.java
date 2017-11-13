@@ -12,10 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookAccessChangedEvent;
 import seedu.address.commons.events.ui.AccessCountDisplayToggleEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.ToggleBrowserPanelEvent;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -32,19 +36,19 @@ public class PersonListPanel extends UiPart<Region> {
     private ObservableList<PersonCard> mappedListWithAccessCount;
     private ObservableList<PersonCard> mappedListWithoutAccessCount;
 
-    public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(Logic logic) {
         super(FXML);
-        setConnections(personList);
+        setConnections(logic.getFilteredPersonList(), logic);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<ReadOnlyPerson> personList, Logic logic) {
         mappedListWithAccessCount = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1,
-                         true));
+                         true, logic));
         mappedListWithoutAccessCount = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1,
-                         false));
+                         false, logic));
         personListView.setItems(mappedListWithAccessCount);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -55,6 +59,7 @@ public class PersonListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        EventsCenter.getInstance().post(new ToggleBrowserPanelEvent());
                         raise(new PersonPanelSelectionChangedEvent(newValue));
                         updateAccessCount(oldValue, newValue);
                     }
@@ -71,7 +76,7 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void updateAccessCount(PersonCard oldValue, PersonCard newValue) {
         if (oldValue == null || oldValue.person.getName() != newValue.person.getName()) {
-            newValue.person.incrementAccess();
+            raise(new AddressBookAccessChangedEvent(newValue.person));
         }
     }
     //@@author

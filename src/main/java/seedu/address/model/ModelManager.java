@@ -6,13 +6,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookAccessChangedEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.FontSizeChangeRequestEvent;
+import seedu.address.commons.events.ui.FontSizeRefreshRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -79,7 +82,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
-
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
@@ -113,6 +115,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author donjar
     @Override
+    public int getFontSizeChange() {
+        return fontSizeChange;
+    }
+
+    @Override
     public void resetFontSize() {
         fontSizeChange = 0;
         indicateFontSizeChanged();
@@ -136,10 +143,18 @@ public class ModelManager extends ComponentManager implements Model {
      * Raises an event to indicate the font size has changed.
      */
     private void indicateFontSizeChanged() {
-        raise(new FontSizeChangeRequestEvent(fontSizeChange));
+        raise(new FontSizeRefreshRequestEvent());
     }
-    // @@author
-
+    //@@author Zzmobie
+    @Subscribe
+    public void handleAddressBookAccessChangedEvent(AddressBookAccessChangedEvent event)
+            throws PersonNotFoundException, DuplicatePersonException {
+        logger.info("Updating person in addressbook" + event.personToEdit.toString());
+        ReadOnlyPerson editedPerson = event.personToEdit;
+        editedPerson.incrementAccess();
+        updatePerson(event.personToEdit, editedPerson);
+    }
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

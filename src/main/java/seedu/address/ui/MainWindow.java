@@ -143,10 +143,10 @@ public class MainWindow extends UiPart<Region> {
     void fillInnerParts() {
         switchToBrowserPanel();
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        ResultDisplay resultDisplay = new ResultDisplay();
+        ResultDisplay resultDisplay = new ResultDisplay(logic);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         PeopleCount peopleCount = new PeopleCount(logic.getFilteredPersonList().size());
@@ -156,26 +156,32 @@ public class MainWindow extends UiPart<Region> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    //@@author 500poundbear
     /**
      * Instantiates and adds the statistics panel to the UI
      */
     private void switchToStatisticsPanel() {
+        logger.info("Switched to statistics panel");
+
         statisticsPanel = new StatisticsPanel(logic.getAllPersonList());
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(statisticsPanel.getRoot());
         statisticsPanelOpen = true;
     }
 
-    //@@author 500poundbear
+
     /**
      * Instantiates and adds the browser panel to the UI
      */
     private void switchToBrowserPanel() {
+        logger.info("Switched to browser panel");
+
         browserPanel = new BrowserPanel();
         browserOrStatisticsPlaceholder.getChildren().clear();
         browserOrStatisticsPlaceholder.getChildren().add(browserPanel.getRoot());
         statisticsPanelOpen = false;
     }
+    //@@author
 
     void hide() {
         primaryStage.hide();
@@ -256,14 +262,12 @@ public class MainWindow extends UiPart<Region> {
         switchToBrowserPanel();
     }
 
-    //@@author 500poundbear
     @Subscribe
     private void handleToggleStatisticsPanelEvent(ToggleStatisticsPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         switchToStatisticsPanel();
     }
 
-    //@@author 500poundbear
     @Subscribe
     private void handleRefreshStatisticsPanelIfOpenEvent(RefreshStatisticsPanelIfOpenEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
