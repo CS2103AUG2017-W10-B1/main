@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :stylesDir: ../stylesheets
 
 == Project: Personal Information Management Program (PIMP)
-PIMP (Personal Information Manager Program) is a command line interface (CLI) address book that allows users to maintain their contacts. This program allows users to store various properties of their contacts, such as their home addresses, email addresses, phone numbers, or even custom tags. It also allows users to view the social media profiles of their address book entries. Since PIMP is targeted at young socialites, it includes many functionalities suitable for such an audience, such as birthday alerts. The program has four main components, namely the `User Interface (UI)`, `Logic`, `Model` and `Storage` components. Addressbook data is stored locally in an .xml file.
+PIMP (Personal Information Management Program) is a command line interface (CLI) address book that allows users to maintain their contacts. This program allows users to store various properties of their contacts, such as their home addresses, email addresses, phone numbers, or even custom tags. It also allows users to view the social media profiles of their address book entries. Since PIMP is targeted at young socialites, it includes many functionalities suitable for such an audience, such as birthday alerts. The program has four main components, namely the `User Interface (UI)`, `Logic`, `Model` and `Storage` components. Addressbook data is stored locally in an .xml file.
 
 PIMP v1.5 is available on any platform running Java 8.
 
